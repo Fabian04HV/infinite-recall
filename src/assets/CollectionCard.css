@@ -1,0 +1,32 @@
+.CollectionCard{
+  height: 150px;
+  max-width: 375px;
+  min-width: 200px;
+  flex-grow: 1;
+  border: none;
+  border-radius: 14px;
+  padding: 15px;
+  background-color: var(--color-3);
+  box-shadow: var(--standard-shadow);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+
+  transition: var(--standard-transition-fast);
+}
+.CollectionCard:hover{
+  transform: scale(1.06);
+}
+.CollectionCard h3{
+  font-size: 1.35rem;
+}
+.CollectionCard h3 + p{
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-5);
+}
+.CollectionCard .info-container{
+  display: flex;
+  justify-content: space-between;
+}

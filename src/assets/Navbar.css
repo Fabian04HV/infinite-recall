@@ -1,0 +1,48 @@
+.Navbar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  
+  box-sizing: border-box;
+  width: 100%;
+  border-bottom: 1px solid var(--color-3);
+  padding-right: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.Navbar .nav-links-container{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+.Navbar .nav-links-container a{
+  padding: 10px 15px;
+  border-radius: 10px;
+}
+.Navbar a:not(:first-child):hover{
+  background-color: var(--color-1);
+  color: var(--text-color);
+}
+.Navbar .logo{
+  font-size: 22pt;
+  font-weight: 700;
+}
+.Navbar .profile-link{
+  border-radius: 1000px;
+  padding-right: 19px;
+  
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.Navbar .profile-link img{
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+  border: 1px solid var(--color-4);
+  border-radius: 50%;
+
+}

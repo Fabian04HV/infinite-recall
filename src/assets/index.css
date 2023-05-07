@@ -1,0 +1,122 @@
+:root{
+  --color-1: #0C1621;
+  --color-2: #1D2631;
+  --color-3: #333F4B;
+  --color-4: #4B5968;
+  --color-5: #7F8C9B;
+  --text-color: #F9F9F9;
+  --accent-color: #02FFC6;
+  --t-accent-color: rgba(2, 255, 198, 0.4);
+
+  --standard-font-family: 'Poppins', Segoe UI, sans-serif;
+  --standard-font-size: 14pt;
+
+  --standard-border-radius: 14px;
+  --standard-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+  --accent-shadow: 0 0 30px var(--accent-color);
+  --standard-transition-fast: 120ms ease;
+  --standard-transition-smooth: 300ms ease-in-out;
+}
+*{
+  margin: 0;
+  padding: 0;
+}
+html{
+  font-family: var(--standard-font-family);
+  font-size: var(var(--standard-font-size));
+  font-weight: 400;
+  color: var(--text-color);
+  caret-color: var(--accent-color);
+}
+body{
+  background-color: var(--color-2);
+  padding-top: 100px;
+}
+h1{
+  font-size: 2rem;
+  position: relative;
+}
+h1::after{
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  height: 4px;
+  width: 75px;
+  border-radius: 1px;
+  background-color: var(--accent-color);
+}
+a{
+  text-decoration: none;
+  color: var(--text-color);
+}
+a:hover{
+  color: var(--accent-color);
+}
+button{
+  padding: .5rem 1rem;
+  box-shadow: var(--standard-shadow);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--standard-transition-fast);
+}
+.standard-button{
+  border: 2px solid var(--color-3);
+  border-radius: 5px;
+  background-color: var(--color-3);
+  color: var(--text-color);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.standard-button:hover, .standard-button:focus{
+  outline: none;
+  background-color: var(--color-4);
+  border-color: var(--color-4);
+  color: var(--text-color);
+}
+.accent-button{
+  border: 2px solid var(--accent-color);
+  border-radius: 5px;
+  background-color: var(--accent-color);
+  color: var(--color-2);
+}
+.accent-button:hover, .accent-button:focus{
+  outline: none;
+  background-color: var(--t-accent-color);
+  color: var(--accent-color);
+}
+.standard-button.round{
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+}
+.page-wrapper{
+  margin: 0 auto;
+  width: 1250px;
+  max-width: 95%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-self: flex-start;
+  gap: 15px;
+}
+.secondary-text{
+  color: var(--color-5);
+}
+.flex-column-center{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.flex-row-between{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+}

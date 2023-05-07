@@ -1,0 +1,60 @@
+.InputBox{
+  margin: 12px 0;
+  position: relative;
+  width: 250px;
+}
+.InputBox:hover i{
+  background-color: var(--color-4);
+}
+.InputBox input{
+  width: 100%;
+  background: transparent;
+  color: var(--text-color);
+  border: none;
+  outline: none;
+  box-shadow: none;
+  font-size: 1.35rem;
+  padding: 7px 0;
+}
+.InputBox input::placeholder{
+  color: transparent;
+  user-select: none;
+}
+.InputBox span{
+  position: absolute;
+  left: 0;
+  color: var(--color-5);
+  pointer-events: none;
+  user-select: none;
+  text-transform: uppercase;
+  transition: var(--standard-transition-smooth);
+  font-size: 1.2rem;
+}
+.InputBox input:not(:placeholder-shown) ~ span, .InputBox input:focus ~ span{
+  transform: translateY(-12px);
+  font-size: 0.75em;
+}
+.InputBox input:focus ~ span{
+  color: var(--accent-color);
+}
+.InputBox i{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--color-3);
+}
+.InputBox i::after{
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 3px;
+  background-color: var(--accent-color);
+  transition: var(--standard-transition-smooth);
+}
+.InputBox input:focus ~ i::after{
+  width: 100%;
+}

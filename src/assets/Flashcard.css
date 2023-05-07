@@ -1,0 +1,47 @@
+.Flashcard{
+  height: 400px;
+  width: 600px;
+
+  transform-style: preserve-3d;
+  transition: var(--standard-transition-smooth);
+} 
+.Flashcard .side{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+
+  border-radius: 20px;
+  background-color: var(--color-3);
+  box-shadow: var(--standard-shadow);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.card-back{
+  transform: rotateY(180deg);
+}
+.Flashcard:hover{
+  transform: rotateY(180deg);
+}
+.card-text{
+  width: 90%;
+  font-size: 100%;
+  text-align: center;
+}
+.card-options{
+  position: absolute;
+  z-index: 3;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+}
+.card-options svg{
+  padding: 8px;
+  border-radius: 50%;
+}
+.card-options svg:hover{
+  background-color: var(--color-2);
+}
