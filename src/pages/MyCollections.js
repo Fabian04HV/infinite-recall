@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import '../assets/Collections.css'
 import CollectionCard from '../components/CollectionCard'
-import collectionsData from '../data/collections'
 
-function MyCollections(){
+
+function MyCollections({collectionsData}){
 
   const [collections, setCollections] = useState(collectionsData)
 

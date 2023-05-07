@@ -54,7 +54,6 @@ a:hover{
   color: var(--accent-color);
 }
 button{
-  padding: .5rem 1rem;
   box-shadow: var(--standard-shadow);
   font: inherit;
   font-weight: 600;
@@ -62,7 +61,8 @@ button{
   transition: var(--standard-transition-fast);
 }
 .standard-button{
-  border: 2px solid var(--color-3);
+  padding: .5rem 1rem;
+  border: none;
   border-radius: 5px;
   background-color: var(--color-3);
   color: var(--text-color);
@@ -72,13 +72,17 @@ button{
   justify-content: center;
   gap: 10px;
 }
+.standard-button.light{
+  background-color: var(--color-4);
+  box-shadow: none;
+}
 .standard-button:hover, .standard-button:focus{
   outline: none;
   background-color: var(--color-4);
-  border-color: var(--color-4);
   color: var(--text-color);
 }
 .accent-button{
+  padding: .5rem 1rem;
   border: 2px solid var(--accent-color);
   border-radius: 5px;
   background-color: var(--accent-color);
@@ -100,8 +104,6 @@ button{
 
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-self: flex-start;
   gap: 15px;
 }
 .secondary-text{

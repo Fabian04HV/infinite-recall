@@ -1,0 +1,71 @@
+.QuestionCard{
+  margin: 0 auto;
+  padding: 20px;
+  height: 500px;
+  width: 800px;
+  max-width: 95%;
+  border-radius: 20px;
+  background-color: var(--color-3);
+  box-shadow: var(--standard-shadow);
+
+  display: flex;
+  flex-direction: column;
+}
+.QuestionCard > div{
+  flex: 1 1 0;
+}
+.QuestionCard .question-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.QuestionCard .answer-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+}
+.QuestionCard .answer-container .answers{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.QuestionCard .answer-container .answers > *{
+  min-width: 40%;
+  flex: 1 1 0;  
+}
+.QuestionCard .options-container{
+  display: flex;
+  justify-content: space-between;
+}
+
+.answer{
+  padding: 15px 30px;
+  background: transparent;
+  border-radius: 10px;
+  border: 1px solid var(--color-5);
+  color: var(--text-color);
+  font-weight: 500;
+
+  position: relative;
+}
+.answer::before{
+  content: attr(data-index);
+  position: absolute;
+  left: 15px;
+  color: var(--accent-color);
+}
+.answer:hover, .answer:focus{
+  outline: none;
+  background-color: var(--color-4);
+}
+
+.answer.correctAnswer{
+  background-color: var(--accent-color);
+  box-shadow: var(--accent-shadow);
+  border: none;
+  color: var(--color-4);
+  position: relative;
+}

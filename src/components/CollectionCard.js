@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom'
 import '../assets/CollectionCard.css'
 
 function CollectionCard(props){
-  const {_id, title, creator, numberOfCards, createdAt} = props.collection
+  const {_id, title, creator, flashcards, createdAt} = props.collection
+  const numberOfCards = flashcards.length
 
   return(
     <Link to={`/collection/${_id}`} className='CollectionCard'>

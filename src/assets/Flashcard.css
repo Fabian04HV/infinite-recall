@@ -23,7 +23,10 @@
 .card-back{
   transform: rotateY(180deg);
 }
-.Flashcard:hover{
+/* .Flashcard:hover{
+  transform: rotateY(180deg);
+} */
+.Flashcard.flipped{
   transform: rotateY(180deg);
 }
 .card-text{
@@ -44,4 +47,40 @@
 }
 .card-options svg:hover{
   background-color: var(--color-2);
+}
+.Flashcard .hint{
+  width: 100%;
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--color-5);
+  font-size: 16pt;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  opacity: 0;
+
+  animation: 10s fade;
+  animation-fill-mode: forwards;
+  animation-delay: 2s;
+}
+@keyframes fade{
+  0%{
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+  10%{
+    opacity: 1;
+    transform: translateX(-50%) translateY(0px);
+  }
+  90%{
+    opacity: 1;
+    transform: translateX(-50%) translateY(0px);
+  }
+  100%{
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
 }
