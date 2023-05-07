@@ -6,7 +6,7 @@ function CollectionCard(props){
   const numberOfCards = flashcards.length
 
   return(
-    <Link to={`/collection/${_id}`} className='CollectionCard'>
+    <Link to={`/practice/${_id}`} className='CollectionCard'>
       <div>
         <h3>{title}</h3>
         <p className='secondary-text'>{numberOfCards} Flashcards</p>

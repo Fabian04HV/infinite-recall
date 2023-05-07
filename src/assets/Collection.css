@@ -1,11 +1,11 @@
-.Collection{
+.PracticePage{
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 15px;
 }
-.Collection .controls-container{
+.PracticePage .controls-container{
   display: flex;
   align-items: center;
   justify-content: center;

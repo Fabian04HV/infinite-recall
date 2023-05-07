@@ -3,7 +3,7 @@ import FocusNavbar from "../components/FocusNavbar"
 import QuestionCard from "../components/QuestionCard"
 import { useState } from "react"
 
-function Practice({collectionsData}){
+function QuizMode({collectionsData}){
   const collectionId = useParams()._id
   const collection = collectionsData.find(collection => collection._id === parseInt(collectionId))
 
@@ -19,10 +19,10 @@ function Practice({collectionsData}){
   return(
     <> 
       <FocusNavbar title={collection.title}/>
-      <div className="Practice">
+      <div>
         <QuestionCard collection={collection} flashcard={collection.flashcards[currentFlashcardIndex]} currentFlashcardIndex={currentFlashcardIndex} incrementFlashcardIndex={incrementFlashcardIndexHandler} decrementFlashcardIndex={decrementFlashcardIndexHandler}/>
       </div>
     </>
   )
 }
-export default Practice
+export default QuizMode

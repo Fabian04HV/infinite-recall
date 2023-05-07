@@ -3,16 +3,16 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar';
 import Home from './pages/Home'
 import MyCollections from './pages/MyCollections'
-import Collection from './pages/Collection';
+import PracticeMode from './pages/PracticeMode';
 import { Form } from 'react-router-dom';
-import Practice from './pages/Practice';
+import QuizMode from './pages/QuizMode';
 
 import collectionsData from './data/collections'
 
 function App() {
   const location = useLocation()
   
-  const showNavbar = !location.pathname.startsWith('/practice/');
+  const showNavbar = !location.pathname.startsWith('/quiz/');
   
   return (
     <div className="App">
@@ -21,8 +21,8 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/collections' element={<MyCollections collectionsData={collectionsData}/>} />
-          <Route path='/collection/:_id' element={<Collection collectionsData={collectionsData}/>} />
-          <Route path='/practice/:_id' element={<Practice collectionsData={collectionsData}/>} />
+          <Route path='/practice/:_id' element={<PracticeMode collectionsData={collectionsData}/>} />
+          <Route path='/quiz/:_id' element={<QuizMode collectionsData={collectionsData}/>} />
         </Routes>
       </div>
     </div>

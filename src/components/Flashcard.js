@@ -3,7 +3,7 @@ import '../assets/Flashcard.css'
 import dynamicTextSize from '../utils/dynamicTextSize'
 
 function Flashcard(props){
-  const {flashcard, editable} = props
+  const {flashcard, editable, rightAnim, leftAnim, animationHandler} = props
 
   const front = flashcard.front 
   const back = flashcard.back
@@ -14,7 +14,7 @@ function Flashcard(props){
   const [flipped, setFlipped] = useState(false)
 
   return(
-    <div className={`Flashcard ${flipped ? 'flipped' : ''}`} onClick={() => setFlipped(!flipped)}>
+    <div onAnimationEnd={() => { animationHandler() }} className={`Flashcard ${flipped ? 'flipped' : ''} ${rightAnim ? 'FlashcardRightIn' : ''} ${leftAnim ? 'FlashcardLeftIn' : ''}`} onClick={() => setFlipped(!flipped)}>
       <div className="card-front side">
         {editable && <div className='card-options'>
         <svg fill='var(--accent-color)' xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 96 960 960" width="20"><path d="M794 390 666 262l42-42q17-17 42.5-16.5T793 221l43 43q17 17 17 42t-17 42l-42 42ZM150 936q-13 0-21.5-8.5T120 906v-86q0-6 2-11t7-10l495-495 128 128-495 495q-5 5-10 7t-11 2h-86Z"/></svg>

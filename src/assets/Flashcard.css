@@ -84,3 +84,29 @@
     transform: translateX(-50%) translateY(20px);
   }
 }
+.FlashcardRightIn{
+  animation: .5s FlashcardRightIn;
+}
+.FlashcardLeftIn{
+  animation: .5s FlashcardLeftIn;
+}
+@keyframes FlashcardRightIn{
+  from{
+    transform: translateX(88px);
+    opacity: 0;
+  }
+  to{
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes FlashcardLeftIn{
+  from{
+    transform: translateX(-88px);
+    opacity: 0;
+  }
+  to{
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
