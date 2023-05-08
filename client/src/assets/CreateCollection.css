@@ -1,0 +1,28 @@
+.CreateCollection{
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}
+.CreateCollection .Flashcard{
+  height: 300px;
+  width: 500px;
+}
+.flashcard-editor-container{
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+.flashcard-editor-container form{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.flashcard-editor-container form .InputBox{
+  width: 100%;
+}
+.flashcard-editor-container .form-buttons-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}

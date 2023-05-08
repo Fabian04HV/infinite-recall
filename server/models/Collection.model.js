@@ -11,14 +11,26 @@ const collectionSchema = new Schema(
       required: true
     },
     flashcards: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Flashcard'
+      front: {
+        type: String,
+        required: true
+      },
+      back: {
+        type: String,
+        required: true
+      },
+      importance: {
+        type: String,
+        enum: ['high', 'normal', 'low'],
+        default: 'normal'
+      }
     }]
   },
   {
     timestamps: true
   }
-)
+);
+
 
 const Collection = model('Collection', collectionSchema)
 module.exports = Collection

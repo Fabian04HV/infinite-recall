@@ -11,9 +11,9 @@ router.get('/data', (req, res) => {
 })
 
 router.post('/collection/create', (req, res, next) => {
-  const {title, creator} = req.body 
+  const {title, creator, createdFlashcards} = req.body 
 
-  Collection.create({title, creator})
+  Collection.create({title, creator, flashcards: createdFlashcards})
     .then(createdCollection => {
       console.log(createdCollection);
       res.status(201).json({

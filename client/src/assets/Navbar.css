@@ -3,6 +3,8 @@
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 1000;
+  background-color: var(--color-2);
   
   box-sizing: border-box;
   width: 100%;

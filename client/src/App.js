@@ -1,5 +1,5 @@
 import './assets/App.css';
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar';
 import Home from './pages/Home'
 import MyCollections from './pages/MyCollections'
@@ -28,6 +28,10 @@ function App() {
           <Route path='/collection/create' element={<CreateCollection />} />
         </Routes>
       </div>
+      <footer>
+        <Link to='/privacy'>Privacy Policy</Link>
+        <Link to='/contact'>Contact Me</Link>
+      </footer>
     </div>
   );
 }
