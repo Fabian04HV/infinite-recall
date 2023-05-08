@@ -20,7 +20,13 @@ function QuizMode({collectionsData}){
     <> 
       <FocusNavbar title={collection.title}/>
       <div>
-        <QuestionCard collection={collection} flashcard={collection.flashcards[currentFlashcardIndex]} currentFlashcardIndex={currentFlashcardIndex} incrementFlashcardIndex={incrementFlashcardIndexHandler} decrementFlashcardIndex={decrementFlashcardIndexHandler}/>
+        <QuestionCard 
+          collection={collection} 
+          flashcard={collection.flashcards[currentFlashcardIndex]} 
+          currentFlashcardIndex={currentFlashcardIndex} 
+          incrementFlashcardIndex={incrementFlashcardIndexHandler} 
+          decrementFlashcardIndex={decrementFlashcardIndexHandler}
+        />
       </div>
     </>
   )

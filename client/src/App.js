@@ -8,6 +8,7 @@ import { Form } from 'react-router-dom';
 import QuizMode from './pages/QuizMode';
 
 import collectionsData from './data/collections'
+import CreateCollection from './pages/CreateCollection';
 
 function App() {
   const location = useLocation()
@@ -23,6 +24,8 @@ function App() {
           <Route path='/collections' element={<MyCollections collectionsData={collectionsData}/>} />
           <Route path='/practice/:_id' element={<PracticeMode collectionsData={collectionsData}/>} />
           <Route path='/quiz/:_id' element={<QuizMode collectionsData={collectionsData}/>} />
+        
+          <Route path='/collection/create' element={<CreateCollection />} />
         </Routes>
       </div>
     </div>
