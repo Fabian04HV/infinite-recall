@@ -1,16 +1,19 @@
 .CreateCollection{
   display: flex;
   flex-direction: row;
-  gap: 50px;
+  gap: 75px;
 }
 .CreateCollection .Flashcard{
   height: 300px;
   width: 500px;
 }
+.Flashcard .side{
+  overflow: hidden;
+}
 .flashcard-editor-container{
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 30px;
 }
 .flashcard-editor-container form{
   display: flex;
@@ -25,4 +28,53 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+}
+.collection-editor-container{
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.created-flashcards-container{
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.preview-flashcard{
+  height: 50px;
+  width: 85px;
+  padding: 5px;
+  border-radius: 10px;
+  border: 1px solid var(--color-4);
+  background-color: var(--color-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: var(--standard-shadow);
+  cursor: pointer;
+
+  transition: var(--standard-transition-fast);
+  animation: .75s fadeIn;
+}
+.preview-flashcard:hover{
+  transform: scale(2);
+  z-index: 3;
+}
+.collection-form{
+  display: flex;
+}
+
+@keyframes fadeIn{
+  from{
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to{
+    opacity: 1;
+    transform: translateY(0px);
+  }
 }

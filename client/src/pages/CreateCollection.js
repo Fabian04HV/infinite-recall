@@ -5,6 +5,7 @@ import Flashcard from '../components/Flashcard'
 import dynamicTextSize from '../utils/dynamicTextSize'
 import { useNavigate } from 'react-router-dom'
 import '../assets/CreateCollection.css'
+import '../assets/Flashcard.css'
 
 function CreateCollection(){
   const navigate = useNavigate()
@@ -12,6 +13,7 @@ function CreateCollection(){
   const [title, setTitle] = useState('')
   const [creator, setCreator] = useState('')
 
+  const [currentFlashcard, setCurrentFlashcard] = useState(null)
   const [createdFlashcards, setCreatedFlashcards] = useState([])
 
   const titleInputHandler = (e) => setTitle(e.target.value)
@@ -62,12 +64,12 @@ function CreateCollection(){
       <div className='flashcard-editor-container'>
         <h1>Create Flashcard Collection</h1>
 
-        <div className={`Flashcard ${flipped && 'flipped'}`}>
+        <div onClick={() => setFlipped(!flipped)} className={`Flashcard ${flipped && 'flipped'}`}>
           <div className='card-front side'>
-            <span className='card-text' style={{ fontSize: `${fontSizeFront}px` }}>{front}</span>
+            <span className='card-text' style={{ fontSize: `${fontSizeFront/1.25}px` }}>{front}</span>
           </div>
           <div className='card-back side'>
-            <span className='card-text' style={{ fontSize: `${fontSizeBack}px` }}>{back}</span>
+            <span className='card-text' style={{ fontSize: `${fontSizeBack/1.25}px` }}>{back}</span>
           </div>
         </div>
 
@@ -99,8 +101,22 @@ function CreateCollection(){
         </form>
       </div>
       <div className='collection-editor-container'>
-        <h2>Created Flashcards: </h2>
-        <form onSubmit={collectionSubmitHandler}>
+        <div>
+          <h3>This collection has {createdFlashcards.length} flashcards: </h3>
+          <p className='secondary-text'>Click on a flashcard if you want to edit it</p>
+        </div>
+        <div className='created-flashcards-container'>
+          {createdFlashcards.map(flashcard => {
+            const fontSizeFront = dynamicTextSize(flashcard.front)
+            return(
+              <div className='preview-flashcard'>
+                <span className='card-text' style={{ fontSize: `${fontSizeFront/4.5}px` }}>{flashcard.front}</span>
+              </div>
+            )
+          })}
+        </div>
+
+        <form className='collection-form' onSubmit={collectionSubmitHandler}>
           <InputBox 
             type='text'
             name='title'
