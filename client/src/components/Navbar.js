@@ -8,6 +8,7 @@ function Navbar(){
       <div className='nav-links-container'>
         <NavLink className='logo' to={'/'}>Infinite Recall</NavLink>
         <NavLink to={'/collections'}>My Flashcard Collections</NavLink>
+        <NavLink to={'/collection/create'}>Create Collection</NavLink>
         <NavLink to={'/notes'}>My Notes</NavLink>
       </div>
       <NavLink className='profile-link' to={'/profile'}>

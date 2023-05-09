@@ -3,10 +3,11 @@ import InputBox from '../components/InputBox'
 import axios from 'axios'
 import Flashcard from '../components/Flashcard'
 import dynamicTextSize from '../utils/dynamicTextSize'
-
+import { useNavigate } from 'react-router-dom'
 import '../assets/CreateCollection.css'
 
 function CreateCollection(){
+  const navigate = useNavigate()
 
   const [title, setTitle] = useState('')
   const [creator, setCreator] = useState('')
@@ -21,10 +22,14 @@ function CreateCollection(){
     axios.post('http://localhost:5005/api/collection/create', {title, creator, createdFlashcards})
       .then(response => {
         console.log('Create Collection: ', response)
+        setTitle('')
+        setCreator('')  
+        navigate('/home', {replace: true});
       })
       .catch(error => {
         console.log(error)
       })
+
   }
 
   const [front, setFront] = useState('')
@@ -48,6 +53,8 @@ function CreateCollection(){
       importance: importance
     }
     setCreatedFlashcards([...createdFlashcards, flashcard])
+    setFront('')
+    setBack('')
   }
 
   return (
@@ -71,6 +78,7 @@ function CreateCollection(){
             placeholder='Front'
             onChangeHandler={frontInputHandler}
             onFocus={() => setFlipped(false)}
+            value={front}
           />
           <InputBox 
             type='text'
@@ -78,6 +86,7 @@ function CreateCollection(){
             placeholder='Back'
             onChangeHandler={backInputHandler}
             onFocus={() => setFlipped(true)}
+            value={back}
           />
           <div className='form-buttons-container'>
             <select onChange={importanceHandler} className='standard-button standard-select'>

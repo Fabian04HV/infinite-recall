@@ -13,7 +13,7 @@ import CreateCollection from './pages/CreateCollection';
 function App() {
   const location = useLocation()
   
-  const showNavbar = !location.pathname.startsWith('/quiz/');
+  const showNavbar = !location.pathname.startsWith('/quiz/') //&& !location.pathname == '/collection/create' 
   
   return (
     <div className="App">
