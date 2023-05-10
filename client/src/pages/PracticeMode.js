@@ -7,7 +7,6 @@ function PracticeMode({collectionsData}){
 
   const collectionId = useParams()._id
   const collection = collectionsData.find(collection => collection._id === parseInt(collectionId))
-
   
   const [rightAnim, setRightAnim] = useState(true) 
   const [leftAnim, setLeftAnim] = useState(false)

@@ -29,9 +29,9 @@ function App() {
       <div className='page-wrapper'>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/collections' element={<MyCollections collectionsData={collectionsData}/>} />
-          <Route path='/practice/:_id' element={<PracticeMode collectionsData={collectionsData}/>} />
-          <Route path='/quiz/:_id' element={<QuizMode collectionsData={collectionsData}/>} />
+          <Route path='/collections' element={<MyCollections/>} />
+          <Route path='/practice/:_id' element={<PracticeMode/>} />
+          <Route path='/quiz/:_id' element={<QuizMode/>} />
         
           <Route path='/collection/create' element={<CreateCollection />} />
           

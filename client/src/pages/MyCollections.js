@@ -6,11 +6,11 @@ import axios from 'axios'
 
 const API_URL = 'http://localhost:5005'
 
-function MyCollections({collectionsData}){
+function MyCollections(){
 
   const { user } = useContext(AuthContext)
   const token = localStorage.getItem('authToken')
-  const [collections, setCollections] = useState([])//useState(collectionsData)
+  const [collections, setCollections] = useState([])
 
   useEffect(() => {
     axios.get(`${API_URL}/api/collections`, {headers: { Authorization: `Bearer ${token}`}})
