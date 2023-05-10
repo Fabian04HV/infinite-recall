@@ -28,15 +28,16 @@ function Signup(){
         navigate('/login')
       })
       .catch((error) => {
+        console.log('Error in Zeile 31: ', error)
         const errorDescription = error.response.data.message
         setErrorMessage(errorDescription)
       })
   }
 
   return(
-    <>
+    <div className="centered-container">
       <h1>Signup</h1>
-      <form onSubmit={handleSignupSubmit}>
+      <form className="flex-column-center" onSubmit={handleSignupSubmit}>
         <InputBox 
           type='text'
           name='username'
@@ -59,13 +60,13 @@ function Signup(){
           value={password}
         />
         <button type="submit" className="accent-button">Sign up</button>
-        {/* {type, name, placeholder, onChangeHandler, onFocus, value} */}
       </form>
       { errorMessage && <p className="error-message">{errorMessage}</p> }
-
-      <p>Already have an account?</p>
-      <Link to={'/login'}>Login</Link>
-    </>
+      <div className="flex-column-center">
+        <p>Already have an account?</p>
+        <Link to={'/login'}>Login</Link>
+      </div>
+    </div>
   )
 }
 export default Signup

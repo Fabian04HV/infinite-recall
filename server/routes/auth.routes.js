@@ -13,7 +13,7 @@ router.post('/signup', (req, res, next) => {
 
   // Check if the email or password or name is provided as an empty string 
   if (email === '' || password === '' || username === '') {
-    res.status(400).json({ message: "Provide email, password and name" });
+    res.status(400).json({ message: "Provide email, username and password" });
     return;
   }
  
@@ -32,32 +32,41 @@ router.post('/signup', (req, res, next) => {
   }
 
   // Check the users collection if a user with the same email already exists
-  User.findOne({ email })
-    .then((foundUser) => {
+  User.findOne({username})
+    .then((foundUsername) => {
       // If the user with the same email already exists, send an error response
-      if (foundUser) {
-        res.status(400).json({ message: "User already exists." });
+      if (foundUsername) {
+        res.status(400).json({ message: "Username already taken" });
         return;
       }
- 
-      // If the email is unique, proceed to hash the password
-      const salt = bcrypt.genSaltSync(saltRounds);
-      const hashedPassword = bcrypt.hashSync(password, salt);
- 
-      // Create a new user in the database
-      // We return a pending promise, which allows us to chain another `then` 
-      return User.create({ email, password: hashedPassword, username });
-    })
-    .then((createdUser) => {
-      // Deconstruct the newly created user object to omit the password
-      // We should never expose passwords publicly
-      const { email, username, _id } = createdUser;
+      
+      User.findOne({email})
+        .then(foundEmail => {
+          if(foundEmail){
+            res.status(400).json({ message: "User with that Email already exists. Try Login" });
+            return;
+          }
+          
+          // If the username AND email is unique, proceed to hash the password
+          const salt = bcrypt.genSaltSync(saltRounds);
+          const hashedPassword = bcrypt.hashSync(password, salt);
     
-      // Create a new object that doesn't expose the password
-      const user = { email, username, _id };
- 
-      // Send a json response containing the user object
-      res.status(201).json({ user: user });
+          // Create a new user in the database
+          // We return a pending promise, which allows us to chain another `then` 
+          User.create({ email, password: hashedPassword, username })
+          .then((createdUser) => {
+            // Deconstruct the newly created user object to omit the password
+            // We should never expose passwords publicly
+            const { email, username, _id } = createdUser;
+          
+            // Create a new object that doesn't expose the password
+            const user = { email, username, _id };
+      
+            // Send a json response containing the user object
+            res.status(201).json({ user: user });
+          })
+
+        })
     })
     .catch(err => {
       console.log(err);
@@ -81,7 +90,7 @@ router.post('/login', (req, res, next) => {
     
       if (!foundUser) {
         // If the user is not found, send an error response
-        res.status(401).json({ message: "User not found." })
+        res.status(401).json({ message: `Username ${username} not found.` })
         return;
       }
  
@@ -106,7 +115,7 @@ router.post('/login', (req, res, next) => {
         res.status(200).json({ authToken: authToken }) //maybe: res.status(200).json({ token: authToken })
       }
       else {
-        res.status(401).json({ message: "Unable to authenticate the user" });
+        res.status(401).json({ message: "Wrong Password" });
       }
  
     })
@@ -114,7 +123,7 @@ router.post('/login', (req, res, next) => {
 })
 
 // GET  /auth/verify  -  Used to verify JWT stored on the client
-router.get('/verify', isAuthenticated, (req, res, next) => {       // <== CREATE NEW ROUTE
+router.get('/verify', isAuthenticated, (req, res, next) => {
  
   // If JWT token is valid the payload gets decoded by the
   // isAuthenticated middleware and made available on `req.payload`

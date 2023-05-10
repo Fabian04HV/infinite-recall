@@ -40,9 +40,9 @@ function Login(){
   }
 
   return(
-    <>
+    <div className="centered-container">
       <h1>Login</h1>
-      <form onSubmit={handleLoginSubmit}>
+      <form className="flex-column-center" onSubmit={handleLoginSubmit}>
         <InputBox 
           type='text'
           name='username'
@@ -62,10 +62,12 @@ function Login(){
       </form>
 
       {errorMessage && <p className="error-message">{errorMessage}</p>}
-
-      <p>Don't have an account yet?</p>
-      <Link to={'/signup'}>Sign up</Link>
-    </>
+      <div className="flex-column-center">
+        <p>Don't have an account yet?</p>
+        <Link to={'/signup'}>Sign up</Link>
+      </div>
+      
+    </div>
   )
 }
 export default Login

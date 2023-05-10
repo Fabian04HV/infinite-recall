@@ -8,6 +8,9 @@
   --accent-color: #02FFC6;
   --t-accent-color: rgba(2, 255, 198, 0.4);
 
+  --error-red: #ff3838;
+  --t-error-red: rgba(189, 27, 27, 0.2);
+
   --standard-font-family: 'Poppins', Segoe UI, sans-serif;
   --standard-font-size: 14pt;
 
@@ -110,6 +113,15 @@ button{
   flex-direction: column;
   gap: 15px;
 }
+.centered-container{
+  margin: 0 auto;
+  width: max-content;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+  gap: 30px;
+}
 .secondary-text{
   color: var(--color-5);
 }
@@ -126,8 +138,6 @@ button{
   justify-content: space-between;
   gap: 10px;
 }
-
-
 footer{
   margin-top: 100px;
   height: 70px;
@@ -139,4 +149,14 @@ footer{
 }
 footer a{
   margin: 0 20px;
+}
+.error-message{
+  width: 100%;
+  padding: 15px;
+  border: 2px solid var(--error-red);
+  background: var(--t-error-red);
+  color: var(--error-red);
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 500;
 }
