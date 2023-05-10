@@ -7,26 +7,33 @@ import { useNavigate } from 'react-router-dom'
 import '../assets/CreateCollection.css'
 import '../assets/Flashcard.css'
 
+import { useContext } from 'react'
+import { AuthContext } from '../context/auth.context'
+
 function CreateCollection(){
   const navigate = useNavigate()
 
   const [title, setTitle] = useState('')
   const [creator, setCreator] = useState('')
 
+  const token = localStorage.getItem('authToken')
+
   const [currentFlashcard, setCurrentFlashcard] = useState(null)
   const [createdFlashcards, setCreatedFlashcards] = useState([])
+
+  const { user } = useContext(AuthContext)
 
   const titleInputHandler = (e) => setTitle(e.target.value)
   const creatorInputHandler = (e) => setCreator(e.target.value)
 
   const collectionSubmitHandler = (e) => {
     e.preventDefault()
-    axios.post('http://localhost:5005/api/collection/create', {title, creator, createdFlashcards})
+    axios.post('http://localhost:5005/api/collection/create', {title, creator, createdFlashcards, user}, {headers: { Authorization: `Bearer ${token}`}})
       .then(response => {
         console.log('Create Collection: ', response)
         setTitle('')
         setCreator('')  
-        navigate('/home', {replace: true});
+        navigate('/collections', {replace: true});
       })
       .catch(error => {
         console.log(error)

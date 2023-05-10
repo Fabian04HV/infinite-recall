@@ -13,11 +13,16 @@ import CreateCollection from './pages/CreateCollection';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 
+import { useContext } from 'react';
+import { AuthContext } from './context/auth.context';
+
 function App() {
   const location = useLocation()
   
   const showNavbar = !location.pathname.startsWith('/quiz/') //&& !location.pathname == '/collection/create' 
   
+  const { isLoggedIn, user } = useContext(AuthContext)
+
   return (
     <div className="App">
       {showNavbar && <Navbar />}
@@ -29,7 +34,7 @@ function App() {
           <Route path='/quiz/:_id' element={<QuizMode collectionsData={collectionsData}/>} />
         
           <Route path='/collection/create' element={<CreateCollection />} />
-
+          
           <Route path='/signup' element={<Signup />} />
           <Route path='/login' element={<Login />} />
         </Routes>
