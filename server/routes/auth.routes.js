@@ -103,7 +103,7 @@ router.post('/login', (req, res, next) => {
         );
  
         // Send the token as the response
-        res.status(200).json({ authToken: authToken });
+        res.status(200).json({ authToken: authToken }) //maybe: res.status(200).json({ token: authToken })
       }
       else {
         res.status(401).json({ message: "Unable to authenticate the user" });

@@ -1,22 +1,21 @@
-import fetchData from '../data/collections'
 import { useState, useEffect } from 'react'
-
+import { useContext } from 'react'
+import { AuthContext } from '../context/auth.context'
 
 function Home(){
+  const { isLoggedIn, user } = useContext(AuthContext)
 
-  const [text, setText] = useState('...')
+  const [text, setText] = useState('loading ...')
 
   useEffect(() => {
-    fetchData().then(response => {
-      console.log(response.data)
-      setText(response.data)
-    })
+    setText()
   },[])
 
   return(
     <section className="Home">
-      <h1>Welcome Back</h1>
-      <p>Database Test Message: {text}</p>
+      <h1>Welcome Back,
+        {isLoggedIn ? ` ${user.username}` : ' Stranger'}
+      </h1>
     </section>
   )
 }

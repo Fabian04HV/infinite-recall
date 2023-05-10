@@ -10,6 +10,9 @@ import QuizMode from './pages/QuizMode';
 import collectionsData from './data/collections'
 import CreateCollection from './pages/CreateCollection';
 
+import Signup from './pages/Signup';
+import Login from './pages/Login';
+
 function App() {
   const location = useLocation()
   
@@ -26,6 +29,9 @@ function App() {
           <Route path='/quiz/:_id' element={<QuizMode collectionsData={collectionsData}/>} />
         
           <Route path='/collection/create' element={<CreateCollection />} />
+
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/login' element={<Login />} />
         </Routes>
       </div>
       <footer>
