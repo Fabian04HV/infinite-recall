@@ -21,14 +21,12 @@ function CreateCollection(){
   const [currentFlashcard, setCurrentFlashcard] = useState(null)
   const [createdFlashcards, setCreatedFlashcards] = useState([])
 
-  const { user } = useContext(AuthContext)
-
   const titleInputHandler = (e) => setTitle(e.target.value)
   const creatorInputHandler = (e) => setCreator(e.target.value)
 
   const collectionSubmitHandler = (e) => {
     e.preventDefault()
-    axios.post('http://localhost:5005/api/collection/create', {title, creator, createdFlashcards, user}, {headers: { Authorization: `Bearer ${token}`}})
+    axios.post('http://localhost:5005/api/collection/create', {title, creator, createdFlashcards}, {headers: { Authorization: `Bearer ${token}`}})
       .then(response => {
         console.log('Create Collection: ', response)
         setTitle('')
