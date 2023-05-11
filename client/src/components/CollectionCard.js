@@ -3,10 +3,11 @@ import '../assets/CollectionCard.css'
 
 function CollectionCard(props){
   const {_id, title, creator, flashcards, createdAt} = props.collection
+  const { selectCollection } = props
   const numberOfCards = flashcards.length
 
   return(
-    <Link to={`/practice/${_id}`} className='CollectionCard'>
+    <div className='CollectionCard' onClick={() => selectCollection(props.collection)}>
       <div>
         <h3>{title}</h3>
         <p className='secondary-text'>{numberOfCards} Flashcards</p>
@@ -15,7 +16,7 @@ function CollectionCard(props){
         <p>{creator}</p>
         <p className='secondary-text'>{createdAt}</p>
       </div>
-    </Link>
+    </div>
   )
 }
 export default CollectionCard

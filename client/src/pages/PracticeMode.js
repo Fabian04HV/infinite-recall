@@ -1,13 +1,17 @@
 import { Link, useParams } from 'react-router-dom'
 import '../assets/Collection.css'
 import Flashcard from '../components/Flashcard'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { CollectionContext } from '../context/collection.context'
 
-function PracticeMode({collectionsData}){
-
-  const collectionId = useParams()._id
-  const collection = collectionsData.find(collection => collection._id === parseInt(collectionId))
+function PracticeMode(){
+  const { currentCollection } = useContext(CollectionContext)
+  console.log('Current Collection', currentCollection)
   
+  const collectionId = useParams()._id
+  const collection = currentCollection
+  console.log(collection)
+
   const [rightAnim, setRightAnim] = useState(true) 
   const [leftAnim, setLeftAnim] = useState(false)
   
