@@ -6,7 +6,7 @@ import { CollectionContext } from '../context/collection.context'
 
 function PracticeMode(){
   const { currentCollection } = useContext(CollectionContext)
-  console.log('Current Collection', currentCollection)
+  // console.log('Current Collection', currentCollection)
   
   const collectionId = useParams()._id
   const collection = currentCollection

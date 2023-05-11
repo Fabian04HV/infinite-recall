@@ -9,7 +9,9 @@ function QuizMode(){
   // const collectionId = useParams()._id
   // const collection = collectionsData.find(collection => collection._id === parseInt(collectionId))
   const { currentCollection } = useContext(CollectionContext)
+  console.log('QUIZMODE GET CURRENT COLLECTON FROM CONTEXT: ', currentCollection)
   const collection = currentCollection
+  console.log('COLLECTION: ', collection)
   
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0)
 

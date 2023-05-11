@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose")
+const Flashcard = require("./Flashcard.model")
 
 const collectionSchema = new Schema(
   {
@@ -11,26 +12,15 @@ const collectionSchema = new Schema(
       required: true
     },
     flashcards: [{
-      front: {
-        type: String,
-        required: true
-      },
-      back: {
-        type: String,
-        required: true
-      },
-      importance: {
-        type: String,
-        enum: ['high', 'normal', 'low'],
-        default: 'normal'
-      }
+      type: Schema.Types.ObjectId,
+      ref: 'Flashcard'
     }]
   },
   {
     timestamps: true
   }
-);
-
+)
 
 const Collection = model('Collection', collectionSchema)
+
 module.exports = Collection

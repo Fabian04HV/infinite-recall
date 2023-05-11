@@ -1,24 +1,23 @@
 const { Schema, model } = require("mongoose")
 
-const flashcardSchema = new Schema(
-  {
-    front: {
-      type: String,
-      required: true
-    },
-    back: {
-      type: String,
-      required: true
-    },
-    importance: {
-      type: String,
-      enum: ['low', 'normal', 'high']
-    }
+const flashcardSchema = new Schema({
+  front: {
+    type: String,
+    required: true
   },
-  {
-    timestamps: true
+  back: {
+    type: String,
+    required: true
+  },
+  importance: {
+    type: String,
+    enum: ['high', 'normal', 'low'],
+    default: 'normal'
   }
-)
+}, {
+  timestamps: true
+})
 
 const Flashcard = model('Flashcard', flashcardSchema)
+
 module.exports = Flashcard

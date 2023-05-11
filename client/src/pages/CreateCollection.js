@@ -26,6 +26,7 @@ function CreateCollection(){
 
   const collectionSubmitHandler = (e) => {
     e.preventDefault()
+    console.log('CREATED FLASHCARDS: ', createdFlashcards)
     axios.post('http://localhost:5005/api/collection/create', {title, creator, createdFlashcards}, {headers: { Authorization: `Bearer ${token}`}})
       .then(response => {
         console.log('Create Collection: ', response)
@@ -57,7 +58,7 @@ function CreateCollection(){
     const flashcard = {
       front: front,
       back: back,
-      importance: importance
+      importance: importance,
     }
     setCreatedFlashcards([...createdFlashcards, flashcard])
     setFront('')
