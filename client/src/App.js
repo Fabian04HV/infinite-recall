@@ -4,10 +4,10 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home'
 import MyCollections from './pages/MyCollections'
 import PracticeMode from './pages/PracticeMode';
-import { Form } from 'react-router-dom';
 import QuizMode from './pages/QuizMode';
 
-import collectionsData from './data/collections'
+import Profile from './pages/Profile';
+import Notes from './pages/Notes';
 import CreateCollection from './pages/CreateCollection';
 
 import Signup from './pages/Signup';
@@ -15,6 +15,8 @@ import Login from './pages/Login';
 
 import { useContext } from 'react';
 import { AuthContext } from './context/auth.context';
+
+import ProtectedRoute from './utils/ProtectedRoute';
 
 function App() {
   const location = useLocation()
@@ -29,12 +31,14 @@ function App() {
       <div className='page-wrapper'>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/collections' element={<MyCollections/>} />
-          <Route path='/practice/:_id' element={<PracticeMode/>} />
-          <Route path='/quiz/:_id' element={<QuizMode/>} />
-        
-          <Route path='/collection/create' element={<CreateCollection />} />
+          <Route path='/collections' element={<ProtectedRoute><MyCollections/></ProtectedRoute>} />
+          <Route path='/practice/:_id' element={<ProtectedRoute><PracticeMode/></ProtectedRoute>} />
+          <Route path='/quiz/:_id' element={<ProtectedRoute><QuizMode/></ProtectedRoute>} />
+          <Route path='/collection/create' element={<ProtectedRoute><CreateCollection /></ProtectedRoute>} />
           
+          <Route path='/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+          <Route path='/notes' element={<ProtectedRoute><Notes /></ProtectedRoute>} />
+
           <Route path='/signup' element={<Signup />} />
           <Route path='/login' element={<Login />} />
         </Routes>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import '../assets/Flashcard.css'
 import dynamicTextSize from '../utils/dynamicTextSize'
 
@@ -12,6 +12,10 @@ function Flashcard(props){
   const fontSizeBack = dynamicTextSize(back)
 
   const [flipped, setFlipped] = useState(false)
+
+  useEffect(() => {
+    setFlipped(false)
+  }, [front, back])
 
   return(
     <div onAnimationEnd={() => { animationHandler() }} className={`Flashcard ${flipped ? 'flipped' : ''} ${rightAnim ? 'FlashcardRightIn' : ''} ${leftAnim ? 'FlashcardLeftIn' : ''}`} onClick={() => setFlipped(!flipped)}>
