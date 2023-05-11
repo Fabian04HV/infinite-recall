@@ -22,6 +22,17 @@ router.get('/collections', (req, res, next) => {
     .catch(err => next(err));
 });
 
+router.get('/collections/:id', (req, res, next) => {
+  const collectionId = req.params.id 
+
+  Collection.findById(collectionId)
+    .populate('flashcards')
+    .then(collectionFromDb => {
+      res.json({collection: collectionFromDb})
+    })
+    .catch(err => next(err))
+})
+
 router.post('/collection/create', (req, res, next) => {
   const { title, creator, createdFlashcards } = req.body;
   const flashcards = createdFlashcards

@@ -1,18 +1,23 @@
 import { useParams } from "react-router-dom"
 import FocusNavbar from "../components/FocusNavbar"
 import QuestionCard from "../components/QuestionCard"
-import { useState, useContext } from "react"
-import { CollectionContext } from '../context/collection.context'
+import { useState, useEffect } from "react"
+import { fetchCollection } from "../utils/fetchCollection"
 
+const API_URL = 'http://localhost:5005'
 
 function QuizMode(){
-  // const collectionId = useParams()._id
-  // const collection = collectionsData.find(collection => collection._id === parseInt(collectionId))
-  const { currentCollection } = useContext(CollectionContext)
-  console.log('QUIZMODE GET CURRENT COLLECTON FROM CONTEXT: ', currentCollection)
-  const collection = currentCollection
-  console.log('COLLECTION: ', collection)
-  
+  const collectionId = useParams()._id
+  const [collection, setCollection] = useState(null)
+
+  useEffect(() => {
+    fetchCollection(API_URL, collectionId)
+    .then((response) => {
+      setCollection(response)
+      console.log(response)
+    })
+  }, [])
+
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0)
 
   const incrementFlashcardIndexHandler = () => {
@@ -21,7 +26,9 @@ function QuizMode(){
   const decrementFlashcardIndexHandler = () => {
     setCurrentFlashcardIndex(currentFlashcardIndex > 0 ? currentFlashcardIndex - 1 : collection.flashcards.length -1)
   }
-
+  if(!collection){
+    return <p>Loading ...</p>
+  }
   return(
     <> 
       <FocusNavbar title={collection.title}/>

@@ -1,21 +1,21 @@
 import { Link, useParams } from 'react-router-dom'
 import '../assets/Collection.css'
 import Flashcard from '../components/Flashcard'
-import { useState, useContext, useEffect } from 'react'
-import { CollectionContext } from '../context/collection.context'
+import { useState, useEffect } from 'react'
+import { fetchCollection } from '../utils/fetchCollection'
+
+const API_URL = 'http://localhost:5005'
 
 function PracticeMode(){
-  const { currentCollection } = useContext(CollectionContext)
-  // console.log('Current Collection', currentCollection)
-  
   const collectionId = useParams()._id
-  // const collection = currentCollection
-  
-  const [collection, setCollection] = useState(currentCollection)
+  const [collection, setCollection] = useState(null)
 
   useEffect(() => {
-    setCollection(currentCollection)
-  }, [currentCollection])
+    fetchCollection(API_URL, collectionId)
+    .then((response) => {
+      setCollection(response)
+    })
+  }, [])
 
   const [rightAnim, setRightAnim] = useState(true) 
   const [leftAnim, setLeftAnim] = useState(false)
