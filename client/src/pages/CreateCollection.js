@@ -7,31 +7,23 @@ import { useNavigate } from 'react-router-dom'
 import '../assets/CreateCollection.css'
 import '../assets/Flashcard.css'
 
-import { useContext } from 'react'
-import { AuthContext } from '../context/auth.context'
-
 function CreateCollection(){
   const navigate = useNavigate()
-
-  const [title, setTitle] = useState('')
-  const [creator, setCreator] = useState('')
-
   const token = localStorage.getItem('authToken')
 
-  const [currentFlashcard, setCurrentFlashcard] = useState(null)
+  const [title, setTitle] = useState('')
+
   const [createdFlashcards, setCreatedFlashcards] = useState([])
 
   const titleInputHandler = (e) => setTitle(e.target.value)
-  const creatorInputHandler = (e) => setCreator(e.target.value)
 
   const collectionSubmitHandler = (e) => {
     e.preventDefault()
     console.log('CREATED FLASHCARDS: ', createdFlashcards)
-    axios.post('http://localhost:5005/api/collection/create', {title, creator, createdFlashcards}, {headers: { Authorization: `Bearer ${token}`}})
+    axios.post('http://localhost:5005/api/collection/create', {title, createdFlashcards}, {headers: { Authorization: `Bearer ${token}`}})
       .then(response => {
         console.log('Create Collection: ', response)
         setTitle('')
-        setCreator('')  
         navigate('/collections', {replace: true});
       })
       .catch(error => {
@@ -128,12 +120,6 @@ function CreateCollection(){
             name='title'
             placeholder='Collection Title'
             onChangeHandler={titleInputHandler}
-          />
-          <InputBox 
-            type='text'
-            name='Creator'
-            placeholder='Creator'
-            onChangeHandler={creatorInputHandler}
           />
           <button className='accent-button'>Create Collection</button>
         </form>

@@ -3,6 +3,7 @@ import '../assets/Collection.css'
 import Flashcard from '../components/Flashcard'
 import { useState, useEffect } from 'react'
 import { fetchCollection } from '../utils/fetchCollection'
+import { deleteCollection } from '../utils/deleteCollection'
 
 const API_URL = 'http://localhost:5005'
 
@@ -59,6 +60,7 @@ function PracticeMode(){
           <button onClick={() => incrementFlashcardIndexHandler()} className='standard-button round'><svg fill='var(--text-color)' xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 96 960 960" width="30"><path d="M276 945q-11-12-11.5-28t11.5-28l315-315-315-315q-11-11-11.5-27.5T276 203q11-12 27.5-12.5T332 202l351 351q5 5 7 10t2 11q0 6-2 11t-7 10L332 946q-11 11-27.5 11T276 945Z"/></svg></button>
         </div>
       </div>
+      <button onClick={() => deleteCollection('http://localhost:5005' , collectionId)}>Delete</button>
     </>
   )
 }

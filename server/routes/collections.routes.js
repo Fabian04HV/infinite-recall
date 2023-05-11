@@ -34,9 +34,10 @@ router.get('/collections/:id', (req, res, next) => {
 })
 
 router.post('/collection/create', (req, res, next) => {
-  const { title, creator, createdFlashcards } = req.body;
+  const { title, createdFlashcards } = req.body;
   const flashcards = createdFlashcards
   const userId = req.payload._id;
+  const creator = req.payload.username
   
   if (Array.isArray(flashcards) && flashcards.length > 0) {
     Collection.create({ title, creator })
@@ -73,5 +74,15 @@ router.post('/collection/create', (req, res, next) => {
     next(error);
   }
 });
+
+router.delete('/collection/delete/:id', (req, res, next) => {
+  const collectionId = req.params.id 
+
+  Collection.findByIdAndDelete(collectionId)
+    .then(() => {
+      res.json({message: 'Delete Successful'})
+    })
+    .catch(err => console.log(err))
+})
 
 module.exports = router;
