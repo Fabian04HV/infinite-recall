@@ -79,8 +79,8 @@ router.put('/collection/edit', (req, res, next) => {
   const {title, createdFlashcards, editId} = req.body 
 
   Collection.findByIdAndUpdate(editId, {title, createdFlashcards})
-    .then(() => {
-      res.json({message: 'Edit Successful'})
+    .then((response) => {
+      res.json({collection: response})
     })
     .catch(err => console.log(err))
 })

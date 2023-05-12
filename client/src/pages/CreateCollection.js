@@ -40,17 +40,15 @@ function CreateCollection(){
     if(editId){
       axios.put(`${API_URL}/api/collection/edit`, {title, createdFlashcards, editId}, {headers: { Authorization: `Bearer ${token}`}})
       .then(response => {
-        console.log('Edited Collection: ', response)
-        navigate('/collections', {replace: true})
+        navigate(`/practice/${response.data.collection._id}`, {replace: true});
       })
     }
     else{
       console.log('CREATED FLASHCARDS: ', createdFlashcards)
       axios.post(`${API_URL}/api/collection/create`, {title, createdFlashcards}, {headers: { Authorization: `Bearer ${token}`}})
         .then(response => {
-          console.log('Create Collection: ', response)
           setTitle('')
-          navigate('/collections', {replace: true});
+          navigate(`/practice/${response.data.collection._id}`, {replace: true});
         })
         .catch(error => {
           console.log(error)
