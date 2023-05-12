@@ -27,7 +27,6 @@ function Navbar(){
             <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnKB7XhauwEbA_S-MY_RKRzW_jtGmZbS1HeUpWsdAc&s' alt='Profile'/>
             <span>{user.username}</span>
           </NavLink>
-          <button onClick={logoutUser}>Logout</button>
         </>
       )}
       {!isLoggedIn && (

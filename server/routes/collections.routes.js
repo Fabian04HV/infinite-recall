@@ -77,12 +77,33 @@ router.post('/collection/create', (req, res, next) => {
 
 router.put('/collection/edit', (req, res, next) => {
   const {title, createdFlashcards, editId} = req.body 
+  const newCollection = []
 
-  Collection.findByIdAndUpdate(editId, {title, createdFlashcards})
-    .then((response) => {
-      res.json({collection: response})
+  let flashcardPromises = []
+
+  createdFlashcards.map(flashcard => {
+    if(!flashcard._id){
+      flashcardPromises.push(
+      Flashcard.create(flashcard))
+    }
+    else{
+      flashcardPromises.push(Flashcard.findByIdAndUpdate(flashcard._id, flashcard))
+    }
+  })
+
+  Promise.all(flashcardPromises)
+  .then(response => {
+    response.map(card => {
+      newCollection.push(card._id)
     })
-    .catch(err => console.log(err))
+    Collection.findByIdAndUpdate(editId, {title, flashcards: newCollection})
+      .then((response) => {
+        res.json({collection: response})
+      })
+      .catch(err => console.log(err))
+
+  })
+
 })
 
 router.delete('/collection/delete/:id', (req, res, next) => {

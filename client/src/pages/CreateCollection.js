@@ -11,31 +11,69 @@ import { fetchCollection } from '../utils/fetchCollection'
 const API_URL = 'http://localhost:5005'
 
 function CreateCollection(){
-  const location = useLocation()
+  const token = localStorage.getItem('authToken')
   const editId = useParams()._id
+  const navigate = useNavigate()
 
+  const [title, setTitle] = useState('')
   const [createdFlashcards, setCreatedFlashcards] = useState([])
+  const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0)
 
+
+  const titleInputHandler = (e) => setTitle(e.target.value)
+
+  const [front, setFront] = useState('')
+  const [back, setBack] = useState('')
+  const [importance, setImportance] = useState('normal')
+
+  const frontInputHandler = (e) => setFront(e.target.value)
+  const backInputHandler = (e) => setBack(e.target.value)
+  const importanceHandler = (e) => setImportance(e.target.value)
   
+  const fontSizeFront = dynamicTextSize(front)
+  const fontSizeBack = dynamicTextSize(back)
+
+  const [flipped, setFlipped] = useState(false)
+
+  const setBigFlashcard = () => {
+    console.log('UPDATE CURRENT FLASHCARD INDEX: ', currentFlashcardIndex)
+    if(createdFlashcards.length > 0){
+      if(currentFlashcardIndex === createdFlashcards.length){
+        setFront('')
+        setBack('')  
+      }
+      else{
+        setFront(createdFlashcards[currentFlashcardIndex].front)
+        setBack(createdFlashcards[currentFlashcardIndex].back)
+      }
+    }
+  }
+
   useEffect(() => {
     if(editId){
       fetchCollection(API_URL, editId)
       .then(res => {
         setCreatedFlashcards(res.flashcards)
         setTitle(res.title)
+        // setFront(res.flashcards[currentFlashcardIndex].front)
+        // setBack(res.flashcards[currentFlashcardIndex].back)
+        return res
+      })
+      .then((res) => {
+        setCurrentFlashcardIndex(res.flashcards.length)
+      })
+      .then(() => {
+        console.log('ON LOAD CURRENT FLASHCARD INDEX: ', currentFlashcardIndex)
       })
     }
   }, [])
 
-  const navigate = useNavigate()
-  const token = localStorage.getItem('authToken')
-
-  const [title, setTitle] = useState('')
-
-
-  const titleInputHandler = (e) => setTitle(e.target.value)
+  useEffect(() => {
+    setBigFlashcard()
+  }, [currentFlashcardIndex])
 
   const collectionSubmitHandler = (e) => {
+    console.log(createdFlashcards)
     e.preventDefault()
     if(editId){
       axios.put(`${API_URL}/api/collection/edit`, {title, createdFlashcards, editId}, {headers: { Authorization: `Bearer ${token}`}})
@@ -56,29 +94,27 @@ function CreateCollection(){
     }
   }
 
-  const [front, setFront] = useState('')
-  const [back, setBack] = useState('')
-  const [importance, setImportance] = useState('normal')
-
-  const frontInputHandler = (e) => setFront(e.target.value)
-  const backInputHandler = (e) => setBack(e.target.value)
-  const importanceHandler = (e) => setImportance(e.target.value)
-
-  const fontSizeFront = dynamicTextSize(front)
-  const fontSizeBack = dynamicTextSize(back)
-
-  const [flipped, setFlipped] = useState(false)
-
   const cardSubmitHandler = (e) => {
     e.preventDefault()
-    const flashcard = {
+    let flashcard = {
       front: front,
       back: back,
-      importance: importance,
+      importance: importance
     }
-    setCreatedFlashcards([...createdFlashcards, flashcard])
+    if(createdFlashcards[currentFlashcardIndex] && createdFlashcards[currentFlashcardIndex]._id){
+      flashcard._id = createdFlashcards[currentFlashcardIndex]._id
+    }
+    console.log(flashcard)
+    
+    const updated = [...createdFlashcards]
+    updated[currentFlashcardIndex] = flashcard
+
+
+    setCreatedFlashcards(updated)
     setFront('')
     setBack('')
+    console.log('Updated.length', updated.length)
+    setCurrentFlashcardIndex(updated.length)
   }
 
   return (
@@ -99,6 +135,7 @@ function CreateCollection(){
           <InputBox 
             type='text'
             name='front'
+            id='front'
             placeholder='Front'
             onChangeHandler={frontInputHandler}
             onFocus={() => setFlipped(false)}
@@ -131,11 +168,14 @@ function CreateCollection(){
           {createdFlashcards.map(flashcard => {
             const fontSizeFront = dynamicTextSize(flashcard.front)
             return(
-              <div className='preview-flashcard'>
+              <label htmlFor='front' className='preview-flashcard' onClick={() => { console.log(currentFlashcardIndex); setCurrentFlashcardIndex(createdFlashcards.indexOf(flashcard))}}>
                 <span className='card-text' style={{ fontSize: `${fontSizeFront/4.5}px` }}>{flashcard.front}</span>
-              </div>
+              </label>
             )
           })}
+          <label htmlFor='front' className='preview-flashcard' onClick={() => setCurrentFlashcardIndex(createdFlashcards.length)}>
+            <span className='card-text'>+</span>
+          </label>
         </div>
 
         <form className='collection-form' onSubmit={collectionSubmitHandler}>
