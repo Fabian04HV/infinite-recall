@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import { AuthContext } from '../context/auth.context'
 import InputBox from '../components/InputBox'
 import axios from 'axios'
 import Flashcard from '../components/Flashcard'
@@ -11,6 +12,7 @@ import { fetchCollection } from '../utils/fetchCollection'
 const API_URL = 'http://localhost:5005'
 
 function CreateCollection(){
+  const user = useContext(AuthContext)
   const token = localStorage.getItem('authToken')
   const editId = useParams()._id
   const navigate = useNavigate()
@@ -18,6 +20,8 @@ function CreateCollection(){
   const [title, setTitle] = useState('')
   const [createdFlashcards, setCreatedFlashcards] = useState([])
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0)
+  
+  const [isOwner, setIsOwner] = useState(false)
 
 
   const titleInputHandler = (e) => setTitle(e.target.value)
@@ -65,6 +69,9 @@ function CreateCollection(){
       .then(() => {
         console.log('ON LOAD CURRENT FLASHCARD INDEX: ', currentFlashcardIndex)
       })
+    }
+    else{
+      setIsOwner(true)
     }
   }, [])
 
@@ -133,7 +140,21 @@ function CreateCollection(){
     setCurrentFlashcardIndex(updated.length)
   }
 
-  return (
+  fetchCollection(API_URL, editId)
+    .then(collection => {
+      if(user.user.username !== collection.creator){
+        console.log('username', user.user.username)
+        console.log('creator', collection.creator)
+
+        return navigate('/collections')
+      }
+      else{
+        setIsOwner(true)
+      }
+
+    })
+
+  return isOwner && (
     <div className='CreateCollection'>
       <div className='flashcard-editor-container'>
         <h1>{editId ? `Edit Flashcard Collection` : 'Create Flashcard Collection'}</h1>

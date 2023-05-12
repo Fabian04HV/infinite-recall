@@ -77,43 +77,62 @@ router.post('/collection/create', (req, res, next) => {
 
 router.put('/collection/edit', (req, res, next) => {
   const {title, createdFlashcards, editId} = req.body 
-  const newCollection = []
+  const username = req.payload.username 
 
-  let flashcardPromises = []
-
-  createdFlashcards.map(flashcard => {
-    if(!flashcard._id){
-      flashcardPromises.push(
-      Flashcard.create(flashcard))
-    }
-    else{
-      flashcardPromises.push(Flashcard.findByIdAndUpdate(flashcard._id, flashcard))
-    }
-  })
-
-  Promise.all(flashcardPromises)
-  .then(response => {
-    response.map(card => {
-      newCollection.push(card._id)
+  Collection.findById(editId)
+    .then((collection) => {
+      if(username !== collection.creator){
+        res.status(403).json({message: 'You are not the owner of this Collection!'})
+        return
+      }
+      else{
+        const newCollection = []
+        let flashcardPromises = []
+      
+        createdFlashcards.map(flashcard => {
+          if(!flashcard._id){
+            flashcardPromises.push(
+            Flashcard.create(flashcard))
+          }
+          else{
+            flashcardPromises.push(Flashcard.findByIdAndUpdate(flashcard._id, flashcard))
+          }
+        })
+      
+        Promise.all(flashcardPromises)
+        .then(response => {
+          response.map(card => {
+            newCollection.push(card._id)
+          })
+          Collection.findByIdAndUpdate(editId, {title, flashcards: newCollection})
+            .then((response) => {
+              res.json({collection: response})
+            })
+            .catch(err => console.log(err))
+      
+        })
+      }
     })
-    Collection.findByIdAndUpdate(editId, {title, flashcards: newCollection})
-      .then((response) => {
-        res.json({collection: response})
-      })
-      .catch(err => console.log(err))
-
-  })
-
 })
 
 router.delete('/collection/delete/:id', (req, res, next) => {
   const collectionId = req.params.id 
+  const username = req.payload.username 
 
-  Collection.findByIdAndDelete(collectionId)
-    .then(() => {
-      res.json({message: 'Delete Successful'})
-    })
-    .catch(err => console.log(err))
+  Collection.findById(collectionId)
+    .then((collection) => {
+      if(username !== collection.creator){
+        res.status(403).json({message: 'You are not the Owner of this Collection! 😈'})
+        return
+      }
+      else{
+        Collection.findByIdAndDelete(collectionId)
+        .then(() => {
+          res.json({message: 'Delete Successful'})
+        })
+        .catch(err => console.log(err))
+      }
+    })  
 })
 
 module.exports = router;
