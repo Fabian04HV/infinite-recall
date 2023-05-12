@@ -195,3 +195,34 @@ footer a{
 #toggle-menu-checkbox:checked ~ label[for='toggle-menu-checkbox'] > .options-dropdown{
   display: flex;
 }
+
+.search-bar{
+  flex-grow: 1;
+  background-color: var(--color-1);
+  display: flex;
+  border-radius: 1000px;
+}
+.search-bar label{
+  padding: 10px 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search-bar input{
+  font: inherit;
+  padding: 10px 10px 10px 0;
+  flex-grow: 1;
+  background: transparent;
+  border: none;
+  border-radius: 0 1000px 1000px 0;
+  color: var(--text-color);
+}
+.search-bar input:focus{
+  outline: none;
+}
+.search-bar input:focus::placeholder{
+  color: var(--accent-color);
+}
+.search-bar input::placeholder{
+  color: var(--color-5);
+}
