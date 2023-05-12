@@ -115,6 +115,22 @@ function CreateCollection(){
     setBack('')
     console.log('Updated.length', updated.length)
     setCurrentFlashcardIndex(updated.length)
+    setSelectAnim(false)
+  }
+
+
+  const [selectAnim, setSelectAnim] = useState(false)
+
+  const selectThisFlashcard = (flashcardIndex) => {
+    setCurrentFlashcardIndex(flashcardIndex)
+    setSelectAnim(true)
+  }
+
+  const deleteFlashcard = (index) => {
+    const updated = [...createdFlashcards]
+    updated.splice(index, 1)
+    setCreatedFlashcards(updated) 
+    setCurrentFlashcardIndex(updated.length)
   }
 
   return (
@@ -155,7 +171,8 @@ function CreateCollection(){
               <option value="low">Low</option>
               <option value="high">High</option>
             </select>
-            <button type='submit' className='accent-button'>Add Card</button>
+            {currentFlashcardIndex !== createdFlashcards.length && <button type='button' onClick={() => deleteFlashcard(currentFlashcardIndex)} className='standard-button'><svg fill='var(--text-color)' xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 96 960 960" width="26"><path d="M261 936q-24 0-42-18t-18-42V306h-11q-12.75 0-21.375-8.675-8.625-8.676-8.625-21.5 0-12.825 8.625-21.325T190 246h158q0-13 8.625-21.5T378 216h204q12.75 0 21.375 8.625T612 246h158q12.75 0 21.375 8.675 8.625 8.676 8.625 21.5 0 12.825-8.625 21.325T770 306h-11v570q0 24-18 42t-42 18H261Zm106-176q0 12.75 8.675 21.375 8.676 8.625 21.5 8.625 12.825 0 21.325-8.625T427 760V421q0-12.75-8.675-21.375-8.676-8.625-21.5-8.625-12.825 0-21.325 8.625T367 421v339Zm166 0q0 12.75 8.675 21.375 8.676 8.625 21.5 8.625 12.825 0 21.325-8.625T593 760V421q0-12.75-8.675-21.375-8.676-8.625-21.5-8.625-12.825 0-21.325 8.625T533 421v339Z"/></svg></button>}
+            <button type='submit' className='accent-button'>{currentFlashcardIndex !== createdFlashcards.length ? 'Confirm Changes' : 'Add Flashcard'}</button>
           </div>
         </form>
       </div>
@@ -168,7 +185,7 @@ function CreateCollection(){
           {createdFlashcards.map(flashcard => {
             const fontSizeFront = dynamicTextSize(flashcard.front)
             return(
-              <label htmlFor='front' className='preview-flashcard' onClick={() => { console.log(currentFlashcardIndex); setCurrentFlashcardIndex(createdFlashcards.indexOf(flashcard))}}>
+              <label htmlFor='front' className='preview-flashcard' onClick={() => { selectThisFlashcard(createdFlashcards.indexOf(flashcard))}}>
                 <span className='card-text' style={{ fontSize: `${fontSizeFront/4.5}px` }}>{flashcard.front}</span>
               </label>
             )
