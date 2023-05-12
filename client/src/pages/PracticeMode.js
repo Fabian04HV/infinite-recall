@@ -52,15 +52,23 @@ function PracticeMode(){
           <svg fill="var(--accent-color)" xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 96 960 960" width="26"><path d="M160 896V456h140v440H160Zm250 0V256h140v640H410Zm250 0V616h140v280H660Z"/></svg>
             See Statistics
           </Link>
+          <input type='checkbox' id='toggle-menu-checkbox'/>
+          <label htmlFor='toggle-menu-checkbox' className='standard-button menu-button'>
+            &hellip;
+            <div className='options-dropdown'>
+              <Link to={`/collection/edit/${collectionId}`} className='standard-button'>Edit Collection <svg fill='var(--text-color)' xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 96 960 960" width="20"><path d="M794 390 666 262l42-42q17-17 42.5-16.5T793 221l43 43q17 17 17 42t-17 42l-42 42ZM150 936q-13 0-21.5-8.5T120 906v-86q0-6 2-11t7-10l495-495 128 128-495 495q-5 5-10 7t-11 2h-86Z"/></svg></Link>
+              <button className='standard-button' onClick={() => deleteCollection('http://localhost:5005' , collectionId)}>Delete Collection <svg fill='var(--text-color)' xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 96 960 960" width="20"><path d="M261 936q-24 0-42-18t-18-42V306h-11q-12.75 0-21.375-8.675-8.625-8.676-8.625-21.5 0-12.825 8.625-21.325T190 246h158q0-13 8.625-21.5T378 216h204q12.75 0 21.375 8.625T612 246h158q12.75 0 21.375 8.675 8.625 8.676 8.625 21.5 0 12.825-8.625 21.325T770 306h-11v570q0 24-18 42t-42 18H261Zm106-176q0 12.75 8.675 21.375 8.676 8.625 21.5 8.625 12.825 0 21.325-8.625T427 760V421q0-12.75-8.675-21.375-8.676-8.625-21.5-8.625-12.825 0-21.325 8.625T367 421v339Zm166 0q0 12.75 8.675 21.375 8.676 8.625 21.5 8.625 12.825 0 21.325-8.625T593 760V421q0-12.75-8.675-21.375-8.676-8.625-21.5-8.625-12.825 0-21.325 8.625T533 421v339Z"/></svg></button>
+            </div>
+          </label>
         </div>
-        <Flashcard editable={true} rightAnim={rightAnim} leftAnim={leftAnim} animationHandler={animationHandler} flashcard={collection.flashcards[currentFlashcardIndex]}/>
+        <Flashcard rightAnim={rightAnim} leftAnim={leftAnim} animationHandler={animationHandler} flashcard={collection.flashcards[currentFlashcardIndex]}/>
         <div className='controls-container'>
           <button onClick={() => decrementFlashcardIndexHandler()} className='standard-button round'><svg fill='var(--text-color)' xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 96 960 960" width="30"><path d="M627 948 276 597q-5-5-7-10t-2-11q0-6 2-11t7-10l351-351q11-11 28-11t28 11q12 12 12 28.5T683 261L368 576l315 315q13 13 12 29t-12 27q-12 12-28.5 12T627 948Z"/></svg></button>
           <span>{currentFlashcardIndex +1}  / {collection.flashcards.length}</span>
           <button onClick={() => incrementFlashcardIndexHandler()} className='standard-button round'><svg fill='var(--text-color)' xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 96 960 960" width="30"><path d="M276 945q-11-12-11.5-28t11.5-28l315-315-315-315q-11-11-11.5-27.5T276 203q11-12 27.5-12.5T332 202l351 351q5 5 7 10t2 11q0 6-2 11t-7 10L332 946q-11 11-27.5 11T276 945Z"/></svg></button>
         </div>
       </div>
-      <button onClick={() => deleteCollection('http://localhost:5005' , collectionId)}>Delete</button>
+      
     </>
   )
 }

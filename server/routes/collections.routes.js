@@ -75,6 +75,16 @@ router.post('/collection/create', (req, res, next) => {
   }
 });
 
+router.put('/collection/edit', (req, res, next) => {
+  const {title, createdFlashcards, editId} = req.body 
+
+  Collection.findByIdAndUpdate(editId, {title, createdFlashcards})
+    .then(() => {
+      res.json({message: 'Edit Successful'})
+    })
+    .catch(err => console.log(err))
+})
+
 router.delete('/collection/delete/:id', (req, res, next) => {
   const collectionId = req.params.id 
 

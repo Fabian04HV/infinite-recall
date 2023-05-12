@@ -35,6 +35,7 @@ function App() {
           <Route path='/practice/:_id' element={<ProtectedRoute><PracticeMode/></ProtectedRoute>} />
           <Route path='/quiz/:_id' element={<ProtectedRoute><QuizMode/></ProtectedRoute>} />
           <Route path='/collection/create' element={<ProtectedRoute><CreateCollection /></ProtectedRoute>} />
+          <Route path='/collection/edit/:_id' element={<ProtectedRoute><CreateCollection /></ProtectedRoute>} />
           
           <Route path='/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           <Route path='/notes' element={<ProtectedRoute><Notes /></ProtectedRoute>} />

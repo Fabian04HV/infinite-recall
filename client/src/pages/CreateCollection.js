@@ -3,33 +3,59 @@ import InputBox from '../components/InputBox'
 import axios from 'axios'
 import Flashcard from '../components/Flashcard'
 import dynamicTextSize from '../utils/dynamicTextSize'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import '../assets/CreateCollection.css'
 import '../assets/Flashcard.css'
+import { fetchCollection } from '../utils/fetchCollection'
+
+const API_URL = 'http://localhost:5005'
 
 function CreateCollection(){
+  const location = useLocation()
+  const editId = useParams()._id
+
+  const [createdFlashcards, setCreatedFlashcards] = useState([])
+
+  
+  useEffect(() => {
+    if(editId){
+      fetchCollection(API_URL, editId)
+      .then(res => {
+        setCreatedFlashcards(res.flashcards)
+        setTitle(res.title)
+      })
+    }
+  }, [])
+
   const navigate = useNavigate()
   const token = localStorage.getItem('authToken')
 
   const [title, setTitle] = useState('')
 
-  const [createdFlashcards, setCreatedFlashcards] = useState([])
 
   const titleInputHandler = (e) => setTitle(e.target.value)
 
   const collectionSubmitHandler = (e) => {
     e.preventDefault()
-    console.log('CREATED FLASHCARDS: ', createdFlashcards)
-    axios.post('http://localhost:5005/api/collection/create', {title, createdFlashcards}, {headers: { Authorization: `Bearer ${token}`}})
+    if(editId){
+      axios.put(`${API_URL}/api/collection/edit`, {title, createdFlashcards, editId}, {headers: { Authorization: `Bearer ${token}`}})
       .then(response => {
-        console.log('Create Collection: ', response)
-        setTitle('')
-        navigate('/collections', {replace: true});
+        console.log('Edited Collection: ', response)
+        navigate('/collections', {replace: true})
       })
-      .catch(error => {
-        console.log(error)
-      })
-
+    }
+    else{
+      console.log('CREATED FLASHCARDS: ', createdFlashcards)
+      axios.post(`${API_URL}/api/collection/create`, {title, createdFlashcards}, {headers: { Authorization: `Bearer ${token}`}})
+        .then(response => {
+          console.log('Create Collection: ', response)
+          setTitle('')
+          navigate('/collections', {replace: true});
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
   }
 
   const [front, setFront] = useState('')
@@ -60,7 +86,7 @@ function CreateCollection(){
   return (
     <div className='CreateCollection'>
       <div className='flashcard-editor-container'>
-        <h1>Create Flashcard Collection</h1>
+        <h1>{editId ? `Edit Flashcard Collection` : 'Create Flashcard Collection'}</h1>
 
         <div onClick={() => setFlipped(!flipped)} className={`Flashcard ${flipped && 'flipped'}`}>
           <div className='card-front side'>
@@ -119,9 +145,10 @@ function CreateCollection(){
             type='text'
             name='title'
             placeholder='Collection Title'
+            value={title}
             onChangeHandler={titleInputHandler}
           />
-          <button className='accent-button'>Create Collection</button>
+          <button className='accent-button'>{editId ? 'Save Changes' : 'Create Collection'}</button>
         </form>
       </div>  
     </div>
