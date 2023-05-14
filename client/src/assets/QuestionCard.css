@@ -11,6 +11,22 @@
   display: flex;
   flex-direction: column;
 }
+.Stats{
+  margin: 0 auto;
+  padding: 20px;
+  height: 500px;
+  width: 800px;
+  max-width: 95%;
+  border-radius: 20px;
+  background-color: var(--color-3);
+  box-shadow: var(--standard-shadow);
+
+  font-size: var(--standard-font-size);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 15px;
+}
 .QuestionCard > div{
   flex: 1 1 0;
 }
@@ -61,11 +77,65 @@
   outline: none;
   background-color: var(--color-4);
 }
-
+.answer.revealedAnswer{
+  border: 1px solid var(--accent-color);
+  color: var(--accent-color);
+  animation: .5s revealBlink;
+  animation-fill-mode: forwards;
+}
 .answer.correctAnswer{
   background-color: var(--accent-color);
   box-shadow: var(--accent-shadow);
   border: none;
   color: var(--color-4);
   position: relative;
+}
+.answer.wrongAnswer{
+  border: 1px solid #ff6161;
+  background: var(--t-error-red);
+  color: #ff6161;
+}
+.answer.wrongAnswer::before{
+  color: #ff6161;
+}
+
+.feedback.wrong{
+  color: #ff6161;
+}
+.feedback.correct{
+  color: var(--accent-color);
+}
+@keyframes revealBlink{
+  0%{
+    background-color: transparent;
+  }
+  100%{
+    background-color: var(--t-accent-color);
+  }
+}
+
+.stats-flex-container{
+  display: flex;
+  justify-content: space-between;
+}
+.stats-flex-container > div{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+table{
+  width: max-content;
+  border: 2px solid var(--color-2);
+  border-collapse: collapse;
+}
+table thead{
+  background-color: var(--color-2);
+}
+table tr{
+  border: 2px solid var(--color-2);
+}
+table td, table th{
+  padding: 10px 20px;
+  border-right: 2px solid var(--color-2);
 }

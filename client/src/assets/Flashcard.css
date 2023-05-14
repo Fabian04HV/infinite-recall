@@ -85,10 +85,10 @@
   }
 }
 .FlashcardRightIn{
-  animation: .5s FlashcardRightIn;
+  animation: .25s FlashcardRightIn;
 }
 .FlashcardLeftIn{
-  animation: .5s FlashcardLeftIn;
+  animation: .25s FlashcardLeftIn;
 }
 @keyframes FlashcardRightIn{
   from{
