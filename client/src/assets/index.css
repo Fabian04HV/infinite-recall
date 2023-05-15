@@ -198,3 +198,18 @@ footer a{
 #toggle-menu-checkbox:checked ~ label[for='toggle-menu-checkbox'] > .options-dropdown{
   display: flex;
 }
+table{
+  width: max-content;
+  border: 2px solid var(--color-2);
+  border-collapse: collapse;
+}
+table thead{
+  background-color: var(--color-2);
+}
+table tr{
+  border: 2px solid var(--color-2);
+}
+table td, table th{
+  padding: 10px 20px;
+  border-right: 2px solid var(--color-2);
+}

@@ -25,6 +25,10 @@ app.use('/auth', authRoutes)
 
 const collectionRoutes = require('./routes/collections.routes')
 app.use('/api', isAuthenticated, collectionRoutes)
+
+const statisticsRoutes = require('./routes/statistics.routes')
+app.use('/api', isAuthenticated, statisticsRoutes)
+
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 

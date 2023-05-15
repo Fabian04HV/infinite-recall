@@ -18,7 +18,7 @@ export const SearchPage = () => {
     .then((response) => {
       setFoundCollections(response.data)
     })
-  }, [])
+  }, [query])
 
   if(!foundCollections){
     return <p>Loading ...</p>

@@ -29,7 +29,6 @@ function QuizMode(){
     if(collection){
       if(currentFlashcardIndex === collection.flashcards.length-1){
         showStats()
-        saveStats()
       }
     }
   }, [correctAnsweredFlashcards, wrongAnsweredFlashcards])
@@ -43,11 +42,8 @@ function QuizMode(){
     setQuizOver(true)
   }
 
-  const saveStats = () => {
-    //axios.put //update user.learnSessions
-  }
-
   const saveAnswer = (flashcard, isCorrect) => {
+    if(correctAnsweredFlashcards.includes(flashcard) || wrongAnsweredFlashcards.includes(flashcard)) return; //prevent saving the same card multiple times when spaming the answer button
     if(isCorrect){
       setCorrectAnsweredFlashcards(prevState => [...prevState, flashcard])
       return
@@ -62,7 +58,7 @@ function QuizMode(){
     <> 
       <FocusNavbar title={collection.title}/>
       <div>
-        {quizOver ? <Stats correctFlashcards={correctAnsweredFlashcards} wrongFlashcards={wrongAnsweredFlashcards} /> : 
+        {quizOver ? <Stats correctFlashcards={correctAnsweredFlashcards} wrongFlashcards={wrongAnsweredFlashcards} collectionId={collectionId}/> : 
         <QuestionCard 
           collection={collection} 
           flashcard={collection.flashcards[currentFlashcardIndex]} 

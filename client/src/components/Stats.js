@@ -1,23 +1,57 @@
 import '../assets/QuestionCard.css'
+import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
-export const Stats = ({correctFlashcards, wrongFlashcards}) => {
+const API_URL = 'http://localhost:5005'
+
+export const Stats = ({correctFlashcards, wrongFlashcards, collectionId}) => {
+  const token = localStorage.getItem('authToken')
+
   const correctCount = correctFlashcards.length
   const wrongCount = wrongFlashcards.length
   const totalFlashcards = correctCount + wrongCount
   const accuracy = correctCount / totalFlashcards * 100
 
+  const [numberOfLearnSession, setNumberOfLearnSession] = useState(0)
+
+  useEffect(() => {
+    //save stats in db
+    saveStatistics(correctFlashcards, wrongFlashcards, collectionId, correctCount, wrongCount, accuracy)
+    //get stats from user.learnSessions find(collectionId)
+    //setNumberOfLearnSession()
+  }, [])
+
+  const saveStatistics = (correctFlashcards, wrongFlashcards, collectionId, correctCount, wrongCount, accuracy) => {
+    const requestBody = {correctFlashcards, wrongFlashcards, collectionId, correctCount, wrongCount, accuracy}
+    axios.put(`${API_URL}/api/save-statistics`, requestBody, {headers: { Authorization: `Bearer ${token}`}})
+    .then(response => {
+      console.log(response.data.createdLearnSession)
+    })
+    .catch(err => console.log(err))
+  } 
+
   return(
     <div className="Stats">
-      <h1>Congrats you completed your practice</h1>
+      <h1>Congrats! you completed your learn session.</h1>
       <div className='stats-flex-container'>
-        <div>
-          <p>Accuracy: <span className='accent-text'>{accuracy}%</span></p>
-          <p>Correct Answers: <span className='accent-text'>{correctCount}/{totalFlashcards}</span></p>
+        <div className="statsCard">
+          <span className='accent-text'>{correctCount}/{totalFlashcards}</span>
+          <p>correct answers</p>
+        </div>
+        <div className="statsCard">
+          <span className='accent-text'>{accuracy}%</span>
+          <p>accuracy</p>
+        </div>
+        <div className="statsCard">
+          <span className='accent-text'>{numberOfLearnSession}</span>
+          <p>learn sessions</p>
         </div>
       </div>
       <div>
         {wrongCount > 0 && <>
         <p>Cards you should review: </p>
+        <br/>
         <table>
           <thead>
             <tr>
@@ -38,8 +72,8 @@ export const Stats = ({correctFlashcards, wrongFlashcards}) => {
       </div>
       
       <div className='flex-row-between'>
-        <button className='standard-button light'>Home</button>
-        <button className='accent-button'>Practice Again</button>
+        <Link to='/' className='standard-button light'>Home</Link>
+        <button onClick={() => window.location.reload()} className='accent-button'>Practice Again</button>
       </div>
     </div>
   )

@@ -24,6 +24,12 @@ const userSchema = new Schema(
         ref: 'Collection'
       }
     ],
+    learnSessions: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'LearnSession'
+      }
+    ]
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`    

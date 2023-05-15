@@ -10,6 +10,7 @@ import Profile from './pages/Profile';
 import Notes from './pages/Notes';
 import CreateCollection from './pages/CreateCollection';
 import { SearchPage } from './pages/SearchPage';
+import { StatisticsPage } from './pages/StatisticsPage';
 
 import Signup from './pages/Signup';
 import Login from './pages/Login';
@@ -38,10 +39,9 @@ function App() {
           <Route path='/collection/create' element={<ProtectedRoute><CreateCollection /></ProtectedRoute>} />
           <Route path='/collection/edit/:_id' element={<ProtectedRoute><CreateCollection /></ProtectedRoute>} />
           <Route path='/search/:query' element={<SearchPage />}/>
-
           <Route path='/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           <Route path='/notes' element={<ProtectedRoute><Notes /></ProtectedRoute>} />
-
+          <Route path='/statistics/:collectionId' element={<ProtectedRoute><StatisticsPage /></ProtectedRoute>} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/login' element={<Login />} />
         </Routes>
