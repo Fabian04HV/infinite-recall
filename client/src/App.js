@@ -9,6 +9,7 @@ import QuizMode from './pages/QuizMode';
 import Profile from './pages/Profile';
 import Notes from './pages/Notes';
 import CreateCollection from './pages/CreateCollection';
+import { SearchPage } from './pages/SearchPage';
 
 import Signup from './pages/Signup';
 import Login from './pages/Login';
@@ -36,7 +37,8 @@ function App() {
           <Route path='/quiz/:_id' element={<ProtectedRoute><QuizMode/></ProtectedRoute>} />
           <Route path='/collection/create' element={<ProtectedRoute><CreateCollection /></ProtectedRoute>} />
           <Route path='/collection/edit/:_id' element={<ProtectedRoute><CreateCollection /></ProtectedRoute>} />
-          
+          <Route path='/search/:query' element={<SearchPage />}/>
+
           <Route path='/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           <Route path='/notes' element={<ProtectedRoute><Notes /></ProtectedRoute>} />
 

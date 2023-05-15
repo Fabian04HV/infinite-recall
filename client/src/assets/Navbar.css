@@ -1,51 +1,124 @@
 .Navbar{
-  min-height: 65px;
+  box-sizing: border-box;
+  padding-right: 20px;
+  height: 65px;
+  width: 100%;
+
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1000;
-  background-color: var(--color-2);
-  
-  box-sizing: border-box;
-  width: 100%;
+
   border-bottom: 1px solid var(--color-3);
-  padding-right: 10px;
+  background-color: var(--color-2);
+
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.Navbar .nav-links-container{
+  height: 100%;
+  display: flex;
+}
+.Navbar .nav-links-container a{
+  box-sizing: border-box;
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  transition: var(--standard-transition-fast);
+}
+.Navbar .nav-links-container a::after{
+  content: '';
+  height: 0px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transition: var(--standard-transition-fast);
+  background-color: var(--accent-color);
+  border-radius: 1.2px;
+}
+.Navbar .nav-links-container a:hover::after{
+  height: 4px;
+}
+.Navbar .round-links-container{
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 20px;
 }
-.Navbar .nav-links-container{
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 10px;
-}
-.Navbar .nav-links-container a{
-  padding: 10px 15px;
-  border-radius: 10px;
-}
-.Navbar a:not(:first-child):hover{
-  background-color: var(--color-1);
-  color: var(--text-color);
-}
-.Navbar .logo{
-  font-size: 22pt;
-  font-weight: 700;
-}
-.Navbar .profile-link{
-  border-radius: 1000px;
-  padding-right: 19px;
-  
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.Navbar .profile-link img{
+.Navbar .round-links-container a{
   height: 50px;
   width: 50px;
-  object-fit: cover;
-  border: 1px solid var(--color-4);
   border-radius: 50%;
+  overflow: hidden;
+  object-fit: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--accent-color);
+}
+.Navbar .round-links-container img{
+  height: 100%;
+}
 
+.search-bar{
+  height: 50px;
+  flex-grow: 1;
+  background-color: var(--color-1);
+  display: flex;
+  border-radius: 1000px;
+  position: relative;
+}
+.search-bar label{
+  padding: 10px 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search-bar input{
+  font: inherit;
+  padding: 10px 10px 10px 0;
+  flex-grow: 1;
+  background: transparent;
+  border: none;
+  border-radius: 0 1000px 1000px 0;
+  color: var(--text-color);
+}
+.search-bar input:focus{
+  outline: none;
+}
+.search-bar input:focus::placeholder{
+  color: var(--accent-color);
+}
+.search-bar input::placeholder{
+  color: var(--color-5);
+}
+.search-bar input::-webkit-search-cancel-button{
+  position:relative;
+  right: 10px;  
+}
+.suggestions-container{
+  box-sizing: border-box;
+  padding: 20px;
+  position: absolute;
+  width: 100%;
+  top: 100%;
+  left: 0;
+  
+  background-color: var(--color-1);
+  border: 1px solid var(--color-4);
+  border-radius: 20px;
+
+  display: flex;
+  flex-direction: column;
+}
+.suggestions-container a{
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }

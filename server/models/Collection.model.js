@@ -20,6 +20,7 @@ const collectionSchema = new Schema(
     timestamps: true
   }
 )
+collectionSchema.index({ title: 'text' }); // Add text index on the 'title' field
 
 const Collection = model('Collection', collectionSchema)
 
