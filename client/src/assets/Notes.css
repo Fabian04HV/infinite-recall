@@ -1,0 +1,15 @@
+textarea{
+  padding: 10px;
+  border-radius: 10px;
+  font: inherit;
+  background-color: var(--color-1);
+  border: 1px solid var(--color-4);
+  color: white;
+}
+textarea::placeholder{
+  color: var(--color-5);
+}
+textarea:focus{
+  outline: none;
+  border: 1px solid var(--color-5);
+}

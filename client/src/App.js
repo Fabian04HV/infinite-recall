@@ -15,7 +15,7 @@ import { StatisticsPage } from './pages/StatisticsPage';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from './context/auth.context';
 
 import ProtectedRoute from './utils/ProtectedRoute';
@@ -27,9 +27,19 @@ function App() {
   
   const { isLoggedIn, user } = useContext(AuthContext)
 
+  const [hideSideMenu, setHideSideMenu] = useState(true)
+
+  const toggleNavbar = () => {
+    setHideSideMenu(!hideSideMenu)
+  }
+
+  useEffect(() => {
+    setHideSideMenu(true)
+  }, [location.pathname])
+
   return (
     <div className="App">
-      {showNavbar && <Navbar />}
+      {showNavbar && <Navbar hideSideMenu={hideSideMenu} toggleNavbar={toggleNavbar}/>}
       <div className='page-wrapper'>
         <Routes>
           <Route path='/' element={<Home />} />
@@ -40,7 +50,7 @@ function App() {
           <Route path='/collection/edit/:_id' element={<ProtectedRoute><CreateCollection /></ProtectedRoute>} />
           <Route path='/search/:query' element={<SearchPage />}/>
           <Route path='/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-          <Route path='/notes' element={<ProtectedRoute><Notes /></ProtectedRoute>} />
+          {/* <Route path='/notes' element={<ProtectedRoute><Notes /></ProtectedRoute>} /> */}
           <Route path='/statistics/:collectionId' element={<ProtectedRoute><StatisticsPage /></ProtectedRoute>} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/login' element={<Login />} />
