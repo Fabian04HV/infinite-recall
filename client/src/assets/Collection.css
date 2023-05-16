@@ -1,4 +1,5 @@
 .PracticePage{
+  max-width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -9,6 +10,28 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 20px;
   font-size: 2rem;
+}
+.PracticePage .collection-controls-container{
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.PracticePage .collection-controls-container > div{
+  display: flex;
+  gap: 6px;
+}
+
+@media (max-width: 500px) {
+  .collection-controls-container a{
+    flex-grow: 1;
+  }
+  .PracticePage .collection-controls-container > div{
+    width: 100%;
+  }
 }

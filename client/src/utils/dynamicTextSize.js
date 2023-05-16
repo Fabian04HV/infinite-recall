@@ -29,6 +29,15 @@ function dynamicTextSize(text){
   if(text.length > 900){
     fontSize = 12
   }
-  return fontSize
+
+  // Detect mobile devices and adjust font size
+  if (window.innerWidth <= 768) { // Adjust the threshold as needed
+    fontSize *= 0.65;
+  }
+
+  const baseFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+  const fontSizeRem = fontSize / baseFontSize;
+
+  return fontSizeRem
 }
 export default dynamicTextSize

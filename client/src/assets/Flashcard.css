@@ -1,6 +1,7 @@
 .Flashcard{
   height: 400px;
   width: 600px;
+  max-width: 100%;
 
   transform-style: preserve-3d;
   transition: var(--standard-transition-smooth);
@@ -108,5 +109,10 @@
   to{
     transform: translateX(0);
     opacity: 1;
+  }
+}
+@media(max-width: 500px){
+  .Flashcard{
+    height: 250px;
   }
 }

@@ -213,3 +213,8 @@ table td, table th{
   padding: 10px 20px;
   border-right: 2px solid var(--color-2);
 }
+@media (max-width: 800px){
+  html{
+    font-size: 10pt;
+  }
+}

@@ -13,7 +13,7 @@ function CollectionCard(props){
       </div>
       <div className='info-container'>
         <p>{creator}</p>
-        <p className='secondary-text'>{createdAt}</p>
+        <p className='secondary-text'>{createdAt.split('T')[0]}</p>
       </div>
     </Link>
   )
