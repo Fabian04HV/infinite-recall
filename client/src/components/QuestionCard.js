@@ -66,7 +66,7 @@ function QuestionCard({collection, flashcard, currentFlashcardIndex, incrementFl
   return (
     <div className="QuestionCard">
       <div className="question-container">
-        <h3 style={{ fontSize: `${dynamicTextSize(flashcard.front)}px` }}>{flashcard.front}</h3>
+        <h3 style={{ fontSize: `${dynamicTextSize(flashcard.front)}rem` }}>{flashcard.front}</h3>
       </div>
       <div className="answer-container">
         <h3 className={`feedback ${feedbackClass}`}>{feedbackMessage}</h3>

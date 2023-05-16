@@ -1,9 +1,10 @@
 .QuestionCard{
+  box-sizing: border-box;
   margin: 0 auto;
   padding: 20px;
   min-height: 500px;
   width: 800px;
-  max-width: 95%;
+  max-width: 100%;
   border-radius: 20px;
   background-color: var(--color-3);
   box-shadow: var(--standard-shadow);
@@ -12,11 +13,12 @@
   flex-direction: column;
 }
 .Stats{
+  box-sizing: border-box;
   margin: 0 auto;
   padding: 20px;
   min-height: 500px;
   width: 800px;
-  max-width: 95%;
+  max-width: 100%;
   border-radius: 20px;
   background-color: var(--color-3);
   box-shadow: var(--standard-shadow);
@@ -31,6 +33,7 @@
   flex: 1 1 0;
 }
 .QuestionCard .question-container{
+  min-height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -44,7 +47,6 @@
 }
 .QuestionCard .answer-container .answers{
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
   gap: 12px;
 }
@@ -117,6 +119,7 @@
 .stats-flex-container{
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 10px;
 }
 .statsCard{
@@ -131,4 +134,26 @@
 .statsCard span:first-child{
   font-size: 3rem;
   font-weight: 700;
+}
+@media(max-width: 500px){
+  .QuestionCard{
+    min-height: unset;
+    padding: 10px;
+  }
+  .Stats{
+    min-height: unset;
+    padding: 15px;
+  }
+  .QuestionCard .answers{
+    flex-direction: column;
+  }
+  table{
+    display: block;
+  }
+  table th{
+    display: block;
+  }
+  table td{
+    display: block;
+  }
 }
