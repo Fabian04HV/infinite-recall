@@ -2,6 +2,7 @@
   margin: 12px 0;
   position: relative;
   width: 250px;
+  max-width: 100%;
 }
 .InputBox:hover i{
   background-color: var(--color-4);

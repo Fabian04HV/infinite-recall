@@ -1,8 +1,7 @@
 .Flashcard{
   height: 400px;
   width: 600px;
-  max-width: 100%;
-
+  max-width: 100%; 
   transform-style: preserve-3d;
   transition: var(--standard-transition-smooth);
 } 

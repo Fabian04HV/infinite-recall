@@ -1,21 +1,26 @@
 .CreateCollection{
+  max-width: 100%;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 75px;
 }
-.CreateCollection .Flashcard{
+.CreateCollection .Flashcard{ 
   height: 300px;
   width: 500px;
+  max-width: 100%;
 }
 .Flashcard .side{
   overflow: hidden;
 }
 .flashcard-editor-container{
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   gap: 30px;
 }
 .flashcard-editor-container form{
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -44,8 +49,8 @@
   flex-wrap: wrap;
 }
 .preview-flashcard{
-  height: 50px;
-  width: 85px;
+  height: 80px;
+  width: 120px;
   padding: 5px;
   border-radius: 10px;
   border: 1px solid var(--color-4);
@@ -61,11 +66,17 @@
   animation: .75s fadeIn;
 }
 .preview-flashcard:hover{
-  transform: scale(2);
+  transform: scale(1.5);
   z-index: 3;
 }
 .collection-form{
+  max-width: 100%;
   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.collection-form .InputBox{
+  width: 100%;
 }
 
 @keyframes fadeIn{
@@ -76,5 +87,17 @@
   to{
     opacity: 1;
     transform: translateY(0px);
+  }
+}
+@media (max-width: 500px){
+  .CreateCollection .Flashcard{
+    height: 200px;
+  }
+  .CreateCollection .preview-flashcard{
+    width: 45%;
+    height: 80px;
+  }
+  .CreateCollection .preview-flashcard:hover{
+    transform: unset;
   }
 }

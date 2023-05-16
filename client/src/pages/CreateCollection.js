@@ -161,10 +161,10 @@ function CreateCollection(){
 
         <div onClick={() => setFlipped(!flipped)} className={`Flashcard ${flipped && 'flipped'}`}>
           <div className='card-front side'>
-            <span className='card-text' style={{ fontSize: `${fontSizeFront/1.25}px` }}>{front}</span>
+            <span className='card-text' style={{ fontSize: `${fontSizeFront/1.25}rem` }}>{front}</span>
           </div>
           <div className='card-back side'>
-            <span className='card-text' style={{ fontSize: `${fontSizeBack/1.25}px` }}>{back}</span>
+            <span className='card-text' style={{ fontSize: `${fontSizeBack/1.25}rem` }}>{back}</span>
           </div>
         </div>
 
@@ -207,7 +207,7 @@ function CreateCollection(){
             const fontSizeFront = dynamicTextSize(flashcard.front)
             return(
               <label htmlFor='front' className='preview-flashcard' onClick={() => { selectThisFlashcard(createdFlashcards.indexOf(flashcard))}}>
-                <span className='card-text' style={{ fontSize: `${fontSizeFront/4.5}px` }}>{flashcard.front}</span>
+                <span className='card-text' style={{ fontSize: `${fontSizeFront/2.3}rem` }}>{flashcard.front}</span>
               </label>
             )
           })}

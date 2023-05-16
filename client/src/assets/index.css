@@ -113,6 +113,8 @@ button{
   display: flex;
   flex-direction: column;
   gap: 15px;
+
+  position: relative;
 }
 .centered-container{
   margin: 0 auto;
