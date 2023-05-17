@@ -85,6 +85,9 @@ button{
   background-color: var(--color-4);
   color: var(--text-color);
 }
+.standard-button:disabled{
+  color: var(--color-4);
+}
 .accent-button{
   padding: .5rem 1rem;
   border: 2px solid var(--accent-color);
@@ -157,7 +160,6 @@ footer a{
   margin: 0 20px;
 }
 .error-message{
-  width: 100%;
   padding: 15px;
   border: 2px solid var(--error-red);
   background: var(--t-error-red);

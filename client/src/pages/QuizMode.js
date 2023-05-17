@@ -23,7 +23,7 @@ function QuizMode(){
       setCollection(response)
       console.log(response)
     })
-  }, [])
+  }, [collectionId])
    
   useEffect(()=>{
     if(collection){

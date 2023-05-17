@@ -44,6 +44,7 @@ function Signup(){
           placeholder='Username'
           onChangeHandler={usernameInputHandler}
           value={username}
+          maxLength={25}
         />
         <InputBox 
           type='email'
@@ -51,6 +52,7 @@ function Signup(){
           placeholder='Email'
           onChangeHandler={emailInputHandler}
           value={email}
+          maxLength={321}
         />
         <InputBox 
           type='password'
@@ -58,6 +60,7 @@ function Signup(){
           placeholder='Password'
           onChangeHandler={passwordInputHandler}
           value={password}
+          maxLength={256}
         />
         <button type="submit" className="accent-button">Sign up</button>
       </form>

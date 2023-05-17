@@ -21,11 +21,11 @@ function Navbar({hideSideMenu, toggleNavbar}){
       {isLoggedIn && (<NavLink title='Profile' to={'/profile'}>Profile</NavLink>)}
     </div>
     <nav className='Navbar'>
-      <button onClick={toggleNavbar} className='menu-toggle-button'>
+      <button id='hamburger-menu-button' onClick={toggleNavbar} className='menu-toggle-button'>
           <svg fill='var(--text-color)' xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 96 960 960" width="32"><path d="M150 816q-12.75 0-21.375-8.675-8.625-8.676-8.625-21.5 0-12.825 8.625-21.325T150 756h660q12.75 0 21.375 8.675 8.625 8.676 8.625 21.5 0 12.825-8.625 21.325T810 816H150Zm0-210q-12.75 0-21.375-8.675-8.625-8.676-8.625-21.5 0-12.825 8.625-21.325T150 546h660q12.75 0 21.375 8.675 8.625 8.676 8.625 21.5 0 12.825-8.625 21.325T810 606H150Zm0-210q-12.75 0-21.375-8.675-8.625-8.676-8.625-21.5 0-12.825 8.625-21.325T150 336h660q12.75 0 21.375 8.675 8.625 8.676 8.625 21.5 0 12.825-8.625 21.325T810 396H150Z"/></svg>
       </button>
       <div className='nav-links-container'>
-        <NavLink className='logo hideOnMobile' to={'/'}>Infinite Recall</NavLink>
+        <NavLink className='logo hideOnMobile' to={'/'}>Home</NavLink>
         {isLoggedIn && (
         <>
         <NavLink className='hideOnMobile' to={'/collections'}>My Collections</NavLink>
@@ -42,15 +42,14 @@ function Navbar({hideSideMenu, toggleNavbar}){
           <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnKB7XhauwEbA_S-MY_RKRzW_jtGmZbS1HeUpWsdAc&s' alt='Profile'/>
         </NavLink>
         </>
-        )}
-        {!isLoggedIn && (
-        <>
-        <Link to='/signup'>Sign Up</Link>
-        <Link to='/login'>Login</Link>
-        </>
-        )}
-        
+        )}        
       </div>  
+      {!isLoggedIn && (<>
+        <div className='nav-links-container'>
+          <Link to='/signup'>Sign Up</Link>
+          <Link to='/login'>Login</Link>
+        </div>
+      </>)}
     </nav>
   </>
   )

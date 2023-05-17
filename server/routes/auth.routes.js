@@ -17,6 +17,17 @@ router.post('/signup', (req, res, next) => {
     return;
   }
  
+  if(username.length > 25){
+    res.status(400).json({ message: "Username is too long."})
+    return;
+  }
+  if(email.length > 321){
+    res.status(400).json({ message: "Email is too long and doesnt exist propably"})
+  }
+  if(password.length > 256){
+    res.status(400).json({ message: "Password is too long."})
+  }
+
   // Use regex to validate the email format
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   if (!emailRegex.test(email)) {

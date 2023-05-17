@@ -16,6 +16,9 @@
   align-items: center;
   gap: 20px;
 }
+.FocusNavbar{
+  padding-left: 10px;
+}
 .Navbar .nav-links-container{
   height: 100%;
   display: flex;
@@ -158,6 +161,9 @@
   justify-content: center;
   align-items: center;
 }
+#hamburger-menu-button{
+  display: none;
+}
 .menu-toggle-button:hover, .menu-toggle-button:focus{
   outline: none;
   background-color: var(--color-3);
@@ -166,6 +172,9 @@
   align-self: flex-end;
 }
 @media(max-width: 800px){
+  #hamburger-menu-button{
+    display: flex;
+  }
   .Navbar{
     padding-right: 10px;
     gap: 5px;

@@ -23,6 +23,9 @@ app.use("/api", indexRoutes);
 const authRoutes = require('./routes/auth.routes')
 app.use('/auth', authRoutes)
 
+const searchRoutes = require('./routes/search.routes')
+app.use('/api', searchRoutes)
+
 const collectionRoutes = require('./routes/collections.routes')
 app.use('/api', isAuthenticated, collectionRoutes)
 
@@ -31,6 +34,7 @@ app.use('/api', isAuthenticated, statisticsRoutes)
 
 const notesRoutes = require('./routes/notes.routes')
 app.use('/api', isAuthenticated, notesRoutes)
+
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);

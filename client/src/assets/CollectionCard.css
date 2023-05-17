@@ -1,6 +1,6 @@
 .CollectionCard{
-  height: 150px;
-  max-width: 375px;
+  min-height: 150px;
+  max-width: calc(33% - 41px);
   min-width: 200px;
   flex-grow: 1;
   border: none;

@@ -33,27 +33,29 @@ router.get('/collections/:id', (req, res, next) => {
     .catch(err => next(err))
 })
 
-router.get('/search/:query', (req, res, next) => {
-  const query = req.params.query;
-
-  Collection.find({ $text: { $search: query } })
-    .sort({ score: { $meta: 'textScore' } })
-    .exec()
-    .then(collections => {
-      res.json(collections);
-    })
-    .catch(err => {
-      next(err);
-    });
-});
-
-
-
 router.post('/collection/create', (req, res, next) => {
   const { title, createdFlashcards } = req.body;
   const flashcards = createdFlashcards
   const userId = req.payload._id;
   const creator = req.payload.username
+
+  if(flashcards.length > 3000){
+    res.status(403).json({ message: "You cannot create a collection with more than 3000 flashcards." })
+    return
+  }
+
+  if(title.length > 50){
+    res.status(400).json({ message: "Collection Title is too long." })
+    return
+  }
+
+  // Check flashcards for length
+  for (const flashcard of flashcards) {
+    if (flashcard.front.length > 500 || flashcard.back.length > 500) {
+      res.status(422).json({ message: "Your flashcards cannot have more than 500 characters." });
+      return;
+    }
+  }
   
   if (Array.isArray(flashcards) && flashcards.length > 0) {
     Collection.create({ title, creator })
