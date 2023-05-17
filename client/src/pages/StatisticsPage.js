@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { fetchCollection } from "../utils/fetchCollection"
 
-const API_URL = 'http://localhost:5005'
+const API_URL = process.env.REACT_APP_API_URL
 
 export const StatisticsPage = () => {
   const token = localStorage.getItem('authToken')
