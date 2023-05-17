@@ -10,8 +10,6 @@ export const SearchPage = () => {
   const query = useParams().query
   const [foundCollections, setFoundCollections] = useState([])
 
-  console.log(query)
-
   useEffect(() => {
     axios.get(`${API_URL}/api/search/${query}`)
     .then((response) => {

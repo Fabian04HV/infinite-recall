@@ -13,7 +13,6 @@ function MyCollections(){
   useEffect(() => {
     axios.get(`${API_URL}/api/collections`, {headers: { Authorization: `Bearer ${token}`}})
       .then(response => {
-        console.log('RESPONSE DATA COLLECTIONS: ', response.data.collections)
         setCollections(response.data.collections)
       })
   }, [])

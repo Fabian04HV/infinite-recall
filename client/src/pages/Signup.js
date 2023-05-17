@@ -28,7 +28,6 @@ function Signup(){
         navigate('/login')
       })
       .catch((error) => {
-        console.log('Error in Zeile 31: ', error)
         const errorDescription = error.response.data.message
         setErrorMessage(errorDescription)
       })

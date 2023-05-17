@@ -47,7 +47,6 @@ function CreateCollection(){
   const [flipped, setFlipped] = useState(false)
 
   const setBigFlashcard = () => {
-    console.log('UPDATE CURRENT FLASHCARD INDEX: ', currentFlashcardIndex)
     if(createdFlashcards.length > 0){
       if(currentFlashcardIndex === createdFlashcards.length){
         setFront('')
@@ -66,15 +65,10 @@ function CreateCollection(){
       .then(res => {
         setCreatedFlashcards(res.flashcards)
         setTitle(res.title)
-        // setFront(res.flashcards[currentFlashcardIndex].front)
-        // setBack(res.flashcards[currentFlashcardIndex].back)
         return res
       })
       .then((res) => {
         setCurrentFlashcardIndex(res.flashcards.length)
-      })
-      .then(() => {
-        console.log('ON LOAD CURRENT FLASHCARD INDEX: ', currentFlashcardIndex)
       })
     }
     else{
@@ -87,7 +81,6 @@ function CreateCollection(){
   }, [currentFlashcardIndex])
 
   const collectionSubmitHandler = (e) => {
-    console.log(createdFlashcards)
     e.preventDefault()
     if(editId){
       axios.put(`${API_URL}/api/collection/edit`, {title, createdFlashcards, editId}, {headers: { Authorization: `Bearer ${token}`}})
@@ -96,7 +89,6 @@ function CreateCollection(){
       })
     }
     else{
-      console.log('CREATED FLASHCARDS: ', createdFlashcards)
       axios.post(`${API_URL}/api/collection/create`, {title, createdFlashcards}, {headers: { Authorization: `Bearer ${token}`}})
         .then(response => {
           setTitle('')
@@ -119,14 +111,10 @@ function CreateCollection(){
       flashcard._id = createdFlashcards[currentFlashcardIndex]._id
     }
     
-
-    console.log(flashcard)
-    
     const updated = [...createdFlashcards]
     updated[currentFlashcardIndex] = flashcard
 
     if(isFlashcardAlreadyExists(flashcard)){
-      console.log('Flashcard already exists')
       setErrorMessage('Cannot add Flashcard, since it already exists 🤐')
       return
     }
@@ -134,7 +122,6 @@ function CreateCollection(){
     setCreatedFlashcards(updated)
     setFront('')
     setBack('')
-    console.log('Updated.length', updated.length)
     setCurrentFlashcardIndex(updated.length)
     setSelectAnim(false)
   }
@@ -164,15 +151,11 @@ function CreateCollection(){
   fetchCollection(API_URL, editId)
     .then(collection => {
       if(user.user.username !== collection.creator){
-        console.log('username', user.user.username)
-        console.log('creator', collection.creator)
-
         return navigate('/collections')
       }
       else{
         setIsOwner(true)
       }
-
     })
 
   return isOwner && (

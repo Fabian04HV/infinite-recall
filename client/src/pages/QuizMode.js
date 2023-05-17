@@ -21,7 +21,6 @@ function QuizMode(){
     fetchCollection(API_URL, collectionId)
     .then((response) => {
       setCollection(response)
-      console.log(response)
     })
   }, [collectionId])
    
@@ -38,7 +37,6 @@ function QuizMode(){
   }
   
   const showStats = () => {
-    console.log(`Statistics | Correct: ${correctAnsweredFlashcards.length}, Wrong: ${wrongAnsweredFlashcards.length}`)
     setQuizOver(true)
   }
 

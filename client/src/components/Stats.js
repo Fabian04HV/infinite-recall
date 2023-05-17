@@ -26,7 +26,7 @@ export const Stats = ({correctFlashcards, wrongFlashcards, collectionId}) => {
     const requestBody = {correctFlashcards, wrongFlashcards, collectionId, correctCount, wrongCount, accuracy}
     axios.put(`${API_URL}/api/save-statistics`, requestBody, {headers: { Authorization: `Bearer ${token}`}})
     .then(response => {
-      console.log(response.data.createdLearnSession)
+
     })
     .catch(err => console.log(err))
   } 

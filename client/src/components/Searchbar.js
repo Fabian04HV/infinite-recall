@@ -6,9 +6,7 @@ export const Searchbar = ({hidden}) => {
 
   const searchHandler = (e) => {
     let searchValue = e.target.value 
-    console.log(searchValue)
     if(e.key === 'Enter'){
-      console.log('Enter')
       search(searchValue)
     }
   }

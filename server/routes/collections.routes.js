@@ -16,7 +16,6 @@ router.get('/collections', (req, res, next) => {
     })
     .then(userFromDb => {
       const collections = userFromDb.collections;
-      console.log('COLLECTIONS RETURNED IN ROUTER GET REQUEST', collections)
       res.json({ collections });
     })
     .catch(err => next(err));
@@ -77,7 +76,6 @@ router.post('/collection/create', (req, res, next) => {
           })
           .then(response => {
             const { username, collections } = response;
-            console.log(`${username} collections array looks like that: ${collections}`);
             res.status(201).json({
               message: 'Collection created successfully',
               collection: createdCollection

@@ -20,7 +20,6 @@ function Notes(){
     //Make the Chat GPT Request using 'notes' and 'numberOfFlashcards' to get an array of flashcards objects
     const response = axios.post(`${API_URL}/api/notes/convert-to-flashcards`, { notes, numberOfFlashcards }, {headers: { Authorization: `Bearer ${token}`}})
     const flashcards = response.data.flashcards
-    console.log(flashcards)
   }
 
   return(

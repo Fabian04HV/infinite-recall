@@ -7,16 +7,13 @@ const router = require("express").Router();
 router.get('/statistics/:collectionId', (req, res, next) => {
   const collectionId = req.params.collectionId;
   const userId = req.payload._id;
-  console.log('CURRENT COLLECTIONID', collectionId);
 
   User.findOne({ _id: userId })
     .populate('learnSessions')
     .then(userFromDb => {
       const { learnSessions } = userFromDb;
-      console.log('ALL LEARN SESSIONS', learnSessions)
       const collectionLearnSessions = learnSessions.filter(session => session.collectionId.toString() === collectionId);
  
-      console.log('LEARNSESSIONS OF THIS COLLECTION', collectionLearnSessions);
       res.json({ collectionLearnSessions });
     })
     .catch(err => {
