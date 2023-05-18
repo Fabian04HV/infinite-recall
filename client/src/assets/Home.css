@@ -1,0 +1,17 @@
+.Home{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.Home h1::after{
+  width: 100%;
+}
+.Home h2{
+  font-weight: 300;
+  font-style: italic;
+}
+.Home .flex-row{
+  display: flex;
+  gap: 15px;
+}
