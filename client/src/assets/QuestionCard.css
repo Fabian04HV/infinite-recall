@@ -87,10 +87,12 @@
 }
 .answer.correctAnswer{
   background-color: var(--accent-color);
-  box-shadow: var(--accent-shadow);
   border: none;
   color: var(--color-4);
   position: relative;
+}
+body.darkmode .answer.correctAnswer{
+  box-shadow: var(--accent-shadow);
 }
 .answer.wrongAnswer{
   border: 1px solid #ff6161;
