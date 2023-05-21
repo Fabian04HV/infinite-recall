@@ -65,6 +65,7 @@ body.darkmode .InputBox i{
   width: 100%;
 }
 .InputBox .length-status{
+  min-width: max-content;
   margin-bottom: 2px;
   opacity: 0;
   align-self: flex-end;

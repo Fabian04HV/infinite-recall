@@ -51,7 +51,7 @@ function Signup(){
           placeholder='Email'
           onChangeHandler={emailInputHandler}
           value={email}
-          maxLength={321}
+          maxLength={320}
         />
         <InputBox 
           type='password'
