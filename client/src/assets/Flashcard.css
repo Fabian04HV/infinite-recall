@@ -33,6 +33,8 @@
   width: 90%;
   font-size: 100%;
   text-align: center;
+  word-break: normal;
+  overflow-wrap: break-word;
 }
 .card-options{
   position: absolute;

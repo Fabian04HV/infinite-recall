@@ -83,6 +83,9 @@ body.darkmode .Navbar{
   justify-content: center;
   align-items: center;
 }
+.sidebar .round-links-container .toggle-darkmode-button{
+  border: none;
+}
 body.darkmode .round-links-container .toggle-darkmode-button{
   border: none;
 }
@@ -184,6 +187,7 @@ body.darkmode .round-links-container .toggle-darkmode-button{
 }
 #hamburger-menu-button{
   display: none;
+  box-shadow: none;
 }
 .menu-toggle-button:hover, .menu-toggle-button:focus{
   outline: none;
