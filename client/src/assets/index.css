@@ -75,12 +75,24 @@ a{
 a:hover{
   color: var(--accent-color);
 }
+.icon-link{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.icon-link:hover svg{
+  fill: var(--accent-color);
+}
 button{
   box-shadow: var(--standard-shadow);
   font: inherit;
   font-weight: 600;
   cursor: pointer;
   transition: var(--standard-transition-fast);
+}
+.center-button{
+  margin: 0 auto;
+  text-align: center;
 }
 .standard-button{
   width: max-content;
