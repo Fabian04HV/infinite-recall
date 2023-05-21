@@ -30,7 +30,7 @@ function QuizMode(){
         showStats()
       }
     }
-  }, [correctAnsweredFlashcards, wrongAnsweredFlashcards])
+  }, [collection, currentFlashcardIndex])
 
   const incrementFlashcardIndexHandler = () => {
     setCurrentFlashcardIndex((currentFlashcardIndex + 1) % collection.flashcards.length)

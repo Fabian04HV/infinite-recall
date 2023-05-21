@@ -56,7 +56,6 @@ function Login(){
           value={password}
         />
         <button className="accent-button" type="submit">Login</button>
-        {/* {type, name, placeholder, onChangeHandler, onFocus, value} */}
       </form>
 
       {errorMessage && <p className="error-message">{errorMessage}</p>}

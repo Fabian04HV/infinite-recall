@@ -60,8 +60,8 @@ export const Stats = ({correctFlashcards, wrongFlashcards, collectionId}) => {
             </tr>
           </thead>
           <tbody>
-            {wrongFlashcards.map(flashcard => (
-              <tr>
+            {wrongFlashcards.map((flashcard, index) => (
+              <tr key={index}>
                 <td>{flashcard.front}</td>
                 <td>{flashcard.back}</td>
               </tr>

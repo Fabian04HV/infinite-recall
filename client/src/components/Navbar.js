@@ -1,14 +1,13 @@
 import { NavLink, Link } from 'react-router-dom'
-import InputBox from './InputBox'
 import { Searchbar } from './Searchbar';
 import '../assets/Navbar.css'
 
-import { useContext, useState } from "react";                  
+import { useContext } from "react";                  
 import { AuthContext } from "../context/auth.context";
 
 function Navbar({hideSideMenu, toggleNavbar}){
 
-  const {isLoggedIn, user, logoutUser} = useContext(AuthContext)
+  const { isLoggedIn } = useContext(AuthContext)
 
   return(
   <>

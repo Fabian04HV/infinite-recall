@@ -2,9 +2,8 @@ import { useState, useEffect, useContext } from 'react'
 import { AuthContext } from '../context/auth.context'
 import InputBox from '../components/InputBox'
 import axios from 'axios'
-import Flashcard from '../components/Flashcard'
 import dynamicTextSize from '../utils/dynamicTextSize'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import '../assets/CreateCollection.css'
 import '../assets/Flashcard.css'
 import { fetchCollection } from '../utils/fetchCollection'
@@ -63,6 +62,10 @@ function CreateCollection(){
     if(editId){
       fetchCollection(API_URL, editId)
       .then(res => {
+        if(user.user.username !== res.creator){
+          return navigate('/collections')
+        }
+        setIsOwner(true)
         setCreatedFlashcards(res.flashcards)
         setTitle(res.title)
         return res
@@ -74,7 +77,7 @@ function CreateCollection(){
     else{
       setIsOwner(true)
     }
-  }, [])
+  }, [editId, user.user.username])
 
   useEffect(() => {
     setBigFlashcard()
@@ -123,7 +126,6 @@ function CreateCollection(){
     setFront('')
     setBack('')
     setCurrentFlashcardIndex(updated.length)
-    setSelectAnim(false)
   }
 
   const isFlashcardAlreadyExists = (flashcard) => {
@@ -134,11 +136,8 @@ function CreateCollection(){
     );
   };
 
-  const [selectAnim, setSelectAnim] = useState(false)
-
   const selectThisFlashcard = (flashcardIndex) => {
     setCurrentFlashcardIndex(flashcardIndex)
-    setSelectAnim(true)
   }
 
   const deleteFlashcard = (index) => {
@@ -147,16 +146,6 @@ function CreateCollection(){
     setCreatedFlashcards(updated) 
     setCurrentFlashcardIndex(updated.length)
   }
-
-  fetchCollection(API_URL, editId)
-    .then(collection => {
-      if(user.user.username !== collection.creator){
-        return navigate('/collections')
-      }
-      else{
-        setIsOwner(true)
-      }
-    })
 
   return isOwner && (
     <div className='CreateCollection'>
@@ -213,10 +202,10 @@ function CreateCollection(){
           <label htmlFor='front' className='preview-flashcard add-card' onClick={() => setCurrentFlashcardIndex(createdFlashcards.length)}>
           <svg fill='var(--color-5)' xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48"><path d="M479.804 845.999q-9.727 0-16.111-6.524-6.385-6.523-6.385-16.168V598.692H232.693q-9.645 0-16.168-6.58-6.524-6.581-6.524-16.308t6.524-16.111q6.523-6.385 16.168-6.385h224.615V328.693q0-9.644 6.58-16.168 6.581-6.524 16.308-6.524t16.111 6.524q6.385 6.524 6.385 16.168v224.615h224.615q9.644 0 16.168 6.58 6.524 6.581 6.524 16.308t-6.524 16.111q-6.524 6.385-16.168 6.385H502.692v224.615q0 9.645-6.58 16.168-6.581 6.524-16.308 6.524Z"/></svg>
           </label>
-          {createdFlashcards.map(flashcard => {
+          {createdFlashcards.map((flashcard, index) => {
             const fontSizeFront = dynamicTextSize(flashcard.front)
             return(
-              <label htmlFor='front' className='preview-flashcard' onClick={() => { selectThisFlashcard(createdFlashcards.indexOf(flashcard))}}>
+              <label key={index} htmlFor='front' className='preview-flashcard' onClick={() => { selectThisFlashcard(createdFlashcards.indexOf(flashcard))}}>
                 <span className='card-text' style={{ fontSize: `${fontSizeFront/3}rem` }}>{flashcard.front}</span>
               </label>
             )

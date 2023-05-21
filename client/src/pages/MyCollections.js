@@ -15,7 +15,7 @@ function MyCollections(){
       .then(response => {
         setCollections(response.data.collections)
       })
-  }, [])
+  }, [token])
   return (
     <>
       <h1>My Collections</h1>

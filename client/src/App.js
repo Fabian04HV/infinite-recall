@@ -7,7 +7,6 @@ import PracticeMode from './pages/PracticeMode';
 import QuizMode from './pages/QuizMode';
 
 import Profile from './pages/Profile';
-import Notes from './pages/Notes';
 import CreateCollection from './pages/CreateCollection';
 import { SearchPage } from './pages/SearchPage';
 import { StatisticsPage } from './pages/StatisticsPage';
@@ -15,8 +14,7 @@ import { StatisticsPage } from './pages/StatisticsPage';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 
-import { useContext, useEffect, useState } from 'react';
-import { AuthContext } from './context/auth.context';
+import { useEffect, useState } from 'react';
 
 import ProtectedRoute from './utils/ProtectedRoute';
 
@@ -24,8 +22,6 @@ function App() {
   const location = useLocation()
   
   const showNavbar = !location.pathname.startsWith('/quiz/') //&& !location.pathname == '/collection/create' 
-  
-  const { isLoggedIn, user } = useContext(AuthContext)
 
   const [hideSideMenu, setHideSideMenu] = useState(true)
 

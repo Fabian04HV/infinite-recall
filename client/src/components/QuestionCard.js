@@ -25,7 +25,7 @@ function QuestionCard({collection, flashcard, currentFlashcardIndex, incrementFl
     buttonsRef.current.forEach(button => {
       button.blur()
     })
-  }, [currentFlashcardIndex, flashcard])
+  }, [currentFlashcardIndex, flashcard, collection.flashcards])
   
 
   function validate(answer){
