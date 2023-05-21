@@ -1,11 +1,11 @@
 :root{
-  --color-1: #0C1621;
-  --color-2: #1D2631;
-  --color-3: #333F4B;
-  --color-4: #4B5968;
+  --color-1: #e0e3eb;
+  --color-2: #eef1f3;
+  --color-3: #ffffff;
+  --color-4: #dfe4eb;
   --color-5: #7F8C9B;
-  --text-color: #F9F9F9;
-  --accent-color: #02FFC6;
+  --text-color: #404a53;
+  --accent-color: #00c392;
   --t-accent-color: rgba(2, 255, 198, 0.4);
 
   --error-red: #ff3838;
@@ -19,6 +19,19 @@
   --accent-shadow: 0 0 30px var(--accent-color);
   --standard-transition-fast: 120ms ease;
   --standard-transition-smooth: 300ms ease-in-out;
+}
+.darkmode{
+  --color-1: #0C1621;
+  --color-2: #1D2631;
+  --color-3: #333F4B;
+  --color-4: #4B5968;
+  --color-5: #7F8C9B;
+  --text-color: #F9F9F9;
+  --accent-color: #02FFC6;
+  --t-accent-color: rgba(2, 255, 198, 0.4);
+
+  --error-red: #ff3838;
+  --t-error-red: rgba(189, 27, 27, 0.2);
 }
 *{
   margin: 0;
@@ -34,10 +47,13 @@ html{
 body{
   background-color: var(--color-2);
   padding-top: 100px;
+  color: var(--text-color);
+  caret-color: var(--accent-color);
 }
 h1{
   font-size: 2rem;
   position: relative;
+  color: var(--text-color);
 }
 h1::after{
   content: '';
@@ -48,6 +64,9 @@ h1::after{
   width: 75px;
   border-radius: 1px;
   background-color: var(--accent-color);
+}
+h2, h3, h4, h5, h6{
+  color: var(--text-color);
 }
 a{
   text-decoration: none;

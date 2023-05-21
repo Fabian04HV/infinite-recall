@@ -9,12 +9,15 @@
   left: 0;
   z-index: 1000;
 
-  border-bottom: 1px solid var(--color-3);
-  background-color: var(--color-2);
+  background-color: var(--color-3);
 
   display: flex;
   align-items: center;
   gap: 20px;
+}
+body.darkmode .Navbar{
+  background-color: var(--color-2);
+  border-bottom: 1px solid var(--color-3);
 }
 .FocusNavbar{
   padding-left: 10px;
@@ -46,6 +49,9 @@
 .Navbar .nav-links-container a:hover::after{
   height: 4px;
 }
+.sidebar .round-links-container{
+  padding: 10px;
+}
 .Navbar .round-links-container{
   display: flex;
   flex-direction: row;
@@ -67,7 +73,22 @@
 .Navbar .round-links-container img{
   height: 100%;
 }
-
+.round-links-container .toggle-darkmode-button{
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  border: 1px solid var(--text-color);
+  background-color: var(--color-3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body.darkmode .round-links-container .toggle-darkmode-button{
+  border: none;
+}
+.toggle-darkmode-button:hover svg{
+  fill: var(--text-color);
+}
 .search-bar{
   height: 50px;
   flex-grow: 1;
