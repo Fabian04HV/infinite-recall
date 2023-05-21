@@ -3,6 +3,7 @@
   position: relative;
   width: 250px;
   max-width: 100%;
+  display: flex;
 }
 .InputBox:hover i{
   background-color: var(--color-4);
@@ -21,7 +22,7 @@
   color: transparent;
   user-select: none;
 }
-.InputBox span{
+.InputBox .placeholder-span{
   position: absolute;
   left: 0;
   color: var(--color-5);
@@ -31,11 +32,11 @@
   transition: var(--standard-transition-smooth);
   font-size: 1.2rem;
 }
-.InputBox input:not(:placeholder-shown) ~ span, .InputBox input:focus ~ span{
+.InputBox input:not(:placeholder-shown) ~ .placeholder-span, .InputBox input:focus ~ .placeholder-span{
   transform: translateY(-12px);
   font-size: 0.75em;
 }
-.InputBox input:focus ~ span{
+.InputBox input:focus ~ .placeholder-span{
   color: var(--accent-color);
 }
 .InputBox i{
@@ -62,4 +63,15 @@ body.darkmode .InputBox i{
 }
 .InputBox input:focus ~ i::after{
   width: 100%;
+}
+.InputBox .length-status{
+  margin-bottom: 2px;
+  opacity: 0;
+  align-self: flex-end;
+  color: var(--color-5);
+  font-size: 0.85rem;
+  transition: var(--standard-transition-smooth);
+}
+.InputBox input:focus ~ .length-status{
+  opacity: .65;
 }
