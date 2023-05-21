@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useContext } from 'react'
 import { AuthContext } from '../context/auth.context'
 import { Link, useNavigate } from 'react-router-dom'
@@ -7,10 +7,8 @@ import '../assets/Flashcard.css'
 import dynamicTextSize from '../utils/dynamicTextSize'
 
 function Home(){
-  const { isLoggedIn, user } = useContext(AuthContext)
+  const { isLoggedIn } = useContext(AuthContext)
   const navigate = useNavigate()
-
-  const [text, setText] = useState('loading ...')
 
   const flashcard = {
     front: 'What is Infinite Recall about?',
@@ -24,11 +22,6 @@ function Home(){
   const fontSizeBack = dynamicTextSize(back)
 
   const [flipped, setFlipped] = useState(false)
-
-
-  useEffect(() => {
-    setText()
-  },[])
 
   return(
     <section className="Home">

@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import '../assets/CollectionCard.css'
-import { deleteCollection } from '../utils/deleteCollection'
 
 function CollectionCard(props){
   const {_id, title, creator, flashcards, createdAt} = props.collection
