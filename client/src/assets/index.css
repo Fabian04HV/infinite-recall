@@ -50,6 +50,17 @@ body{
   color: var(--text-color);
   caret-color: var(--accent-color);
 }
+hr{
+  height: 2px;
+  border: none;
+  background-color: var(--color-5);
+  border-radius: 1000px;
+  opacity: 0.5;
+}
+body.darkmode hr{
+  background-color: var(--color-3);
+  opacity: 1;
+}
 h1{
   font-size: 2rem;
   position: relative;
