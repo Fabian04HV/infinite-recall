@@ -259,6 +259,21 @@ table td, table th{
   padding: 10px 20px;
   border-right: 2px solid var(--color-2);
 }
+.loading-anim{
+  opacity: 0;
+  animation: 1s loading;
+  animation-delay: .5s;
+}
+@keyframes loading{
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+
+}
+
 @media (max-width: 800px){
   html{
     font-size: 10pt;
