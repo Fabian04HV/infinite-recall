@@ -26,14 +26,14 @@ function QuizMode(){
    
   useEffect(()=>{
     if(collection){
-      if(currentFlashcardIndex === collection.flashcards.length-1){
+      if(currentFlashcardIndex === collection.flashcards.length){
         showStats()
       }
     }
   }, [collection, currentFlashcardIndex])
 
   const incrementFlashcardIndexHandler = () => {
-    setCurrentFlashcardIndex((currentFlashcardIndex + 1) % collection.flashcards.length)
+    setCurrentFlashcardIndex((currentFlashcardIndex + 1))
   }
   
   const showStats = () => {
@@ -57,6 +57,7 @@ function QuizMode(){
       <FocusNavbar title={collection.title}/>
       <div>
         {quizOver ? <Stats correctFlashcards={correctAnsweredFlashcards} wrongFlashcards={wrongAnsweredFlashcards} collectionId={collectionId}/> : 
+        currentFlashcardIndex < collection.flashcards.length?
         <QuestionCard 
           collection={collection} 
           flashcard={collection.flashcards[currentFlashcardIndex]} 
@@ -64,6 +65,7 @@ function QuizMode(){
           incrementFlashcardIndex={incrementFlashcardIndexHandler} 
           saveAnswer={saveAnswer}
         />
+        : <></>
         }
         
       </div>
