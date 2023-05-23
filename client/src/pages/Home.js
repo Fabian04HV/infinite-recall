@@ -49,7 +49,6 @@ export const Home = () => {
       <section>
         <h2>What is it about?</h2>
         <p>
-          
           Infinite Recall is the ultimate flashcard app for students! Create personalized flashcard collections effortlessly. Practice with interactive flashcards, making learning fun and effective. Share your collections with friends, creating a collaborative study community. Track your progress with detailed stats, identifying areas to improve. Embrace the future of learning with Infinite Recall
         </p>
         <br />
