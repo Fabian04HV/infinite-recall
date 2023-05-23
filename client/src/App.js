@@ -1,7 +1,8 @@
 import './assets/App.css';
 import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar';
-import Home from './pages/Home'
+import { Home } from './pages/Home'
+import { UserHome } from './pages/UserHome';
 import MyCollections from './pages/MyCollections'
 import PracticeMode from './pages/PracticeMode';
 import QuizMode from './pages/QuizMode';
@@ -14,7 +15,8 @@ import { StatisticsPage } from './pages/StatisticsPage';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { AuthContext } from './context/auth.context';
 
 import ProtectedRoute from './utils/ProtectedRoute';
 
@@ -22,6 +24,8 @@ function App() {
   const location = useLocation()
   
   const showNavbar = !location.pathname.startsWith('/quiz/') //&& !location.pathname == '/collection/create' 
+  
+  const { isLoggedIn, user } = useContext(AuthContext)
 
   const [hideSideMenu, setHideSideMenu] = useState(true)
 
@@ -38,7 +42,7 @@ function App() {
       {showNavbar && <Navbar hideSideMenu={hideSideMenu} toggleNavbar={toggleNavbar}/>}
       <div className='page-wrapper'>
         <Routes>
-          <Route path='/' element={<Home />} />
+          <Route path='/' element={isLoggedIn ? <UserHome /> : <Home />} />
           <Route path='/collections' element={<ProtectedRoute><MyCollections/></ProtectedRoute>} />
           <Route path='/practice/:_id' element={<ProtectedRoute><PracticeMode/></ProtectedRoute>} />
           <Route path='/quiz/:_id' element={<ProtectedRoute><QuizMode/></ProtectedRoute>} />

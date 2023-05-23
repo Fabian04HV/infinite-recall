@@ -1,0 +1,8 @@
+.UserHome{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.UserHome .collections-container{
+  margin-top: 0;
+}

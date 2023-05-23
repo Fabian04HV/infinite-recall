@@ -1,17 +1,84 @@
 .Home{
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 20px;
 }
-.Home h1::after{
-  width: 100%;
+body:has(.Home){
+  padding: 0;
 }
-.Home h2{
-  font-weight: 300;
-  font-style: italic;
+.Home header{
+  padding-left: 50px;
+  padding-bottom: 50px;
+  height: 80vh;
+  background-image: 
+  linear-gradient(to right bottom, rgba(74, 193, 214, 0.5), rgba(41, 123, 247, 0.5)),
+  url(images/pexels-tima-miroshnichenko-5198239.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 0 0 50px 50px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.Home header * {
+  color: white;
+}
+
+.Home h1{
+  margin: 200px 0 30px 0;
+  font-size: 4rem;
+  text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
+}
+.Home h1::after{
+  display: none;
+}
+.Home .main-button{
+  width: max-content;
+  padding: 15px 40px;
+  background-color: #34ffd6;
+  border-radius: 1000px;
+  font-weight: 600;
+  box-shadow: 0 0 20px 5px #34ffd64e;
+  color: black;
+  transition: var(--standard-transition-smooth);
+}
+.Home .main-button:hover{
+  scale: 1.1;
 }
 .Home .flex-row{
   display: flex;
   gap: 15px;
+}
+.Home h2{
+  margin: 20px 0;
+  font-size: 1.5rem;
+}
+.Home .login-buttons{
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+@media(max-width: 1000px){
+  .Home header{
+    padding: 10px;
+    padding-left: 10px;
+    padding-bottom: 25px;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    background-position: center;
+  }
+  .Home h1{
+    font-size: 6vw;
+    text-align: center;
+    margin: 0;
+    margin-top: 65px;
+  }
+}
+@media(max-width: 750px){
+  .Home h1{
+    font-size: 28pt;
+    text-align: center;
+  }
 }

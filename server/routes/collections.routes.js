@@ -1,5 +1,6 @@
 const Collection = require("../models/Collection.model");
 const Flashcard = require("../models/Flashcard.model");
+const LearnSession = require("../models/LearnSession.model")
 const User = require("../models/User.model");
 const router = require("express").Router();
 
@@ -30,6 +31,22 @@ router.get('/collections/:id', (req, res, next) => {
       res.json({collection: collectionFromDb})
     })
     .catch(err => next(err))
+})
+
+router.get('/lastquiz/collection', (req, res, next) => {
+  const userId = req.payload._id
+  if(userId){
+    LearnSession.find()
+    .then(allSessions => {
+      const sorted = allSessions.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+      Collection.findById(sorted[0].collectionId)
+      .then(response => {
+        res.json({collection: response})
+      })
+      .catch(err => console.log(err))
+    })
+    .catch(err => console.log(err))
+  }
 })
 
 router.post('/collection/create', (req, res, next) => {

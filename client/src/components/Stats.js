@@ -11,7 +11,7 @@ export const Stats = ({correctFlashcards, wrongFlashcards, collectionId}) => {
   const correctCount = correctFlashcards.length
   const wrongCount = wrongFlashcards.length
   const totalFlashcards = correctCount + wrongCount
-  const accuracy = correctCount / totalFlashcards * 100
+  const accuracy = Math.round(correctCount / totalFlashcards * 100)
 
   const [numberOfLearnSession, setNumberOfLearnSession] = useState(0)
 

@@ -10,9 +10,11 @@
   z-index: 1000;
 
   background-color: var(--color-3);
-
+  box-shadow: var(--standard-shadow);
+  
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 20px;
 }
 body.darkmode .Navbar{
@@ -93,6 +95,7 @@ body.darkmode .round-links-container .toggle-darkmode-button{
   fill: var(--text-color);
 }
 .search-bar{
+  max-width: 600px;
   height: 50px;
   flex-grow: 1;
   background-color: var(--color-1);
