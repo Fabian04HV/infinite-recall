@@ -16,14 +16,10 @@ export const SearchPage = () => {
     setLoading(true);
     axios.get(`${API_URL}/api/search/${query}`)
     .then((response) => {
-      console.log('API response received');
       setFoundCollections(response.data);
       setLoading(false);
     });
   }, [query]);
-
-  console.log('loading:', loading);
-  console.log('foundCollections:', foundCollections);
 
   return (
     <>
