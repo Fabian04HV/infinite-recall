@@ -68,7 +68,7 @@ function QuizMode(){
   }
   else return(
     <> 
-      <FocusNavbar title={collection.title}/>
+      <FocusNavbar title={collection.title} linkContent='Leave Quiz' linkURL='/'/>
       <div>
         {quizOver ? <Stats correctFlashcards={correctAnsweredFlashcards} wrongFlashcards={wrongAnsweredFlashcards} collectionId={collectionId}/> : 
         currentFlashcardIndex < collection.flashcards.length?

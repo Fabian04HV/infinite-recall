@@ -142,6 +142,15 @@ button{
   background-color: var(--t-accent-color);
   color: var(--accent-color);
 }
+.bordered-icon-button{
+  box-sizing: border-box;
+  border: 1px solid var(--text-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 50%;
+}
 .standard-button.round{
   aspect-ratio: 1 / 1;
   border-radius: 50%;
