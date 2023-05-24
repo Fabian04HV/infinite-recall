@@ -36,9 +36,10 @@ router.get('/collections/:id', (req, res, next) => {
 router.get('/lastquiz/collection', (req, res, next) => {
   const userId = req.payload._id
   if(userId){
-    LearnSession.find()
-    .then(allSessions => {
-      const sorted = allSessions.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    User.findById(userId)
+    .populate('learnSessions')
+    .then(userFromDb => {
+      const sorted = userFromDb.learnSessions.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
       Collection.findById(sorted[0].collectionId)
       .then(response => {
         res.json({collection: response})
