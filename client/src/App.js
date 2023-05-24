@@ -23,7 +23,7 @@ import ProtectedRoute from './utils/ProtectedRoute';
 function App() {
   const location = useLocation()
   
-  const showNavbar = !location.pathname.startsWith('/quiz/') //&& !location.pathname == '/collection/create' 
+  const showNavbar = !location.pathname.startsWith('/quiz/') && location.pathname !== '/collection/create' 
   
   const { isLoggedIn, user } = useContext(AuthContext)
 

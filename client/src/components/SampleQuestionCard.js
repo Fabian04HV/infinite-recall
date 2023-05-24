@@ -2,19 +2,11 @@ import '../assets/QuestionCard.css'
 import { useState, useRef, useEffect } from 'react'
 import dynamicTextSize from '../utils/dynamicTextSize'
 import { useNavigate } from 'react-router-dom'
+import { shuffleArray } from '../utils/randomQuizHelpers'
 
 export const SampleQuestionCard = ({currentFlashcard, currentFlashcardIndex, incrementFlashcardIndex}) =>{
   const navigate = useNavigate()
   const [answerOptions, setAnswerOptions] = useState([])
-
-  function shuffleArray(array) {
-    const shuffledArray = array.slice();
-    for (let i = shuffledArray.length - 1; i > 0; i--) {
-      const randomIndex = Math.floor(Math.random() * (i + 1));
-      [shuffledArray[i], shuffledArray[randomIndex]] = [shuffledArray[randomIndex], shuffledArray[i]];
-    }
-    return shuffledArray;
-  }
 
   useEffect(() => {
     setAnswerOptions(shuffleArray([currentFlashcard.answer, currentFlashcard.wrong1, currentFlashcard.wrong2, currentFlashcard.wrong3]))

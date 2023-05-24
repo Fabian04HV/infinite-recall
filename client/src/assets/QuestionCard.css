@@ -85,6 +85,19 @@
   animation: .5s revealBlink;
   animation-fill-mode: forwards;
 }
+.answer.removedAnswer{
+  animation: 1s shrinkZero ease-in-out;
+  color: transparent;
+  animation-delay: .25s;
+  animation-fill-mode: forwards;
+}
+.answer.removedAnswer::before{
+  content: 'NOT THIS ONE';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 1;
+}
 .answer.correctAnswer{
   background-color: var(--accent-color);
   border: none;
@@ -115,6 +128,15 @@ body.darkmode .answer.correctAnswer{
   }
   100%{
     background-color: var(--t-accent-color);
+  }
+}
+
+@keyframes shrinkZero{
+  0%{
+    scale: 1;
+  }
+  100%{
+    scale: 0;
   }
 }
 

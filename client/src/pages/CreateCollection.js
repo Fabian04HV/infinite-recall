@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import { AuthContext } from '../context/auth.context'
 import InputBox from '../components/InputBox'
+import FocusNavbar from '../components/FocusNavbar'
 import axios from 'axios'
 import dynamicTextSize from '../utils/dynamicTextSize'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -14,6 +15,7 @@ function CreateCollection(){
   const user = useContext(AuthContext)
   const token = localStorage.getItem('authToken')
   const editId = useParams()._id
+  
   const navigate = useNavigate()
 
   const [title, setTitle] = useState('')
@@ -29,6 +31,13 @@ function CreateCollection(){
   const [front, setFront] = useState('')
   const [back, setBack] = useState('')
   const [importance, setImportance] = useState('normal')
+
+  if(createdFlashcards){
+    window.onbeforeunload = () => true
+  }
+  else{
+    window.onbeforeunload = undefined
+  }
 
   const frontInputHandler = (e) => {
     setFront(e.target.value)
@@ -148,83 +157,85 @@ function CreateCollection(){
   }
 
   return isOwner && (
-    <div className='CreateCollection'>
-      <div className='flashcard-editor-container'>
-        <h1>{editId ? `Edit Flashcard Collection` : 'Create Flashcard Collection'}</h1>
+    <>
+      <FocusNavbar title={editId ? `Edit Flashcard Collection` : 'Create Flashcard Collection'} linkContent='Leave without Saving' linkURL='/'/>
+      <div className='CreateCollection'>
+        <div className='flashcard-editor-container'>
 
-        <div onClick={() => setFlipped(!flipped)} className={`Flashcard ${flipped && 'flipped'}`}>
-          <div className='card-front side'>
-            <span className='card-text' style={{ fontSize: `${fontSizeFront/1.25}rem` }}>{front}</span>
+          <div onClick={() => setFlipped(!flipped)} className={`Flashcard ${flipped && 'flipped'}`}>
+            <div className='card-front side'>
+              <span className='card-text' style={{ fontSize: `${fontSizeFront/1.25}rem` }}>{front}</span>
+            </div>
+            <div className='card-back side'>
+              <span className='card-text' style={{ fontSize: `${fontSizeBack/1.25}rem` }}>{back}</span>
+            </div>
           </div>
-          <div className='card-back side'>
-            <span className='card-text' style={{ fontSize: `${fontSizeBack/1.25}rem` }}>{back}</span>
-          </div>
+
+          <form onSubmit={cardSubmitHandler}>
+            <InputBox 
+              type='text'
+              name='front'
+              id='front'
+              placeholder='Front'
+              onChangeHandler={frontInputHandler}
+              onFocus={() => setFlipped(false)}
+              value={front}
+              maxLength={500}
+            />
+            <InputBox 
+              type='text'
+              name='back'
+              placeholder='Back'
+              onChangeHandler={backInputHandler}
+              onFocus={() => setFlipped(true)}
+              value={back}
+              maxLength={500}
+            />
+            <div className='form-buttons-container'>
+              <select onChange={importanceHandler} className='standard-button standard-select'>
+                <option value="normal">Normal</option>
+                <option value="low">Low</option>
+                <option value="high">High</option>
+              </select>
+              {currentFlashcardIndex !== createdFlashcards.length && <button type='button' onClick={() => deleteFlashcard(currentFlashcardIndex)} className='standard-button'><svg fill='var(--text-color)' xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 96 960 960" width="26"><path d="M261 936q-24 0-42-18t-18-42V306h-11q-12.75 0-21.375-8.675-8.625-8.676-8.625-21.5 0-12.825 8.625-21.325T190 246h158q0-13 8.625-21.5T378 216h204q12.75 0 21.375 8.625T612 246h158q12.75 0 21.375 8.675 8.625 8.676 8.625 21.5 0 12.825-8.625 21.325T770 306h-11v570q0 24-18 42t-42 18H261Zm106-176q0 12.75 8.675 21.375 8.676 8.625 21.5 8.625 12.825 0 21.325-8.625T427 760V421q0-12.75-8.675-21.375-8.676-8.625-21.5-8.625-12.825 0-21.325 8.625T367 421v339Zm166 0q0 12.75 8.675 21.375 8.676 8.625 21.5 8.625 12.825 0 21.325-8.625T593 760V421q0-12.75-8.675-21.375-8.676-8.625-21.5-8.625-12.825 0-21.325 8.625T533 421v339Z"/></svg></button>}
+              <button type='submit' className='accent-button'>{currentFlashcardIndex !== createdFlashcards.length ? 'Confirm Changes' : 'Add Flashcard'}</button>
+            </div>
+            {errorMessage && <p className='error-message'>{errorMessage}</p>}
+          </form>
         </div>
-
-        <form onSubmit={cardSubmitHandler}>
-          <InputBox 
-            type='text'
-            name='front'
-            id='front'
-            placeholder='Front'
-            onChangeHandler={frontInputHandler}
-            onFocus={() => setFlipped(false)}
-            value={front}
-            maxLength={500}
-          />
-          <InputBox 
-            type='text'
-            name='back'
-            placeholder='Back'
-            onChangeHandler={backInputHandler}
-            onFocus={() => setFlipped(true)}
-            value={back}
-            maxLength={500}
-          />
-          <div className='form-buttons-container'>
-            <select onChange={importanceHandler} className='standard-button standard-select'>
-              <option value="normal">Normal</option>
-              <option value="low">Low</option>
-              <option value="high">High</option>
-            </select>
-            {currentFlashcardIndex !== createdFlashcards.length && <button type='button' onClick={() => deleteFlashcard(currentFlashcardIndex)} className='standard-button'><svg fill='var(--text-color)' xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 96 960 960" width="26"><path d="M261 936q-24 0-42-18t-18-42V306h-11q-12.75 0-21.375-8.675-8.625-8.676-8.625-21.5 0-12.825 8.625-21.325T190 246h158q0-13 8.625-21.5T378 216h204q12.75 0 21.375 8.625T612 246h158q12.75 0 21.375 8.675 8.625 8.676 8.625 21.5 0 12.825-8.625 21.325T770 306h-11v570q0 24-18 42t-42 18H261Zm106-176q0 12.75 8.675 21.375 8.676 8.625 21.5 8.625 12.825 0 21.325-8.625T427 760V421q0-12.75-8.675-21.375-8.676-8.625-21.5-8.625-12.825 0-21.325 8.625T367 421v339Zm166 0q0 12.75 8.675 21.375 8.676 8.625 21.5 8.625 12.825 0 21.325-8.625T593 760V421q0-12.75-8.675-21.375-8.676-8.625-21.5-8.625-12.825 0-21.325 8.625T533 421v339Z"/></svg></button>}
-            <button type='submit' className='accent-button'>{currentFlashcardIndex !== createdFlashcards.length ? 'Confirm Changes' : 'Add Flashcard'}</button>
+        <div className='collection-editor-container'>
+          <div>
+            <h2 className='secondary-text'>Click on a flashcard to edit</h2>
+            
           </div>
-          {errorMessage && <p className='error-message'>{errorMessage}</p>}
-        </form>
+          <div className='created-flashcards-container'>
+            <label htmlFor='front' className='preview-flashcard add-card' onClick={() => setCurrentFlashcardIndex(createdFlashcards.length)}>
+            <svg fill='var(--color-5)' xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48"><path d="M479.804 845.999q-9.727 0-16.111-6.524-6.385-6.523-6.385-16.168V598.692H232.693q-9.645 0-16.168-6.58-6.524-6.581-6.524-16.308t6.524-16.111q6.523-6.385 16.168-6.385h224.615V328.693q0-9.644 6.58-16.168 6.581-6.524 16.308-6.524t16.111 6.524q6.385 6.524 6.385 16.168v224.615h224.615q9.644 0 16.168 6.58 6.524 6.581 6.524 16.308t-6.524 16.111q-6.524 6.385-16.168 6.385H502.692v224.615q0 9.645-6.58 16.168-6.581 6.524-16.308 6.524Z"/></svg>
+            </label>
+            {createdFlashcards.map((flashcard, index) => {
+              const fontSizeFront = dynamicTextSize(flashcard.front)
+              return(
+                <label key={index} htmlFor='front' className='preview-flashcard' onClick={() => { selectThisFlashcard(createdFlashcards.indexOf(flashcard))}}>
+                  <span className='card-text' style={{ fontSize: `${fontSizeFront/3}rem` }}>{flashcard.front}</span>
+                </label>
+              )
+            })}
+          </div>
+
+          <form className='collection-form' onSubmit={collectionSubmitHandler}>
+            <InputBox 
+              type='text'
+              name='title'
+              placeholder='Collection Title'
+              value={title}
+              onChangeHandler={titleInputHandler}
+              maxLength={50}
+            />
+            <button className='accent-button'>{editId ? 'Save Changes' : 'Create Collection'}</button>
+          </form>
+        </div>  
       </div>
-      <div className='collection-editor-container'>
-        <div>
-          <h2 className='secondary-text'>Click on a flashcard to edit</h2>
-          
-        </div>
-        <div className='created-flashcards-container'>
-          <label htmlFor='front' className='preview-flashcard add-card' onClick={() => setCurrentFlashcardIndex(createdFlashcards.length)}>
-          <svg fill='var(--color-5)' xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48"><path d="M479.804 845.999q-9.727 0-16.111-6.524-6.385-6.523-6.385-16.168V598.692H232.693q-9.645 0-16.168-6.58-6.524-6.581-6.524-16.308t6.524-16.111q6.523-6.385 16.168-6.385h224.615V328.693q0-9.644 6.58-16.168 6.581-6.524 16.308-6.524t16.111 6.524q6.385 6.524 6.385 16.168v224.615h224.615q9.644 0 16.168 6.58 6.524 6.581 6.524 16.308t-6.524 16.111q-6.524 6.385-16.168 6.385H502.692v224.615q0 9.645-6.58 16.168-6.581 6.524-16.308 6.524Z"/></svg>
-          </label>
-          {createdFlashcards.map((flashcard, index) => {
-            const fontSizeFront = dynamicTextSize(flashcard.front)
-            return(
-              <label key={index} htmlFor='front' className='preview-flashcard' onClick={() => { selectThisFlashcard(createdFlashcards.indexOf(flashcard))}}>
-                <span className='card-text' style={{ fontSize: `${fontSizeFront/3}rem` }}>{flashcard.front}</span>
-              </label>
-            )
-          })}
-        </div>
-
-        <form className='collection-form' onSubmit={collectionSubmitHandler}>
-          <InputBox 
-            type='text'
-            name='title'
-            placeholder='Collection Title'
-            value={title}
-            onChangeHandler={titleInputHandler}
-            maxLength={50}
-          />
-          <button className='accent-button'>{editId ? 'Save Changes' : 'Create Collection'}</button>
-        </form>
-      </div>  
-    </div>
-  )
+    </>)
 }
+
 export default CreateCollection
