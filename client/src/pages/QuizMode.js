@@ -4,12 +4,14 @@ import QuestionCard from "../components/QuestionCard"
 import { useState, useEffect } from "react"
 import { fetchCollection } from "../utils/fetchCollection"
 import { Stats } from "../components/Stats"
+import { shuffleArray } from "../utils/randomQuizHelpers"
 
 const API_URL = process.env.REACT_APP_API_URL
 
 function QuizMode(){
   const collectionId = useParams()._id
   const [collection, setCollection] = useState(null)
+  const [shuffledCards, setShuffledCards] = useState([])
 
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0)
   const [correctAnsweredFlashcards, setCorrectAnsweredFlashcards] = useState([])
@@ -17,12 +19,24 @@ function QuizMode(){
 
   const [quizOver, setQuizOver] = useState(false)
 
+  const[loading, setLoading] = useState(true)
+
   useEffect(() => {
+    setLoading(true)
     fetchCollection(API_URL, collectionId)
     .then((response) => {
       setCollection(response)
+      let flashcards = response.flashcards
+      setShuffledCards(shuffleArray(flashcards))
     })
   }, [collectionId])
+
+  useEffect(() => {
+    if(shuffledCards.length > 0){
+      console.log('SHUFFLED CARDS: ', shuffledCards)
+      setLoading(false)
+    }
+  }, [shuffledCards])
    
   useEffect(()=>{
     if(collection){
@@ -49,18 +63,18 @@ function QuizMode(){
     setWrongAnsweredFlashcards(prevState => [...prevState, flashcard])
   }
 
-  if(!collection){
+  if(loading){
     return <p>Loading ...</p>
   }
-  return(
+  else return(
     <> 
       <FocusNavbar title={collection.title}/>
       <div>
         {quizOver ? <Stats correctFlashcards={correctAnsweredFlashcards} wrongFlashcards={wrongAnsweredFlashcards} collectionId={collectionId}/> : 
         currentFlashcardIndex < collection.flashcards.length?
         <QuestionCard 
-          collection={collection} 
-          flashcard={collection.flashcards[currentFlashcardIndex]} 
+          shuffledFlashcards={shuffledCards} 
+          flashcard={shuffledCards[currentFlashcardIndex]} 
           currentFlashcardIndex={currentFlashcardIndex} 
           incrementFlashcardIndex={incrementFlashcardIndexHandler} 
           saveAnswer={saveAnswer}

@@ -17,3 +17,11 @@ export const getWrongAnswers = (flashcardsArray, excludedCardIndex) =>{
   }
   return [randomCard1, randomCard2, randomCard3]
 }
+export const shuffleArray = (array) => {
+  const shuffledArray = array.slice();
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const randomIndex = Math.floor(Math.random() * (i + 1));
+    [shuffledArray[i], shuffledArray[randomIndex]] = [shuffledArray[randomIndex], shuffledArray[i]];
+  }
+  return shuffledArray;
+}

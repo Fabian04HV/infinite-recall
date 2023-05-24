@@ -3,8 +3,8 @@ import '../assets/QuestionCard.css'
 import { getWrongAnswers } from '../utils/randomQuizHelpers'
 import dynamicTextSize from '../utils/dynamicTextSize'
 
-function QuestionCard({collection, flashcard, currentFlashcardIndex, incrementFlashcardIndex, saveAnswer}){
-  const [wrongAnswers, setWrongAnswers] = useState(getWrongAnswers(collection.flashcards, currentFlashcardIndex))
+function QuestionCard({shuffledFlashcards, flashcard, currentFlashcardIndex, incrementFlashcardIndex, saveAnswer}){
+  const [wrongAnswers, setWrongAnswers] = useState(getWrongAnswers(shuffledFlashcards, currentFlashcardIndex))
   const [answerOptions, setAnswerOptions] = useState([])
   
   const [correctAnswerIndex, setCorrectAnswerIndex] = useState(-1)
@@ -17,7 +17,7 @@ function QuestionCard({collection, flashcard, currentFlashcardIndex, incrementFl
   const buttonsRef = useRef([])
 
   useEffect(() => {
-    const updatedWrongAnswers = getWrongAnswers(collection.flashcards, currentFlashcardIndex)
+    const updatedWrongAnswers = getWrongAnswers(shuffledFlashcards, currentFlashcardIndex)
     const updatedAnswerOptions = [...updatedWrongAnswers, flashcard].sort(() => Math.random() - 0.5)
     setWrongAnswers(updatedWrongAnswers)
     setAnswerOptions(updatedAnswerOptions)
@@ -25,7 +25,7 @@ function QuestionCard({collection, flashcard, currentFlashcardIndex, incrementFl
     buttonsRef.current.forEach(button => {
       button.blur()
     })
-  }, [currentFlashcardIndex, flashcard, collection.flashcards])
+  }, [currentFlashcardIndex, flashcard, shuffledFlashcards])
   
 
   function validate(answer){
