@@ -7,6 +7,9 @@ const collectionSchema = new Schema(
       type: String,
       required: true
     },
+    description: {
+      type: String
+    },
     creator: {
       type: String,
       required: true

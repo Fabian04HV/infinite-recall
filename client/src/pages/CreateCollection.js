@@ -19,6 +19,7 @@ function CreateCollection(){
   const navigate = useNavigate()
 
   const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
   const [createdFlashcards, setCreatedFlashcards] = useState([])
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0)
   
@@ -27,6 +28,7 @@ function CreateCollection(){
   const[errorMessage, setErrorMessage] = useState('')
 
   const titleInputHandler = (e) => setTitle(e.target.value)
+  const descriptionInputHandler = (e) => setDescription(e.target.value)
 
   const [front, setFront] = useState('')
   const [back, setBack] = useState('')
@@ -77,6 +79,7 @@ function CreateCollection(){
         setIsOwner(true)
         setCreatedFlashcards(res.flashcards)
         setTitle(res.title)
+        setDescription(res.description)
         return res
       })
       .then((res) => {
@@ -95,15 +98,16 @@ function CreateCollection(){
   const collectionSubmitHandler = (e) => {
     e.preventDefault()
     if(editId){
-      axios.put(`${API_URL}/api/collection/edit`, {title, createdFlashcards, editId}, {headers: { Authorization: `Bearer ${token}`}})
+      axios.put(`${API_URL}/api/collection/edit`, {title, description, createdFlashcards, editId}, {headers: { Authorization: `Bearer ${token}`}})
       .then(response => {
         navigate(`/practice/${response.data.collection._id}`, {replace: true});
       })
     }
     else{
-      axios.post(`${API_URL}/api/collection/create`, {title, createdFlashcards}, {headers: { Authorization: `Bearer ${token}`}})
+      axios.post(`${API_URL}/api/collection/create`, {title, description, createdFlashcards}, {headers: { Authorization: `Bearer ${token}`}})
         .then(response => {
           setTitle('')
+          setDescription('')
           navigate(`/practice/${response.data.collection._id}`, {replace: true});
         })
         .catch(error => {
@@ -158,20 +162,32 @@ function CreateCollection(){
 
   return isOwner && (
     <>
-      <FocusNavbar title={editId ? `Edit Flashcard Collection` : 'Create Flashcard Collection'} linkContent='Leave without Saving' linkURL='/'/>
       <div className='CreateCollection'>
+        <form className='collection-form' onSubmit={collectionSubmitHandler}>
+          <FocusNavbar title={editId ? `Edit Flashcard Collection` : 'Create Flashcard Collection'} linkContent='Leave without Saving' linkURL='/'>
+            <button className='accent-button'>{editId ? 'Save Changes' : 'Create'}</button>
+          </FocusNavbar>
+          <InputBox 
+            type='text'
+            name='title'
+            placeholder='Collection Title'
+            value={title}
+            onChangeHandler={titleInputHandler}
+            maxLength={100}
+          />
+          <InputBox 
+            type='text'
+            name='description'
+            placeholder='Description'
+            value={description}
+            onChangeHandler={descriptionInputHandler}
+            maxLength={3000}
+          />
+          {/* <button className='accent-button'>{editId ? 'Save Changes' : 'Create'}</button> */}
+        </form>
         <div className='flashcard-editor-container'>
-
-          <div onClick={() => setFlipped(!flipped)} className={`Flashcard ${flipped && 'flipped'}`}>
-            <div className='card-front side'>
-              <span className='card-text' style={{ fontSize: `${fontSizeFront/1.25}rem` }}>{front}</span>
-            </div>
-            <div className='card-back side'>
-              <span className='card-text' style={{ fontSize: `${fontSizeBack/1.25}rem` }}>{back}</span>
-            </div>
-          </div>
-
           <form onSubmit={cardSubmitHandler}>
+            <h2>New Flashcard</h2>
             <InputBox 
               type='text'
               name='front'
@@ -202,7 +218,16 @@ function CreateCollection(){
             </div>
             {errorMessage && <p className='error-message'>{errorMessage}</p>}
           </form>
+          <div onClick={() => setFlipped(!flipped)} className={`Flashcard ${flipped && 'flipped'}`}>
+            <div className='card-front side'>
+              <span className='card-text' style={{ fontSize: `${fontSizeFront/1.25}rem` }}>{front}</span>
+            </div>
+            <div className='card-back side'>
+              <span className='card-text' style={{ fontSize: `${fontSizeBack/1.25}rem` }}>{back}</span>
+            </div>
+          </div>
         </div>
+
         <div className='collection-editor-container'>
           <div>
             <h2 className='secondary-text'>Click on a flashcard to edit</h2>
@@ -221,18 +246,6 @@ function CreateCollection(){
               )
             })}
           </div>
-
-          <form className='collection-form' onSubmit={collectionSubmitHandler}>
-            <InputBox 
-              type='text'
-              name='title'
-              placeholder='Collection Title'
-              value={title}
-              onChangeHandler={titleInputHandler}
-              maxLength={50}
-            />
-            <button className='accent-button'>{editId ? 'Save Changes' : 'Create Collection'}</button>
-          </form>
         </div>  
       </div>
     </>)

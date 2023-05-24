@@ -51,7 +51,7 @@ router.get('/lastquiz/collection', (req, res, next) => {
 })
 
 router.post('/collection/create', (req, res, next) => {
-  const { title, createdFlashcards } = req.body;
+  const { title, description, createdFlashcards } = req.body;
   const flashcards = createdFlashcards
   const userId = req.payload._id;
   const creator = req.payload.username
@@ -61,8 +61,13 @@ router.post('/collection/create', (req, res, next) => {
     return
   }
 
-  if(title.length > 50){
+  if(title.length > 100){
     res.status(400).json({ message: "Collection Title is too long." })
+    return
+  }
+
+  if(description.length > 3000){
+    res.status(400).json({ message: "Description is too long." })
     return
   }
 
@@ -75,7 +80,7 @@ router.post('/collection/create', (req, res, next) => {
   }
   
   if (Array.isArray(flashcards) && flashcards.length > 0) {
-    Collection.create({ title, creator })
+    Collection.create({ title, description, creator })
       .then(createdCollection => {
         const flashcardPromises = flashcards.map(flashcard => {
           return Flashcard.create(flashcard)
@@ -110,7 +115,7 @@ router.post('/collection/create', (req, res, next) => {
 });
 
 router.put('/collection/edit', (req, res, next) => {
-  const {title, createdFlashcards, editId} = req.body 
+  const {title, description, createdFlashcards, editId} = req.body 
   const username = req.payload.username 
 
   Collection.findById(editId)
@@ -138,7 +143,7 @@ router.put('/collection/edit', (req, res, next) => {
           response.map(card => {
             newCollection.push(card._id)
           })
-          Collection.findByIdAndUpdate(editId, {title, flashcards: newCollection})
+          Collection.findByIdAndUpdate(editId, {title, description, flashcards: newCollection})
             .then((response) => {
               res.json({collection: response})
             })

@@ -273,6 +273,12 @@ table td, table th{
   animation: 1s loading;
   animation-delay: .5s;
 }
+
+.navbar-buttons{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
 @keyframes loading{
   from{
     opacity: 0;
