@@ -6,6 +6,7 @@ import { UserHome } from './pages/UserHome';
 import MyCollections from './pages/MyCollections'
 import PracticeMode from './pages/PracticeMode';
 import QuizMode from './pages/QuizMode';
+import { LearnMode } from './pages/LearnMode';
 
 import Profile from './pages/Profile';
 import CreateCollection from './pages/CreateCollection';
@@ -45,7 +46,7 @@ function App() {
           <Route path='/' element={isLoggedIn ? <UserHome /> : <Home />} />
           <Route path='/collections' element={<ProtectedRoute><MyCollections/></ProtectedRoute>} />
           <Route path='/practice/:_id' element={<ProtectedRoute><PracticeMode/></ProtectedRoute>} />
-          <Route path='/quiz/:_id' element={<ProtectedRoute><QuizMode/></ProtectedRoute>} />
+          <Route path='/learn/:_id' element={<ProtectedRoute><LearnMode /></ProtectedRoute> } />
           <Route path='/collection/create' element={<ProtectedRoute><CreateCollection /></ProtectedRoute>} />
           <Route path='/collection/edit/:_id' element={<ProtectedRoute><CreateCollection /></ProtectedRoute>} />
           <Route path='/search/:query' element={<SearchPage />}/>
