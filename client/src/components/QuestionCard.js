@@ -78,7 +78,7 @@ function QuestionCard({shuffledFlashcards, flashcard, currentFlashcardIndex, inc
   }
 
   return (
-    <div className="QuestionCard">
+    <>
       <div className="question-container">
         <h3 style={{ fontSize: `${dynamicTextSize(flashcard.front)}rem` }}>{flashcard.front}</h3>
       </div>
@@ -114,7 +114,7 @@ function QuestionCard({shuffledFlashcards, flashcard, currentFlashcardIndex, inc
             {revealedAnswerIndex !== -1 && <button onClick={() => nextQuestion()} className='accent-button'>Got it!</button>}
         </div>
       </div>
-    </div>
+    </>
   )
 }
 export default QuestionCard

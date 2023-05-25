@@ -38,6 +38,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 .QuestionCard .answer-container{
   display: flex;
@@ -119,8 +120,20 @@ body.darkmode .answer.correctAnswer{
 .feedback.wrong{
   color: #ff6161;
 }
+.TypeAnswer .answer-container .feedback.wrong ~ .InputBox i{
+  background-color: #ff6161;
+}
+.TypeAnswer .answer-container .feedback.wrong ~ .InputBox i::after{
+  background-color: transparent;
+}
+.TypeAnswer .answer-container .feedback.wrong ~ .InputBox span{
+  color: #ff6161;
+}
 .feedback.correct{
   color: var(--accent-color);
+}
+.feedback.reveal{
+  color: #ffcf54;
 }
 @keyframes revealBlink{
   0%{
@@ -158,6 +171,27 @@ body.darkmode .answer.correctAnswer{
 .statsCard span:first-child{
   font-size: 3rem;
   font-weight: 700;
+}
+.TypeAnswer{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.TypeAnswer .question-container{
+  flex-grow: 1;
+}
+.TypeAnswer .answer-container{
+  justify-content: flex-end;
+}
+.TypeAnswer .answer-container .InputBox{
+  width: 100%;
+}
+.TypeAnswer .answer-container .InputBox i{
+  background-color: var(--color-2);
+}
+.TypeAnswer .options-container{
+  justify-content: flex-end;
+  gap: 15px;
 }
 @media(max-width: 500px){
   .QuestionCard{
