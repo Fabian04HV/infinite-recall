@@ -89,7 +89,7 @@ function QuestionCard({shuffledFlashcards, flashcard, currentFlashcardIndex, inc
             <button
               ref={el => buttonsRef.current[index] = el}
               data-index={index +1}
-              onClick={() => validate(answerOption.back)}
+              onClick={() => !feedbackClass && validate(answerOption.back)}
               key={index}
               className={`answer 
                 ${correctAnswerIndex === index && 'correctAnswer'}
