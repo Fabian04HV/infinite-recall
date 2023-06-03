@@ -5,7 +5,6 @@ import { Home } from './pages/Home'
 import { UserHome } from './pages/UserHome';
 import MyCollections from './pages/MyCollections'
 import PracticeMode from './pages/PracticeMode';
-import QuizMode from './pages/QuizMode';
 import { LearnMode } from './pages/LearnMode';
 
 import Profile from './pages/Profile';

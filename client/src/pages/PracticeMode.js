@@ -49,7 +49,7 @@ function PracticeMode(){
     return <p>Loading ...</p>
   }
 
-  //If the collection contains less than four flashcards, the QuizMode shouldn't be available => Conditional Rendering for Start Quiz Link
+  //If the collection contains less than four flashcards, the Learn Mode shouldn't be available => Conditional Rendering for Start Quiz Link
   const disableQuiz = collection.flashcards.length < 4
 
   return(

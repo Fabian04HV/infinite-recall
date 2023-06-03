@@ -3,7 +3,7 @@ import '../assets/QuestionCard.css'
 import { getWrongAnswers } from '../utils/randomQuizHelpers'
 import dynamicTextSize from '../utils/dynamicTextSize'
 
-function QuestionCard({shuffledFlashcards, flashcard, currentFlashcardIndex, incrementFlashcardIndex, saveAnswer}){
+function ChooseAnswer({shuffledFlashcards, flashcard, currentFlashcardIndex, incrementFlashcardIndex, saveAnswer}){
   const [wrongAnswers, setWrongAnswers] = useState(getWrongAnswers(shuffledFlashcards, currentFlashcardIndex))
   const [answerOptions, setAnswerOptions] = useState([])
   
@@ -89,7 +89,7 @@ function QuestionCard({shuffledFlashcards, flashcard, currentFlashcardIndex, inc
             <button
               ref={el => buttonsRef.current[index] = el}
               data-index={index +1}
-              onClick={() => !feedbackClass && validate(answerOption.back)}
+              onClick={() => (!feedbackClass && revealedAnswerIndex < 0) && validate(answerOption.back)}
               key={index}
               className={`answer 
                 ${correctAnswerIndex === index && 'correctAnswer'}
@@ -117,4 +117,4 @@ function QuestionCard({shuffledFlashcards, flashcard, currentFlashcardIndex, inc
     </>
   )
 }
-export default QuestionCard
+export default ChooseAnswer

@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom"
 import FocusNavbar from "../components/FocusNavbar"
-import QuestionCard from "../components/QuestionCard"
 import { useState, useEffect } from "react"
 import { fetchCollection } from "../utils/fetchCollection"
 import { Stats } from "../components/Stats"
 import { shuffleArray } from "../utils/randomQuizHelpers"
 import { TypeAnswer } from "../components/TypeAnswer"
+import ChooseAnswer from "../components/ChooseAnswer"
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -76,7 +76,7 @@ export const LearnMode = () => {
         <div className="QuestionCard">
           {/* TODO: Random implementation of which question type to choose */}
           {currentFlashcardIndex % 2 === 0 ? 
-            <QuestionCard 
+            <ChooseAnswer 
             shuffledFlashcards={shuffledCards} 
             flashcard={shuffledCards[currentFlashcardIndex]} 
             currentFlashcardIndex={currentFlashcardIndex} 
