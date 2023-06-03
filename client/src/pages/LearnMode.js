@@ -6,8 +6,11 @@ import { Stats } from "../components/Stats"
 import { shuffleArray } from "../utils/randomQuizHelpers"
 import { TypeAnswer } from "../components/TypeAnswer"
 import ChooseAnswer from "../components/ChooseAnswer"
+import { ProgressBar } from "../components/ProgressBar"
+import '../assets/LearnMode.css'
 
 const API_URL = process.env.REACT_APP_API_URL
+const FLASHCARDS_PER_ROUND = 10
 
 export const LearnMode = () => {
   const collectionId = useParams()._id
@@ -27,21 +30,20 @@ export const LearnMode = () => {
     fetchCollection(API_URL, collectionId)
     .then((response) => {
       setCollection(response)
-      let flashcards = response.flashcards
-      setShuffledCards(shuffleArray(flashcards))
+      let flashcards = response.flashcards.length <= FLASHCARDS_PER_ROUND ? shuffleArray(response.flashcards) : shuffleArray(response.flashcards).slice(0, FLASHCARDS_PER_ROUND)
+      setShuffledCards(flashcards)
     })
   }, [collectionId])
 
   useEffect(() => {
     if(shuffledCards.length > 0){
-      console.log('SHUFFLED CARDS: ', shuffledCards)
       setLoading(false)
     }
   }, [shuffledCards])
    
   useEffect(()=>{
     if(collection){
-      if(currentFlashcardIndex === collection.flashcards.length){
+      if(currentFlashcardIndex === shuffledCards.length){
         showStats()
       }
     }
@@ -70,10 +72,13 @@ export const LearnMode = () => {
   else return(
     <> 
       <FocusNavbar title={collection.title} linkContent='Leave Quiz' linkURL='/'/>
+      
+
       <div>
         {quizOver ? <Stats correctFlashcards={correctAnsweredFlashcards} wrongFlashcards={wrongAnsweredFlashcards} collectionId={collectionId}/> : 
-        currentFlashcardIndex < collection.flashcards.length?
+        currentFlashcardIndex < shuffledCards.length?
         <div className="QuestionCard">
+          {/* <ProgressBar current={currentFlashcardIndex} total={shuffledCards.length} /> */}
           {/* TODO: Random implementation of which question type to choose */}
           {currentFlashcardIndex % 2 === 0 ? 
             <ChooseAnswer 
