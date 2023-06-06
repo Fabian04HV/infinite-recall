@@ -29,6 +29,23 @@ const userSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: 'LearnSession'
       }
+    ],
+    answerHistory: [
+      {
+        collectionId: {
+          type: Schema.Types.ObjectId,
+          ref: 'Collection'
+        },
+        flashcardHistory: [
+          {
+            flashcard: {
+              type: Schema.Types.ObjectId,
+              ref: 'Flashcard'
+            },
+            history: []
+          }
+        ]
+      }
     ]
   },
   {

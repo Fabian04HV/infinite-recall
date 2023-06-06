@@ -48,4 +48,49 @@ router.put('/save-statistics', (req, res, next) => {
   }
 })
 
+router.put('/saveAnswerInFlashcardHistory', (req, res, next) => {
+  const { collectionId, flashcardId, isCorrect } = req.body;
+  const userId = req.payload._id;
+
+  User.findById(userId)
+    .then(user => {
+      const answerHistoryEntry = user.answerHistory.find(entry =>
+        entry.collectionId.equals(collectionId)
+      );
+
+      if (answerHistoryEntry) {
+        const flashcardHistoryEntry = answerHistoryEntry.flashcardHistory.find(
+          entry => entry.flashcard.equals(flashcardId)
+        );
+
+        if (flashcardHistoryEntry) {
+          flashcardHistoryEntry.history.push(isCorrect);
+        } else {
+          answerHistoryEntry.flashcardHistory.push({
+            flashcard: flashcardId,
+            history: [isCorrect],
+          });
+        }
+      } else {
+        user.answerHistory.push({
+          collectionId,
+          flashcardHistory: [
+            {
+              flashcard: flashcardId,
+              history: [isCorrect],
+            },
+          ],
+        });
+      }
+
+      return user.save();
+    })
+    .then(updatedUser => {
+      res.json(updatedUser);
+    })
+    .catch(error => {
+      next(error);
+    });
+});
+
 module.exports = router;

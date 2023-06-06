@@ -6,7 +6,7 @@ import { UserHome } from './pages/UserHome';
 import MyCollections from './pages/MyCollections'
 import PracticeMode from './pages/PracticeMode';
 import { LearnMode } from './pages/LearnMode';
-
+import { ClassicMode } from './pages/ClassicMode';
 import Profile from './pages/Profile';
 import CreateCollection from './pages/CreateCollection';
 import { SearchPage } from './pages/SearchPage';
@@ -23,7 +23,7 @@ import ProtectedRoute from './utils/ProtectedRoute';
 function App() {
   const location = useLocation()
   
-  const showNavbar = !location.pathname.startsWith('/quiz/') && location.pathname !== '/collection/create' 
+  const showNavbar = !location.pathname.startsWith('/quiz/') && location.pathname !== '/collection/create' && !location.pathname.startsWith('/classic/')
   
   const { isLoggedIn, user } = useContext(AuthContext)
 
@@ -46,6 +46,7 @@ function App() {
           <Route path='/collections' element={<ProtectedRoute><MyCollections/></ProtectedRoute>} />
           <Route path='/practice/:_id' element={<ProtectedRoute><PracticeMode/></ProtectedRoute>} />
           <Route path='/learn/:_id' element={<ProtectedRoute><LearnMode /></ProtectedRoute> } />
+          <Route path='/classic/:_id' element={<ProtectedRoute><ClassicMode /></ProtectedRoute> } />
           <Route path='/collection/create' element={<ProtectedRoute><CreateCollection /></ProtectedRoute>} />
           <Route path='/collection/edit/:_id' element={<ProtectedRoute><CreateCollection /></ProtectedRoute>} />
           <Route path='/search/:query' element={<SearchPage />}/>

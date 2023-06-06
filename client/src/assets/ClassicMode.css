@@ -1,0 +1,13 @@
+.ClassicMode{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.ClassicMode .controls-container{
+  max-width: 100%;
+  width: 600px;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
