@@ -57,6 +57,7 @@
   flex: 1 1 0;  
 }
 .QuestionCard .options-container{
+  min-height: 42px;
   display: flex;
   justify-content: space-between;
 }

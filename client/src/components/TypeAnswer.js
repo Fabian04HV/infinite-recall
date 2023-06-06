@@ -2,6 +2,8 @@ import { useState } from 'react'
 import InputBox from '../components/InputBox'
 import dynamicTextSize from '../utils/dynamicTextSize'
 
+const stringSimilarity = require('string-similarity');
+
 export const TypeAnswer = (props) => {
   const { currentFlashcardIndex, shuffledFlashcards, incrementFlashcardIndex, saveAnswer } = props
   const flashcard = shuffledFlashcards[currentFlashcardIndex]
@@ -15,12 +17,17 @@ export const TypeAnswer = (props) => {
   const validate = (answer) => {
     if(answer.length === 0) return dontKnow();
       
+    const compareA = answer.toString().toLowerCase().replace(/\s/g, '');
+    const compareB = flashcard.back.toString().toLowerCase().replace(/\s/g, '');
 
-    const compareA = answer.toString().toLowerCase().trim()
-    const compareB = flashcard.back.toString().toLowerCase().trim()
+    const similarity = stringSimilarity.compareTwoStrings(compareA, compareB);
+    const threshold = 0.80; // Adjust the threshold as per your preference
 
-    if(compareA === compareB){
+    if(similarity === 1){
       correctAnswer()
+    }
+    else if(similarity >= threshold){
+      ask(Math.round(similarity*100))
     }
     else{
       wrongAnswer()
@@ -32,10 +39,13 @@ export const TypeAnswer = (props) => {
     revealCorrectAnswer()
   }
 
+  const ask = (similarity) => {
+    setFeedbackMessage(`Almost!, you decide. Your Answer: "${answer}", flashcard answer: "${flashcard.back}"`)
+    setFeedbackClass('ask')
+  }
+
   const correctAnswer = () => {
     saveAnswer(flashcard, true)
-    console.log('CORRECT!')
-
     setFeedbackMessage('Correct!')
     setFeedbackClass('correct')
     setTimeout(() => nextQuestion(), 850)
@@ -43,14 +53,19 @@ export const TypeAnswer = (props) => {
 
   const wrongAnswer = () => {
     saveAnswer(flashcard, false)
-    console.log('WRONG')
-
-    setFeedbackMessage("Wrong answer, but that's okay. Just keep going ✌")
+    setFeedbackMessage(`Wrong, "${flashcard.back}" would have been the correct answer. But that's okay. Just keep going ✌`)
     setFeedbackClass('wrong')
   }
 
+  const countAsWrongAnswer = () => {
+    saveAnswer(flashcard, false)
+    setFeedbackMessage('Count as wrong')
+    setFeedbackClass('ask')
+    setTimeout(() => nextQuestion(), 850)
+  }
+
   const revealCorrectAnswer = () =>{
-    setFeedbackMessage(`Correct Answer: ${flashcard.back}`)
+    setFeedbackMessage(`Flashcard Answer: ${flashcard.back}`)
     setFeedbackClass('reveal')
   }
 
@@ -61,10 +76,8 @@ export const TypeAnswer = (props) => {
     incrementFlashcardIndex()
   }
 
-
   const answerSubmitHandler = (e) => {
     e.preventDefault()
-    console.log('ANSWER: ', answer)
     validate(answer)
   }
 
@@ -83,12 +96,17 @@ export const TypeAnswer = (props) => {
           onChangeHandler={answerInputHandler}
         />
         <div className='options-container'>
+          {feedbackClass === 'wrong' && <button onClick={nextQuestion} className='accent-button'>Got It</button>}
+          {feedbackClass === 'reveal' && <button onClick={nextQuestion} className='accent-button'>Got It</button>}
           
-          {feedbackClass === 'wrong' || feedbackClass === 'reveal' ? <><button onClick={nextQuestion} className='accent-button'>Got It</button></>
-          :
-          <>
-          <div className='standard-button light' onClick={dontKnow}>I don't know</div>
-          {answer.length > 0 && <button className='accent-button'>Answer</button>}
+          {feedbackClass === 'ask' && <>
+            <button onClick={() => countAsWrongAnswer()} className='standard-button light'>Count as wrong</button>
+            <button onClick={() => correctAnswer()} className='accent-button'>Count as correct</button>
+          </>}
+
+          {feedbackClass === '' && <>
+            <div className='standard-button light' onClick={dontKnow}>I don't know</div>
+            {answer.length > 0 && <button className='accent-button'>Answer</button>}
           </>}
         </div>
       </form>
