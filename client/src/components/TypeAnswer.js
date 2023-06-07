@@ -35,7 +35,7 @@ export const TypeAnswer = (props) => {
   }
 
   const dontKnow = () =>{
-    saveAnswer(flashcard, false)
+    saveAnswer(flashcard, false, currentFlashcardIndex)
     revealCorrectAnswer()
   }
 
@@ -45,20 +45,20 @@ export const TypeAnswer = (props) => {
   }
 
   const correctAnswer = () => {
-    saveAnswer(flashcard, true)
+    saveAnswer(flashcard, true, currentFlashcardIndex)
     setFeedbackMessage('Correct!')
     setFeedbackClass('correct')
     setTimeout(() => nextQuestion(), 850)
   }
 
   const wrongAnswer = () => {
-    saveAnswer(flashcard, false)
+    saveAnswer(flashcard, false, currentFlashcardIndex)
     setFeedbackMessage(`Wrong, "${flashcard.back}" would have been the correct answer. But that's okay. Just keep going ✌`)
     setFeedbackClass('wrong')
   }
 
   const countAsWrongAnswer = () => {
-    saveAnswer(flashcard, false)
+    saveAnswer(flashcard, false, currentFlashcardIndex)
     setFeedbackMessage('Count as wrong')
     setFeedbackClass('ask')
     setTimeout(() => nextQuestion(), 850)

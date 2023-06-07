@@ -4,6 +4,8 @@ const LearnSession = require("../models/LearnSession.model");
 const User = require("../models/User.model");
 const router = require("express").Router();
 
+const { ObjectId } = require("mongoose");
+
 router.get('/statistics/:collectionId', (req, res, next) => {
   const collectionId = req.params.collectionId;
   const userId = req.payload._id;
@@ -92,5 +94,17 @@ router.put('/saveAnswerInFlashcardHistory', (req, res, next) => {
       next(error);
     });
 });
+
+router.get('/collectionAnswerHistory/:collectionId', (req, res, next) => {
+  const collectionId = req.params.collectionId
+  const userId = req.payload._id
+  User.findById(userId)
+  .then(userFromDb => {
+    const answerHistory = userFromDb.answerHistory.find(entry => entry.collectionId.toString() === collectionId )
+    console.log(userFromDb, answerHistory, userFromDb.answerHistory)
+    res.json({ answerHistory: answerHistory})
+  })
+
+})
 
 module.exports = router;

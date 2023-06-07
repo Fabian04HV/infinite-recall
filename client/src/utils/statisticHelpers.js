@@ -7,7 +7,10 @@ export const saveAnswerInFlashcardHistory = (collectionId, flashcardId, isCorrec
   const requestBody = { collectionId, flashcardId, isCorrect }
 
   axios.put(`${API_URL}/api/saveAnswerInFlashcardHistory`, requestBody, {headers: { Authorization: `Bearer ${token}`}})
-    .then((response) => {
-      console.log(response)
-    })
+}
+export const getCollectionAnswerHistory = (collectionId) => {
+  return axios.get(`${API_URL}/api/collectionAnswerHistory/${collectionId}`, {headers: { Authorization: `Bearer ${token}`}})
+  .then(response => {
+    return response.data.answerHistory
+  })
 }

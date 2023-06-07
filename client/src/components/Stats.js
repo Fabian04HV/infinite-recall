@@ -7,7 +7,7 @@ const API_URL = process.env.REACT_APP_API_URL
 
 export const Stats = ({correctFlashcards, wrongFlashcards, collectionId}) => {
   const token = localStorage.getItem('authToken')
-
+  
   const correctCount = correctFlashcards.length
   const wrongCount = wrongFlashcards.length
   const totalFlashcards = correctCount + wrongCount

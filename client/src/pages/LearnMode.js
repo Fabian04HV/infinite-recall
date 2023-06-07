@@ -3,7 +3,9 @@ import FocusNavbar from "../components/FocusNavbar"
 import { useState, useEffect } from "react"
 import { fetchCollection } from "../utils/fetchCollection"
 import { Stats } from "../components/Stats"
-import { shuffleArray } from "../utils/randomQuizHelpers"
+import { getRound, shuffleArray } from "../utils/randomQuizHelpers"
+import { saveAnswerInFlashcardHistory, getCollectionAnswerHistory } from '../utils/statisticHelpers'
+
 import { TypeAnswer } from "../components/TypeAnswer"
 import ChooseAnswer from "../components/ChooseAnswer"
 import { ProgressBar } from "../components/ProgressBar"
@@ -26,14 +28,16 @@ export const LearnMode = () => {
   const[loading, setLoading] = useState(true)
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     fetchCollection(API_URL, collectionId)
-    .then((response) => {
-      setCollection(response)
-      let flashcards = response.flashcards.length <= FLASHCARDS_PER_ROUND ? shuffleArray(response.flashcards) : shuffleArray(response.flashcards).slice(0, FLASHCARDS_PER_ROUND)
-      setShuffledCards(flashcards)
-    })
-  }, [collectionId])
+      .then((response) => {
+        setCollection(response);
+        getRound(response, collectionId, FLASHCARDS_PER_ROUND).then(flashcards => {
+          const shuffled = shuffleArray(flashcards)
+          setShuffledCards(shuffled)
+        })
+      });
+  }, [collectionId]);
 
   useEffect(() => {
     if(shuffledCards.length > 0){
@@ -43,7 +47,7 @@ export const LearnMode = () => {
    
   useEffect(()=>{
     if(collection){
-      if(currentFlashcardIndex === shuffledCards.length){
+      if(shuffledCards.length > 0 && currentFlashcardIndex === shuffledCards.length){
         showStats()
       }
     }
@@ -57,13 +61,14 @@ export const LearnMode = () => {
     setQuizOver(true)
   }
 
-  const saveAnswer = (flashcard, isCorrect) => {
-    if(correctAnsweredFlashcards.includes(flashcard) || wrongAnsweredFlashcards.includes(flashcard)) return; //prevent saving the same card multiple times when spaming the answer button
+  const saveAnswer = (flashcard, isCorrect, flashcardIndex) => {
     if(isCorrect){
       setCorrectAnsweredFlashcards(prevState => [...prevState, flashcard])
+      saveAnswerInFlashcardHistory(collectionId, collection.flashcards.find(card => card._id === shuffledCards[flashcardIndex]._id)._id , true)
       return
     }
     setWrongAnsweredFlashcards(prevState => [...prevState, flashcard])
+    saveAnswerInFlashcardHistory(collectionId, collection.flashcards.find(card => card._id === shuffledCards[flashcardIndex]._id)._id , false)
   }
 
   if(loading){
