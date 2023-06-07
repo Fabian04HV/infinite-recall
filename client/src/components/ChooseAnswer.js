@@ -36,7 +36,7 @@ function ChooseAnswer({shuffledFlashcards, flashcard, currentFlashcardIndex, inc
     isAnswerCorrect ? correctAnswer(answer) : wrongAnswer(answer)
   }
   const revealCorrectAnswer = () => {
-    saveAnswer(flashcard, false)
+    saveAnswer(flashcard, false, currentFlashcardIndex)
     setRevealedAnswerIndex(answerOptions.findIndex(option => option.back === flashcard.back))
   }
   const nextQuestion = () => {
@@ -50,7 +50,7 @@ function ChooseAnswer({shuffledFlashcards, flashcard, currentFlashcardIndex, inc
   }
 
   const correctAnswer = (answer) => {
-    saveAnswer(flashcard, true)
+    saveAnswer(flashcard, true, currentFlashcardIndex)
     const selectedAnswerIndex = answerOptions.findIndex(option => option.back === answer)
   
     setFeedbackMessage('Correct!')
