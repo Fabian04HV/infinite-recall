@@ -101,7 +101,6 @@ router.get('/collectionAnswerHistory/:collectionId', (req, res, next) => {
   User.findById(userId)
   .then(userFromDb => {
     const answerHistory = userFromDb.answerHistory.find(entry => entry.collectionId.toString() === collectionId )
-    console.log(userFromDb, answerHistory, userFromDb.answerHistory)
     res.json({ answerHistory: answerHistory})
   })
 
