@@ -170,14 +170,18 @@ button{
 
   position: relative;
 }
+.page-wrapper:has(.centered-container){
+  justify-content: center;
+}
 .centered-container{
   margin: 0 auto;
   width: max-content;
 
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;  
-  gap: 30px;
+  gap: 40px;
 }
 .accent-text{
   color: var(--accent-color);
@@ -222,19 +226,32 @@ footer a{
 .menu-button{
   position: relative;
   user-select: none;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 .options-dropdown{
   position: absolute;
   top: calc(100% + 5px);
   right: 0;
-  z-index: 5;
+  z-index: 600;
   width: max-content;
-  border: 1.5px solid var(--color-5);
   box-shadow: var(--standard-shadow);
-  display: none;
+  display: flex;
   flex-direction: column;
   align-items: flex-end;
-  background: var(--color-3);
+  background: var(--color-2);
+  border-radius: 10px;
+}
+.overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 501;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.25);
+  transform: 250ms ease;
+  display: block;
 }
 .options-dropdown > *{
   box-sizing: border-box;
@@ -242,16 +259,18 @@ footer a{
   justify-content: flex-end;
   border-radius: 0;
   box-shadow: none;
-  background-color: var(--color-4)
+  background-color: var(--color-3)
+}
+.options-dropdown > *:first-child{
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.options-dropdown > *:last-child{
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 .options-dropdown > *:hover{
-  background-color: var(--color-5);
-}
-#toggle-menu-checkbox{
-  display: none;
-}
-#toggle-menu-checkbox:checked ~ label[for='toggle-menu-checkbox'] > .options-dropdown{
-  display: flex;
+  background-color: var(--color-4);
 }
 table{
   width: max-content;

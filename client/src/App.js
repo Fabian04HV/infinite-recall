@@ -35,6 +35,7 @@ function App() {
 
   useEffect(() => {
     setHideSideMenu(true)
+    window.scrollTo(0, 0)
   }, [location.pathname])
 
   return (
