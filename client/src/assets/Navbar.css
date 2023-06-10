@@ -9,7 +9,7 @@
   left: 0;
   z-index: 1000;
 
-  background-color: var(--color-3);
+  background-color: var(--color-2);
   box-shadow: var(--standard-shadow);
   
   display: flex;
@@ -18,7 +18,7 @@
   gap: 20px;
 }
 body.darkmode .Navbar{
-  background-color: var(--color-2);
+  background-color: var(--color-1);
   border-bottom: 1px solid var(--color-3);
 }
 .FocusNavbar{
@@ -103,6 +103,9 @@ body.darkmode .round-links-container .toggle-darkmode-button{
   border-radius: 1000px;
   position: relative;
 }
+.darkmode .search-bar{
+  background-color: var(--color-2);
+}
 .search-bar label{
   padding: 10px 13px;
   display: flex;
@@ -120,9 +123,6 @@ body.darkmode .round-links-container .toggle-darkmode-button{
 }
 .search-bar input:focus{
   outline: none;
-}
-.search-bar input:focus::placeholder{
-  color: var(--accent-color);
 }
 .search-bar input::placeholder{
   color: var(--color-5);

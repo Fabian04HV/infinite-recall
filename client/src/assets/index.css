@@ -1,7 +1,7 @@
 :root{
-  --color-1: #e0e3eb;
-  --color-2: #eef1f3;
-  --color-3: #ffffff;
+  --color-1: #e4e7ed;
+  --color-2: #ffffff;
+  --color-3: #eef1f3;
   --color-4: #dfe4eb;
   --color-5: #7F8C9B;
   --text-color: #404a53;
@@ -21,10 +21,10 @@
   --standard-transition-smooth: 300ms ease-in-out;
 }
 .darkmode{
-  --color-1: #0C1621;
-  --color-2: #1D2631;
-  --color-3: #333F4B;
-  --color-4: #4B5968;
+  --color-1: #151b23;
+  --color-2: #212a36;
+  --color-3: #303c4c;
+  --color-4: #415261;
   --color-5: #7F8C9B;
   --text-color: #F9F9F9;
   --accent-color: #02FFC6;
@@ -45,7 +45,7 @@ html{
   caret-color: var(--accent-color);
 }
 body{
-  background-color: var(--color-2);
+  background-color: var(--color-1);
   padding-top: 100px;
   color: var(--text-color);
   caret-color: var(--accent-color);
@@ -110,7 +110,7 @@ button{
   padding: .5rem 1rem;
   border: none;
   border-radius: 5px;
-  background-color: var(--color-3);
+  background-color: var(--color-2);
   color: var(--text-color);
 
   display: flex;
@@ -119,7 +119,7 @@ button{
   gap: 10px;
 }
 .standard-button.light{
-  background-color: var(--color-4);
+  background-color: var(--color-3);
   box-shadow: none;
 }
 .standard-button:hover, .standard-button:focus{
@@ -273,7 +273,6 @@ table td, table th{
   animation: 1s loading;
   animation-delay: .5s;
 }
-
 .navbar-buttons{
   display: flex;
   align-items: center;

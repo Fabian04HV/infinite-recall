@@ -63,6 +63,7 @@ export const SampleQuestionCard = ({currentFlashcard, currentFlashcardIndex, inc
 
   return(
     <div className='QuestionCard'>
+      <p className='secondary-text'>Try this Demo</p>
       <div className='question-container'>
         <h3 style={{ fontSize: `${dynamicTextSize(currentFlashcard.question)}rem` }}>{currentFlashcard.question}</h3>
       </div>

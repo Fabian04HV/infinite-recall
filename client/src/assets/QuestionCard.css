@@ -6,7 +6,7 @@
   width: 800px;
   max-width: 100%;
   border-radius: 20px;
-  background-color: var(--color-3);
+  background: var(--color-2);
   box-shadow: var(--standard-shadow);
 
   display: flex;
@@ -80,7 +80,7 @@
 }
 .answer:hover, .answer:focus{
   outline: none;
-  background-color: var(--color-4);
+  background-color: var(--color-3);
 }
 .answer.revealedAnswer{
   border: 1px solid var(--accent-color);
@@ -189,7 +189,7 @@ body.darkmode .answer.correctAnswer{
   width: 100%;
 }
 .TypeAnswer .answer-container .InputBox i{
-  background-color: var(--color-2);
+  background-color: var(--color-4);
 }
 .TypeAnswer .options-container{
   justify-content: flex-end;

@@ -9,7 +9,7 @@ function Navbar({hideSideMenu, toggleNavbar}){
 
   const { isLoggedIn, logoutUser } = useContext(AuthContext)
 
-  const [darkmode, setDarkmode] = useState(false)
+  const [darkmode, setDarkmode] = useState(true)
 
   const toggleDarkmodeHandler = () => {
     const newDarkmode = !darkmode
