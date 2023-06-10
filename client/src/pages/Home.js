@@ -43,22 +43,21 @@ export const Home = () => {
   return(
     <section className="Home">
       <header>
-        <h1>Learn anything you want! <br /> One card at a time.</h1>
+        <h1>Learn anything you want! <br/> with Infinite Recall</h1>
         <Link to='/signup' className='main-button'>Sign up for free!</Link>
       </header>
-      <section>
+      <section className='flex-column-center'>        
+        <SampleQuestionCard currentFlashcard={currentFlashcard} currentFlashcardIndex={currentFlashcardIndex} incrementFlashcardIndex={incrementFlashcardIndex}/>
+      </section>
+      <br/>
+      <section className='about-section'>
         <h2>What is it about?</h2>
         <p>
           Infinite Recall is the ultimate flashcard app for students! Create personalized flashcard collections effortlessly. Practice with interactive flashcards, making learning fun and effective. Share your collections with friends, creating a collaborative study community. Track your progress with detailed stats, identifying areas to improve. Embrace the future of learning with Infinite Recall
         </p>
         <br />
       </section>
-      <hr />
-      <section className='flex-column-center'>
-        <h2>See for yourself with this demo!</h2>
-        
-        <SampleQuestionCard currentFlashcard={currentFlashcard} currentFlashcardIndex={currentFlashcardIndex} incrementFlashcardIndex={incrementFlashcardIndex}/>
-      </section>
+      <br />      
       <section>
         <div className='login-buttons'>
           <Link className='accent-button' to='/signup'>Sign Up</Link>
