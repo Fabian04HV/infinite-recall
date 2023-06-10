@@ -26,6 +26,9 @@
   display: flex;
   gap: 6px;
 }
+.collection-controls-container a{
+  flex-grow: 1;
+}
 
 @media (max-width: 500px) {
   .collection-controls-container a{
