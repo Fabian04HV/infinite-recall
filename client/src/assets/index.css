@@ -170,14 +170,18 @@ button{
 
   position: relative;
 }
+.page-wrapper:has(.centered-container){
+  justify-content: center;
+}
 .centered-container{
   margin: 0 auto;
   width: max-content;
 
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;  
-  gap: 30px;
+  gap: 40px;
 }
 .accent-text{
   color: var(--accent-color);

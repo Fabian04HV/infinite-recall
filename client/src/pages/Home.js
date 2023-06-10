@@ -43,7 +43,7 @@ export const Home = () => {
   return(
     <section className="Home">
       <header>
-        <h1>Learn anything you want! <br/> with Infinite Recall</h1>
+        <h1> <span className='accent-text'>Infinite Recall</span><br/> Learn anything you want!</h1>
         <Link to='/signup' className='main-button'>Sign up for free!</Link>
       </header>
       <section className='flex-column-center'>        
