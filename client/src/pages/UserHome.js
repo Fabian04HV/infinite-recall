@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import { fetchCollectionLastQuiz } from "../utils/fetchCollection"
 import CollectionCard from "../components/CollectionCard"
 import '../assets/UserHome.css'
+import { Loading } from "../components/Loading"
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -22,6 +23,7 @@ export const UserHome = () => {
 
   return(
     <div className="UserHome">
+
       <h1>Hello {user.username}</h1>
 
       <Link to='/collection/create' className="standard-button">

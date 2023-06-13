@@ -5,7 +5,7 @@ import axios from 'axios'
 
 const API_URL = process.env.REACT_APP_API_URL
 
-export const Stats = ({correctFlashcards, wrongFlashcards, collectionId}) => {
+export const Stats = ({correctFlashcards, wrongFlashcards, hintCount, collectionId}) => {
   const token = localStorage.getItem('authToken')
   
   const correctCount = correctFlashcards.length
@@ -13,13 +13,8 @@ export const Stats = ({correctFlashcards, wrongFlashcards, collectionId}) => {
   const totalFlashcards = correctCount + wrongCount
   const accuracy = Math.round(correctCount / totalFlashcards * 100)
 
-  const [numberOfLearnSession, setNumberOfLearnSession] = useState(0)
-
   useEffect(() => {
-    //save stats in db
     saveStatistics(correctFlashcards, wrongFlashcards, collectionId, correctCount, wrongCount, accuracy)
-    //get stats from user.learnSessions find(collectionId)
-    //setNumberOfLearnSession()
   }, [])
 
   const saveStatistics = (correctFlashcards, wrongFlashcards, collectionId, correctCount, wrongCount, accuracy) => {
@@ -44,8 +39,8 @@ export const Stats = ({correctFlashcards, wrongFlashcards, collectionId}) => {
           <p>accuracy</p>
         </div>
         <div className="statsCard">
-          <span className='accent-text'>{numberOfLearnSession}</span>
-          <p>learn sessions</p>
+          <span className='accent-text'>{hintCount}</span>
+          <p>Hints used</p>
         </div>
       </div>
       <div>

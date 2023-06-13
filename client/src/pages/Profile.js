@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/auth.context";
 import '../assets/Profile.css'
 import axios from "axios";
+import { Loading } from "../components/Loading";
 const API_URL = process.env.REACT_APP_API_URL
 
 function Profile(){
@@ -19,15 +20,15 @@ function Profile(){
     .finally(() => {
       setDataLoaded(true)
     })
-  }, [])
+  }, [user._id, token])
 
   if(!dataLoaded){
-    return <p>Loading...</p>
+    return <Loading />
   }
   else return(
     <div className="Profile">
       <div className="profile-container container">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnKB7XhauwEbA_S-MY_RKRzW_jtGmZbS1HeUpWsdAc&s"/>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnKB7XhauwEbA_S-MY_RKRzW_jtGmZbS1HeUpWsdAc&s" alt="Profile Picture"/>
         <div>
           <h2>{userInfo.username}</h2>
           <p className="secondary-text">{userInfo.email}</p>
