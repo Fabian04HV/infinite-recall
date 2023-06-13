@@ -3,6 +3,7 @@ import '../assets/Collections.css';
 import { useEffect, useState } from "react";
 import axios from "axios";
 import CollectionCard from "../components/CollectionCard";
+import { Loading } from "../components/Loading";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -24,7 +25,7 @@ export const SearchPage = () => {
   return (
     <>
       {foundCollections === null ? (
-      <div className="loading-anim">Loading ...</div>
+      <Loading />
       ) : foundCollections.length === 0 ? (
       <>
           <h1>No Collection found with that name 😱</h1>

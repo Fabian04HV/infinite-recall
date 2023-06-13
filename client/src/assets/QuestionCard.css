@@ -59,7 +59,7 @@
 .QuestionCard .options-container{
   min-height: 42px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 .answer{

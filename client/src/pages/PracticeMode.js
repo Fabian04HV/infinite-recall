@@ -5,6 +5,7 @@ import { useState, useEffect, useContext } from 'react'
 import { AuthContext } from '../context/auth.context'
 import { fetchCollection } from '../utils/fetchCollection'
 import { deleteCollection } from '../utils/deleteCollection'
+import { Loading } from '../components/Loading'
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -47,7 +48,7 @@ function PracticeMode(){
   }
 
   if(!collection){
-    return <p>Loading ...</p>
+    return <Loading />
   }
 
   const closeMenusAndOverlay = () => {

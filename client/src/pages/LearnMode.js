@@ -4,19 +4,19 @@ import { useState, useEffect, useContext } from "react"
 import { fetchCollection } from "../utils/fetchCollection"
 import { Stats } from "../components/Stats"
 import { getRound, shuffleArray } from "../utils/randomQuizHelpers"
-import { saveAnswerInFlashcardHistory, getCollectionAnswerHistory } from '../utils/statisticHelpers'
+import { saveAnswerInFlashcardHistory } from '../utils/statisticHelpers'
 
 import { TypeAnswer } from "../components/TypeAnswer"
 import ChooseAnswer from "../components/ChooseAnswer"
-import { ProgressBar } from "../components/ProgressBar"
 import '../assets/LearnMode.css'
 import { AuthContext } from "../context/auth.context"
+import { Loading } from "../components/Loading"
 
 const API_URL = process.env.REACT_APP_API_URL
 const FLASHCARDS_PER_ROUND = 10
 
 export const LearnMode = () => {
-  const { isLoading, authenticateUser } = useContext(AuthContext)
+  const { isLoading } = useContext(AuthContext)
 
   const collectionId = useParams()._id
   const [collection, setCollection] = useState(null)
@@ -25,6 +25,7 @@ export const LearnMode = () => {
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0)
   const [correctAnsweredFlashcards, setCorrectAnsweredFlashcards] = useState([])
   const [wrongAnsweredFlashcards, setWrongAnsweredFlashcards] = useState([])
+  const [hintCount, setHintCount] = useState(0)
 
   const [quizOver, setQuizOver] = useState(false)
 
@@ -57,7 +58,11 @@ export const LearnMode = () => {
   const incrementFlashcardIndexHandler = () => {
     setCurrentFlashcardIndex((currentFlashcardIndex + 1))
   }
-  
+
+  const incrementHintCount = () => {
+    setHintCount(hintCount +1)
+  }
+
   const showStats = () => {
     setQuizOver(true)
   }
@@ -73,7 +78,7 @@ export const LearnMode = () => {
   }
 
   if(!dataLoaded){
-    return <p>Loading ...</p>
+    return <Loading />
   }
   else return(
     <> 
@@ -81,7 +86,7 @@ export const LearnMode = () => {
       
 
       <div>
-        {quizOver ? <Stats correctFlashcards={correctAnsweredFlashcards} wrongFlashcards={wrongAnsweredFlashcards} collectionId={collectionId}/> : 
+        {quizOver ? <Stats correctFlashcards={correctAnsweredFlashcards} wrongFlashcards={wrongAnsweredFlashcards} hintCount={hintCount} collectionId={collectionId}/> : 
         currentFlashcardIndex < shuffledCards.length?
         <div className="QuestionCard">
           {/* <ProgressBar current={currentFlashcardIndex} total={shuffledCards.length} /> */}
@@ -92,6 +97,7 @@ export const LearnMode = () => {
             flashcard={shuffledCards[currentFlashcardIndex]} 
             currentFlashcardIndex={currentFlashcardIndex} 
             incrementFlashcardIndex={incrementFlashcardIndexHandler} 
+            incrementHintCount={incrementHintCount}
             saveAnswer={saveAnswer}
             />
             :

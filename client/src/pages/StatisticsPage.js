@@ -2,6 +2,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { fetchCollection } from "../utils/fetchCollection"
+import { Loading } from "../components/Loading"
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -33,7 +34,7 @@ export const StatisticsPage = () => {
 
 
   if(!learnSessions){
-    return <p>Loading ...</p>
+    return <Loading />
   }
   return(
     <>

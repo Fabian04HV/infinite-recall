@@ -3,7 +3,7 @@ import '../assets/QuestionCard.css'
 import { getWrongAnswers } from '../utils/randomQuizHelpers'
 import dynamicTextSize from '../utils/dynamicTextSize'
 
-function ChooseAnswer({shuffledFlashcards, flashcard, currentFlashcardIndex, incrementFlashcardIndex, saveAnswer}){
+function ChooseAnswer({shuffledFlashcards, flashcard, currentFlashcardIndex, incrementFlashcardIndex, incrementHintCount, saveAnswer}){
   const [wrongAnswers, setWrongAnswers] = useState(getWrongAnswers(shuffledFlashcards, currentFlashcardIndex))
   const [answerOptions, setAnswerOptions] = useState([])
   
@@ -74,6 +74,7 @@ function ChooseAnswer({shuffledFlashcards, flashcard, currentFlashcardIndex, inc
     if(randomIndex === answerOptions.findIndex(option => option.back === flashcard.back) || removedAnswersIndexes.includes(randomIndex)){
       return removeOne()
     }
+    incrementHintCount()
     setRemovedAnswersIndexes((prev) => [...prev, randomIndex])
   }
 
@@ -101,17 +102,18 @@ function ChooseAnswer({shuffledFlashcards, flashcard, currentFlashcardIndex, inc
           ))}
         </div>
         <div className='options-container'>
-            {removedAnswersIndexes.length < 2 ?
-            <button onClick={removeOne} className='standard-button light'>
-              {removedAnswersIndexes.length > 0 && 'Another'} Hint
-              <svg fill='var(--accent-color)' xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 -960 960 960" width="26"><path d="M480-80q-27 0-47.5-13T406-129h-14q-24 0-42-18t-18-42v-143q-66-43-104-110t-38-148q0-121 84.5-205.5T480-880q121 0 205.5 84.5T770-590q0 81-38 148T628-332v143q0 24-18 42t-42 18h-14q-6 23-26.5 36T480-80Zm-88-109h176v-44H392v44Zm0-84h176v-40H392v40Zm65-100h46v-137l77-77q6-6 6-15t-6-16q-7-6-16-6t-15 6l-69 69-68-69q-7-6-16-6t-15 6q-7 7-7 16t6 15l77 77v137Z"/></svg>
-            </button>
-            :
-            <button onClick={revealCorrectAnswer} className='standard-button light'>
-              Reveal Answer    
-              <svg fill='var(--accent-color)' xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 -960 960 960" width="26"><path d="M480-80q-27 0-47.5-13T406-129h-14q-24 0-42-18t-18-42v-143q-66-43-104-110t-38-148q0-121 84.5-205.5T480-880q121 0 205.5 84.5T770-590q0 81-38 148T628-332v143q0 24-18 42t-42 18h-14q-6 23-26.5 36T480-80Zm-88-109h176v-44H392v44Zm0-84h176v-40H392v40Zm65-100h46v-137l77-77q6-6 6-15t-6-16q-7-6-16-6t-15 6l-69 69-68-69q-7-6-16-6t-15 6q-7 7-7 16t6 15l77 77v137Z"/></svg>          
-            </button>}
-            {revealedAnswerIndex !== -1 && <button onClick={() => nextQuestion()} className='accent-button'>Got it!</button>}
+            {revealedAnswerIndex === -1 && feedbackClass !== 'correct' ? <>
+              {removedAnswersIndexes.length < 2 && feedbackClass !== 'wrong' ?
+              <button onClick={removeOne} className='standard-button light'>
+                {removedAnswersIndexes.length > 0 && 'Another'} Hint
+                <svg fill='var(--accent-color)' xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 -960 960 960" width="26"><path d="M480-80q-27 0-47.5-13T406-129h-14q-24 0-42-18t-18-42v-143q-66-43-104-110t-38-148q0-121 84.5-205.5T480-880q121 0 205.5 84.5T770-590q0 81-38 148T628-332v143q0 24-18 42t-42 18h-14q-6 23-26.5 36T480-80Zm-88-109h176v-44H392v44Zm0-84h176v-40H392v40Zm65-100h46v-137l77-77q6-6 6-15t-6-16q-7-6-16-6t-15 6l-69 69-68-69q-7-6-16-6t-15 6q-7 7-7 16t6 15l77 77v137Z"/></svg>
+              </button>
+              : feedbackClass !== 'wrong' ?
+              <button onClick={revealCorrectAnswer} className='standard-button light'>
+                Reveal Answer    
+                <svg fill='var(--accent-color)' xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 -960 960 960" width="26"><path d="M480-80q-27 0-47.5-13T406-129h-14q-24 0-42-18t-18-42v-143q-66-43-104-110t-38-148q0-121 84.5-205.5T480-880q121 0 205.5 84.5T770-590q0 81-38 148T628-332v143q0 24-18 42t-42 18h-14q-6 23-26.5 36T480-80Zm-88-109h176v-44H392v44Zm0-84h176v-40H392v40Zm65-100h46v-137l77-77q6-6 6-15t-6-16q-7-6-16-6t-15 6l-69 69-68-69q-7-6-16-6t-15 6q-7 7-7 16t6 15l77 77v137Z"/></svg>          
+              </button> : <></>}
+            </> : <button onClick={() => nextQuestion()} className='accent-button'>Got it!</button>}
         </div>
       </div>
     </>
