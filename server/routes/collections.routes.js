@@ -22,7 +22,7 @@ router.get('/collections', (req, res, next) => {
     .catch(err => next(err));
 });
 
-router.get('/collections/:id', (req, res, next) => {
+router.get('/collection/:id', (req, res, next) => {
   const collectionId = req.params.id 
 
   Collection.findById(collectionId)

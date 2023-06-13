@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom"
 import FocusNavbar from "../components/FocusNavbar"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import { fetchCollection } from "../utils/fetchCollection"
 import { Stats } from "../components/Stats"
 import { getRound, shuffleArray } from "../utils/randomQuizHelpers"
@@ -10,11 +10,14 @@ import { TypeAnswer } from "../components/TypeAnswer"
 import ChooseAnswer from "../components/ChooseAnswer"
 import { ProgressBar } from "../components/ProgressBar"
 import '../assets/LearnMode.css'
+import { AuthContext } from "../context/auth.context"
 
 const API_URL = process.env.REACT_APP_API_URL
 const FLASHCARDS_PER_ROUND = 10
 
 export const LearnMode = () => {
+  const { isLoading, authenticateUser } = useContext(AuthContext)
+
   const collectionId = useParams()._id
   const [collection, setCollection] = useState(null)
   const [shuffledCards, setShuffledCards] = useState([])
@@ -25,25 +28,23 @@ export const LearnMode = () => {
 
   const [quizOver, setQuizOver] = useState(false)
 
-  const[loading, setLoading] = useState(true)
+  const[dataLoaded, setDataLoaded] = useState(false)
 
   useEffect(() => {
-    setLoading(true);
-    fetchCollection(API_URL, collectionId)
-      .then((response) => {
-        setCollection(response);
-        getRound(response, collectionId, FLASHCARDS_PER_ROUND).then(flashcards => {
-          const shuffled = shuffleArray(flashcards)
-          setShuffledCards(shuffled)
+    if(!isLoading){
+      fetchCollection(API_URL, collectionId)
+        .then((response) => {
+          setCollection(response);
+          getRound(response, collectionId, FLASHCARDS_PER_ROUND).then(flashcards => {
+            const shuffled = shuffleArray(flashcards)
+            setShuffledCards(shuffled)
+          })
         })
-      });
-  }, [collectionId]);
-
-  useEffect(() => {
-    if(shuffledCards.length > 0){
-      setLoading(false)
+        .finally(()=>{
+          setDataLoaded(true)
+        })
     }
-  }, [shuffledCards])
+  }, [collectionId, isLoading]);
    
   useEffect(()=>{
     if(collection){
@@ -51,7 +52,7 @@ export const LearnMode = () => {
         showStats()
       }
     }
-  }, [collection, currentFlashcardIndex])
+  }, [isLoading, collection, currentFlashcardIndex])
 
   const incrementFlashcardIndexHandler = () => {
     setCurrentFlashcardIndex((currentFlashcardIndex + 1))
@@ -71,7 +72,7 @@ export const LearnMode = () => {
     saveAnswerInFlashcardHistory(collectionId, collection.flashcards.find(card => card._id === shuffledCards[flashcardIndex]._id)._id , false)
   }
 
-  if(loading){
+  if(!dataLoaded){
     return <p>Loading ...</p>
   }
   else return(
