@@ -183,6 +183,11 @@ button{
   align-items: center;  
   gap: 40px;
 }
+.container{
+  background-color: var(--color-2);
+  padding: 20px;
+  border-radius: 10px;
+}
 .accent-text{
   color: var(--accent-color);
 }

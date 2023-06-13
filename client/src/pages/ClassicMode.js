@@ -31,7 +31,6 @@ export const ClassicMode = () => {
       getRound(response, collectionId, FLASHCARDS_PER_ROUND).then(flashcards => {
         const shuffled = shuffleArray(flashcards)
         setShuffledCards(shuffled)
-        console.log(shuffled)
       })
     })
   }, [collectionId])
@@ -63,7 +62,6 @@ export const ClassicMode = () => {
       setCurrentFlashcardIndex(currentFlashcardIndex + 1);
     }
     setRightAnim(true);
-    console.log('SHUFFLED:', shuffledCards, 'CURRENT:', currentFlashcardIndex);
   };
 
   const positiveAnswer = () => {

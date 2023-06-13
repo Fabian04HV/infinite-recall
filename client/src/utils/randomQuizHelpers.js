@@ -48,7 +48,6 @@ export const getRound = (collection, collectionId, cards_per_round) => {
   
 
   return getCollectionAnswerHistory(collectionId).then((answerHistory) => {
-
     if(!answerHistory) return collection.flashcards.slice(0, cards_per_round)
 
     const flashcardsWithSum = collection.flashcards.map((flashcard, index) => {
